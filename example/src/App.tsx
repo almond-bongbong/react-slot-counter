@@ -1,12 +1,17 @@
 import React from 'react';
-import MyComponent from 'node-module-template';
+import SlotCounter from 'react-slot-counter';
 import './App.css';
 
 function App() {
   return (
     <div className="app">
-      hello
-      <MyComponent />
+      <span>hello</span>
+      <div>
+        <SlotCounter value={12312412} />
+      </div>
+      <div>
+        <SlotCounter value="12412,21" />
+      </div>
     </div>
   );
 }

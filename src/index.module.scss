@@ -1,3 +1,16 @@
-.compo {
-  color: red;
+.slot_wrap {
+  display: inline-block;
+  white-space: nowrap;
+}
+.slot {
+  display: inline-block;
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
+  will-change: transform;
+}
+.dot {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
 }

@@ -27,15 +27,13 @@ export default {
     nodeResolve({ extensions }),
     commonjs(),
     typescript({
-      clean: true,
       tsconfig: './tsconfig.json',
-      useTsconfigDeclarationDir: true,
     }),
     postcss({
       extract: false,
       modules: true,
       sourceMap: false,
-      use: ['sass']
-    })
+      use: ['sass'],
+    }),
   ],
 };
