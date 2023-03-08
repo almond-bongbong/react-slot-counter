@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import styles from './index.module.scss';
-import { classNames, random, range } from './utils';
+import { mergeClassNames, random, range } from './utils';
 
 interface RefAttributes {
   reload: () => void;
@@ -15,14 +15,15 @@ interface RefAttributes {
 
 interface Props {
   value: string | number;
-  fontWidth?: string | number;
+  duration?: number;
+  charClassName?: string;
 }
 
 const DUMMY_NUMBER_COUNT = 6;
 const SEPARATOR = [',', '.'];
 
 function SlotCounter(
-  { value, fontWidth }: Props,
+  { value, duration = 0.6, charClassName }: Props,
   ref: React.Ref<RefAttributes>,
 ) {
   const [active, setActive] = useState(false);
@@ -56,13 +57,12 @@ function SlotCounter(
   }, []);
 
   const numStyle = {
-    fontWidth,
     height: fontHeight,
     lineHeight: `${fontHeight}px`,
   };
 
   return (
-    <div className={classNames(styles.slot_wrap, active && styles.active)}>
+    <div className={mergeClassNames(styles.slot_wrap, active && styles.active)}>
       {localValue
         .toString()
         .split('')
@@ -82,7 +82,7 @@ function SlotCounter(
           return (
             <div
               key={i}
-              className={styles.slot}
+              className={mergeClassNames(styles.slot, charClassName)}
               style={{ height: fontHeight }}
             >
               <div
@@ -93,7 +93,9 @@ function SlotCounter(
                     transform: `translateY(-${
                       fontHeight * DUMMY_NUMBER_COUNT
                     }px)`,
-                    transition: `transform 0.6s ${i * 0.1}s ease-in-out`,
+                    transition: `transform ${duration}s ${
+                      i * 0.1
+                    }s ease-in-out`,
                   }),
                 }}
               >
