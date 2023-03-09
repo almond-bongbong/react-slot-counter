@@ -9,7 +9,7 @@ body {
   padding: 0;
   background-color: #fefefe;
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
-  helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+    helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
   color: #444;
   line-height: 1.5;
 }
@@ -97,36 +97,48 @@ h2 {
 
 h3 {
   margin-bottom: 20px;
-  color: #888;
-  font-size: 28px;
+  font-size: 30px;
+  font-weight: 300;
+}
+
+h4 {
+  margin-bottom: 10px;
+  font-size: 24px;
   font-weight: 300;
 }
 
 p {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   color: #666;
   font-weight: 300;
   font-size: 18px;
 }
 
+.description {
+  margin-bottom: 50px;
+  font-size: 20px;
+  color: #333;
+}
+
 .example-button {
   display: inline-block;
-  width: 200px;
-  padding: 12px 10px;
+  margin-left: 10px;
+  padding: 8px 20px;
   outline: 0;
-  border: 0;
+  border: 2px solid #5d657a;
   border-radius: 4px;
+  background-color: #fff;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
-  background-color: #5d657a;
-  color: #fff;
+  color: #5d657a;
   font-size: 16px;
   text-align: center;
   cursor: pointer;
   white-space: nowrap;
+  vertical-align: middle;
 }
 
 .example-button:active {
-  background-color: #383d4a;
+  background-color: #eee;
 }
 
 .example-button + .example-button {
@@ -152,4 +164,17 @@ body .my-toast {
 hr {
   margin: 15px 0;
   border-top: 1px dashed #fafafa;
+}
+
+.char {
+  padding: 0 10px;
+  background: #eee;
+}
+
+.char + .char {
+  margin-left: 5px;
+}
+
+.sep {
+  padding: 0 2px;
 }

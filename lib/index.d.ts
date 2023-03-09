@@ -6,6 +6,7 @@ interface Props {
     value: string | number;
     duration?: number;
     charClassName?: string;
+    separatorClassName?: string;
 }
 declare const _default: React.ForwardRefExoticComponent<Props & React.RefAttributes<RefAttributes>>;
 export default _default;

@@ -4,6 +4,7 @@ import React, {
   useEffect,
   useImperativeHandle,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -18,19 +19,24 @@ interface Props {
   value: string | number;
   duration?: number;
   charClassName?: string;
+  separatorClassName?: string;
 }
 
 const DUMMY_NUMBER_COUNT = 6;
 const SEPARATOR = [',', '.'];
 
 function SlotCounter(
-  { value, duration = 0.6, charClassName }: Props,
+  { value, duration = 0.6, charClassName, separatorClassName }: Props,
   ref: React.Ref<RefAttributes>,
 ) {
   const [active, setActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
   const [fontHeight, setFontHeight] = useState(0);
   const numbersRef = useRef<HTMLDivElement>(null);
+  const dummyNumbers = useMemo(
+    () => range(1, DUMMY_NUMBER_COUNT).map(() => random(1, 10)),
+    [],
+  );
 
   const reloadAnimation = useCallback(() => {
     setActive(false);
@@ -39,7 +45,7 @@ function SlotCounter(
 
   useEffect(() => {
     reloadAnimation();
-    setTimeout(() => setLocalValue(value), 300);
+    setTimeout(() => setLocalValue(value), value.toString().length * 100);
   }, [value, reloadAnimation]);
 
   useImperativeHandle(ref, () => ({
@@ -67,9 +73,15 @@ function SlotCounter(
         .map((v, i) => {
           if (SEPARATOR.includes(v)) {
             return (
-              <span key={i} className={styles.dot}>
+              <div
+                key={i}
+                className={mergeClassNames(
+                  styles.separator,
+                  separatorClassName,
+                )}
+              >
                 {v}
-              </span>
+              </div>
             );
           }
 
@@ -94,9 +106,10 @@ function SlotCounter(
                   }),
                 }}
               >
-                {range(0, DUMMY_NUMBER_COUNT).map((slotIndex) => (
+                <div className={styles.num}>{v}</div>
+                {dummyNumbers.map((dummyNumber, slotIndex) => (
                   <div key={slotIndex} className={styles.num}>
-                    {slotIndex === 0 ? v : random(1, 10)}
+                    {dummyNumber}
                   </div>
                 ))}
                 <div className={styles.num}>{v}</div>

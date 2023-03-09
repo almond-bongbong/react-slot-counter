@@ -4,13 +4,19 @@ import './App.css';
 import CommonHighlighter from './components/CommonHighlighter';
 
 function App() {
+  const [value, setValue] = React.useState(123456);
+
   return (
     <div className="example">
       <div className="container">
         <h2>react slot counter</h2>
-        <p>This module uses slot machine animations to display numbers.</p>
+        <p className="description">
+          This module uses React library to implement slot machine animations
+          and display text.
+        </p>
 
         <h3>Basic usage</h3>
+        <p>It is possible to display numbers and strings.</p>
         <div className="example-area">
           <div className="playground">
             <SlotCounter value={123456} />
@@ -19,31 +25,80 @@ function App() {
         </div>
 
         <div className="example-area">
-          <div className="playground">todo</div>
+          <div className="playground">
+            <SlotCounter value="1,234,567" />
+          </div>
+          <CommonHighlighter>{`<SlotCounter value="1,234,567" />`}</CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <div className="playground">
+            <SlotCounter value="??????" />
+          </div>
           <CommonHighlighter>
-            {`toast('Lorem ipsum dolor sit ...')`}
+            {`<SlotCounter value="??????" />`}
           </CommonHighlighter>
         </div>
 
         <div className="example-area">
-          <div className="playground">todo</div>
-          <CommonHighlighter>{`toast(<><b style={{ color: 'skyblue' }}>Hello,</b> world</>`}</CommonHighlighter>
+          <h3>Dynamic value</h3>
+          <p>The animation will start when the value changes.</p>
+          <div className="playground">
+            <SlotCounter value={value} />
+            <button
+              className="example-button"
+              onClick={() => setValue(value + 1)}
+            >
+              +1
+            </button>
+          </div>
         </div>
 
         <div className="example-area">
-          <h3>Time</h3>
-          <div className="playground">todo</div>
+          <h3>Options</h3>
+          <h4>duration (second)</h4>
+          <p>It is possible to set the duration of the animation.</p>
+          <div className="playground">
+            <SlotCounter value="36.5" duration={2} />
+          </div>
           <CommonHighlighter>
-            {`toast('This message is displayed for 1 second.', 1000)`}
+            {`<SlotCounter value="36.5" duration={2} />`}
           </CommonHighlighter>
         </div>
 
         <div className="example-area">
-          <div className="playground">todo</div>
+          <h4>charClassName / separatorClassName</h4>
+          <p>
+            It is possible to set the class name of the character and the
+            separator.
+          </p>
+          <div className="playground">
+            <SlotCounter
+              value="36.5"
+              charClassName="char"
+              separatorClassName="sep"
+            />
+          </div>
+          CSS
+          <CommonHighlighter language="css">
+            {`.char {
+  padding: 0 10px;
+  background: #eee;
+}
+.char + .char {
+  margin-left: 5px;
+}
+.sep {
+  padding: 0 2px;
+}`}
+          </CommonHighlighter>
+          JSX
           <CommonHighlighter>
-            {`toast('This message is displayed for 1 second.', {
-  time: 1000,
-})`}
+            {`<SlotCounter
+  value="36.5"
+  charClassName="char"
+  separatorClassName="sep"
+/>`}
           </CommonHighlighter>
         </div>
       </div>
@@ -53,9 +108,9 @@ function App() {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://github.com/almond-bongbong/react-simple-toasts"
+            href="https://github.com/almond-bongbong/react-slot-counter"
           >
-            https://github.com/almond-bongbong
+            https://github.com/almond-bongbong/react-slot-counter
           </a>
         </div>
       </footer>
