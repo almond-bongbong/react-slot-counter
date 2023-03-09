@@ -341,7 +341,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-./example/node_modules
-./example/build
-
-./lib
+/example/node_modules
+/lib
+/example/build/
