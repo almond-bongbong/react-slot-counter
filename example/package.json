@@ -2,6 +2,7 @@
   "name": "example",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://almond-bongbong.github.io/react-slot-counter",
   "dependencies": {
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.14",

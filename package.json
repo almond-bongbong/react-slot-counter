@@ -4,13 +4,19 @@
   "description": "Template for node modules",
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/almond-bongbong/react-slot-counter.git"
+  },
   "main": "./lib/index.js",
   "module": "./lib/index.esm.js",
   "types": "./lib/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "build:watch": "rollup -c -w",
-    "dev": "npm run build:watch && cd ./example && npm run start"
+    "dev": "npm run build:watch && cd ./example && npm run start",
+    "predeploy": "cd example && yarn install && yarn build",
+    "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -20,6 +26,7 @@
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/react": "^18.0.28",
+    "gh-pages": "^5.0.0",
     "postcss": "^8.4.21",
     "prettier": "^2.8.4",
     "react": "^18.2.0",
