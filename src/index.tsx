@@ -3,7 +3,8 @@ import React, {
   useCallback,
   useEffect,
   useImperativeHandle,
-  useMemo,
+  useLayoutEffect,
+  useRef,
   useState,
 } from 'react';
 import styles from './index.module.scss';
@@ -28,6 +29,8 @@ function SlotCounter(
 ) {
   const [active, setActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
+  const [fontHeight, setFontHeight] = useState(0);
+  const numbersRef = useRef<HTMLDivElement>(null);
 
   const reloadAnimation = useCallback(() => {
     setActive(false);
@@ -43,23 +46,18 @@ function SlotCounter(
     reload: reloadAnimation,
   }));
 
-  const fontHeight = useMemo(() => {
+  useLayoutEffect(() => {
     const div = document.createElement('div');
     div.style.position = 'absolute';
     div.style.visibility = 'hidden';
-    div.style.top = '0';
-    div.style.left = '0';
     div.innerHTML = '0';
-    document.body.appendChild(div);
-    const height = div.offsetHeight;
-    document.body.removeChild(div);
-    return height;
-  }, []);
+    if (!numbersRef.current) return;
 
-  const numStyle = {
-    height: fontHeight,
-    lineHeight: `${fontHeight}px`,
-  };
+    numbersRef.current.appendChild(div);
+    const height = div.offsetHeight;
+    numbersRef.current.removeChild(div);
+    setFontHeight(height);
+  }, []);
 
   return (
     <div className={mergeClassNames(styles.slot_wrap, active && styles.active)}>
@@ -69,11 +67,7 @@ function SlotCounter(
         .map((v, i) => {
           if (SEPARATOR.includes(v)) {
             return (
-              <span
-                key={i}
-                className={styles.dot}
-                style={{ lineHeight: `${fontHeight}px` }}
-              >
+              <span key={i} className={styles.dot}>
                 {v}
               </span>
             );
@@ -86,6 +80,7 @@ function SlotCounter(
               style={{ height: fontHeight }}
             >
               <div
+                ref={numbersRef}
                 className={styles.numbers}
                 style={{
                   transition: 'none',
@@ -100,13 +95,11 @@ function SlotCounter(
                 }}
               >
                 {range(0, DUMMY_NUMBER_COUNT).map((slotIndex) => (
-                  <div key={slotIndex} className={styles.num} style={numStyle}>
+                  <div key={slotIndex} className={styles.num}>
                     {slotIndex === 0 ? v : random(1, 10)}
                   </div>
                 ))}
-                <div className={styles.num} style={numStyle}>
-                  {v}
-                </div>
+                <div className={styles.num}>{v}</div>
               </div>
             </div>
           );
