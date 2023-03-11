@@ -2,12 +2,7 @@
 
 React component that uses slot machine animations to display numbers and strings. It is possible to set the duration of the animation and the class name of the character and separator.
 
-<p align="center">
-<video>
-  <source src="https://media4.giphy.com/media/EIO8W6Qeqn4eQxIOxh/giphy.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-</p>
+https://user-images.githubusercontent.com/42146674/224460075-a6133c07-30dd-4683-9589-406b5c8ada3e.mp4
 
 ## Installation
 
