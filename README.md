@@ -2,6 +2,8 @@
 
 React component that uses slot machine animations to display numbers and strings. It is possible to set the duration of the animation and the class name of the character and separator.
 
+![React Slot Counter example](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExMWRkZjdlZTk3ZmM0MTE2NGFlOTg1YzcxNThkNjM0MTlmMTBhMTc2MiZjdD1n/8W9EF4Hy3zSxk2jju7/giphy.gif)
+
 ## Installation
 
 ```bash
