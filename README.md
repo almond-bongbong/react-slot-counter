@@ -40,11 +40,11 @@ Check out the [demo page](https://almond-bongbong.github.io/react-slot-counter/)
 ## Props
 
 | Prop               | Type                 | Default | Description                                                                                                                                                           |
-| ------------------ | -------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------| -------------------- | ------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | value _(required)_ | `number` or `string` |         | The value to be displayed. It can be a number or a string with numbers and commas. If the string contains other characters, they will be displayed as question marks. |
-| duration           | `number`             | `1`     | The duration of the animation in seconds.                                                                                                                             |
+| duration           | `number`             | `0.6`   | The duration of the animation in seconds.                                                                                                                             |
 | charClassName      | `string`             |         | The class name of each character.                                                                                                                                     |
-| separatorClassName | `string`             |         | The class name of the separator character (comma).                                                                                                                    |
+| separatorClassName | `string`             |         | The class name of the separator character (`.` or `,`).                                                                                                               |
 
 ## License
 
