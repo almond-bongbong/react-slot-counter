@@ -1,8 +1,8 @@
 {
   "name": "react-slot-counter",
   "version": "1.0.0",
-  "description": "Template for node modules",
-  "author": "",
+  "description": "React Slot Counter Component",
+  "author": "almond-bongbong",
   "license": "MIT",
   "repository": {
     "type": "git",
