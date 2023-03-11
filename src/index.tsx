@@ -3,13 +3,13 @@ import React, {
   useCallback,
   useEffect,
   useImperativeHandle,
-  useLayoutEffect,
   useMemo,
   useRef,
   useState,
 } from 'react';
 import styles from './index.module.scss';
 import { mergeClassNames, random, range } from './utils';
+import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
 
 interface RefAttributes {
   reload: () => void;
@@ -52,7 +52,7 @@ function SlotCounter(
     reload: reloadAnimation,
   }));
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const div = document.createElement('div');
     div.style.position = 'absolute';
     div.style.visibility = 'hidden';
