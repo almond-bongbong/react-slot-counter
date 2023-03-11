@@ -1,7 +1,7 @@
 import React from 'react';
+import CommonHighlighter from './components/CommonHighlighter';
 import SlotCounter from 'react-slot-counter';
 import './App.css';
-import CommonHighlighter from './components/CommonHighlighter';
 
 function App() {
   const [value, setValue] = React.useState(123456);
