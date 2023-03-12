@@ -2,6 +2,8 @@
 
 React component that uses slot machine animations to display numbers and strings.
 
+[![NPM](https://img.shields.io/npm/v/react-slot-counter.svg)](https://www.npmjs.com/package/react-slot-counter)
+
 <p align="center">
     <a target="_blank" href="https://almond-bongbong.github.io/react-slot-counter/">
         <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjdmZGFkMjdiYjI2ZTBhMTg3YWIxMGEyNDk5YzcyNTIzMzFmMDI4YyZjdD1n/EIO8W6Qeqn4eQxIOxh/giphy.gif" />
@@ -45,12 +47,12 @@ Check out the [demo page](https://almond-bongbong.github.io/react-slot-counter/)
 
 ## Props
 
-| Prop               | Type                 | Default | Description                                                                                                                                                           |
-| ------------------ | -------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| value _(required)_ | `number` or `string` |         | The value to be displayed. It can be a number or a string with numbers and commas. If the string contains other characters, they will be displayed as question marks. |
-| duration           | `number`             | `0.6`   | The duration of the animation in seconds.                                                                                                                             |
-| charClassName      | `string`             |         | The class name of each character.                                                                                                                                     |
-| separatorClassName | `string`             |         | The class name of the separator character (`.` or `,`).                                                                                                               |
+| Prop               | Type                 | Default | Description                                                                        |
+| ------------------ | -------------------- | ------- | ---------------------------------------------------------------------------------- |
+| value _(required)_ | `number` or `string` |         | The value to be displayed. It can be a number or a string with numbers and commas. |
+| duration           | `number`             | `0.6`   | The duration of the animation in seconds.                                          |
+| charClassName      | `string`             |         | The class name of each character.                                                  |
+| separatorClassName | `string`             |         | The class name of the separator character (`.` or `,`).                            |
 
 ## Ref
 
@@ -67,7 +69,7 @@ import React, { useRef } from 'react';
 import SlotCounter, { SlotCounterRef } from 'react-slot-counter';
 
 function App() {
-  const counterRef = useRef <SlotCounterRef> null;
+  const counterRef = useRef <SlotCounterRef>(null);
 
   const handleStartClick = () => {
     counterRef.current?.startAnimation();
