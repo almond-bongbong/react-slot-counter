@@ -11,8 +11,8 @@ import styles from './index.module.scss';
 import { mergeClassNames, random, range } from './utils';
 import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
 
-interface RefAttributes {
-  reload: () => void;
+export interface SlotCounterRef {
+  startAnimation: () => void;
 }
 
 interface Props {
@@ -27,7 +27,7 @@ const SEPARATOR = [',', '.'];
 
 function SlotCounter(
   { value, duration = 0.6, charClassName, separatorClassName }: Props,
-  ref: React.Ref<RefAttributes>,
+  ref: React.Ref<SlotCounterRef>,
 ) {
   const [active, setActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
@@ -38,18 +38,18 @@ function SlotCounter(
     [],
   );
 
-  const reloadAnimation = useCallback(() => {
+  const startAnimation = useCallback(() => {
     setActive(false);
     setTimeout(() => setActive(true), 20);
   }, []);
 
   useEffect(() => {
-    reloadAnimation();
+    startAnimation();
     setTimeout(() => setLocalValue(value), value.toString().length * 100);
-  }, [value, reloadAnimation]);
+  }, [value, startAnimation]);
 
   useImperativeHandle(ref, () => ({
-    reload: reloadAnimation,
+    startAnimation,
   }));
 
   useIsomorphicLayoutEffect(() => {
@@ -106,9 +106,15 @@ function SlotCounter(
                   }),
                 }}
               >
-                <div className={styles.num}>{v}</div>
+                <div className={styles.num} aria-hidden="true">
+                  {v}
+                </div>
                 {dummyNumbers.map((dummyNumber, slotIndex) => (
-                  <div key={slotIndex} className={styles.num}>
+                  <div
+                    key={slotIndex}
+                    className={styles.num}
+                    aria-hidden="true"
+                  >
                     {dummyNumber}
                   </div>
                 ))}

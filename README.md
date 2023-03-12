@@ -1,9 +1,11 @@
 # react-slot-counter
 
-React component that uses slot machine animations to display numbers and strings. It is possible to set the duration of the animation and the class name of the character and separator.
+React component that uses slot machine animations to display numbers and strings.
 
 <p align="center">
-    <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjdmZGFkMjdiYjI2ZTBhMTg3YWIxMGEyNDk5YzcyNTIzMzFmMDI4YyZjdD1n/EIO8W6Qeqn4eQxIOxh/giphy.gif" />
+    <a target="_blank" href="https://almond-bongbong.github.io/react-slot-counter/">
+        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjdmZGFkMjdiYjI2ZTBhMTg3YWIxMGEyNDk5YzcyNTIzMzFmMDI4YyZjdD1n/EIO8W6Qeqn4eQxIOxh/giphy.gif" />
+    </a>
 </p>
 
 ## Installation
@@ -44,11 +46,43 @@ Check out the [demo page](https://almond-bongbong.github.io/react-slot-counter/)
 ## Props
 
 | Prop               | Type                 | Default | Description                                                                                                                                                           |
-|--------------------| -------------------- | ------- |-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------ | -------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | value _(required)_ | `number` or `string` |         | The value to be displayed. It can be a number or a string with numbers and commas. If the string contains other characters, they will be displayed as question marks. |
 | duration           | `number`             | `0.6`   | The duration of the animation in seconds.                                                                                                                             |
 | charClassName      | `string`             |         | The class name of each character.                                                                                                                                     |
 | separatorClassName | `string`             |         | The class name of the separator character (`.` or `,`).                                                                                                               |
+
+## Ref
+
+You can access the SlotCounter component using a ref. This ref can be used to start the animation of the component.
+
+| Method           | Description                          |
+| ---------------- | ------------------------------------ |
+| `startAnimation` | Start the animation of the component |
+
+Example:
+
+```jsx
+import React, { useRef } from 'react';
+import SlotCounter, { SlotCounterRef } from 'react-slot-counter';
+
+function App() {
+  const counterRef = useRef <SlotCounterRef> null;
+
+  const handleStartClick = () => {
+    counterRef.current?.startAnimation();
+  };
+
+  return (
+    <div>
+      <SlotCounter value={123456} ref={counterRef} />
+      <button onClick={handleStartClick}>Start</button>
+    </div>
+  );
+}
+
+export default App;
+```
 
 ## License
 

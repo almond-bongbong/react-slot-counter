@@ -154,16 +154,14 @@ p {
   margin-top: 50px;
 }
 
-body .my-toast {
-  background-color: rgba(50, 130, 184, 0.8);
-  color: #fff;
-  border-radius: 8px;
-  font-size: 20px;
-}
-
 hr {
   margin: 15px 0;
   border-top: 1px dashed #fafafa;
+}
+
+.format {
+  color: #888;
+  font-size: 14px;
 }
 
 .char {

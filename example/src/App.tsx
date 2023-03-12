@@ -2,9 +2,11 @@ import React from 'react';
 import CommonHighlighter from './components/CommonHighlighter';
 import SlotCounter from 'react-slot-counter';
 import './App.css';
+import { SlotCounterRef } from '../../src';
 
 function App() {
   const [value, setValue] = React.useState(123456);
+  const counterRef = React.useRef<SlotCounterRef>(null);
 
   return (
     <div className="example">
@@ -52,6 +54,33 @@ function App() {
               +1
             </button>
           </div>
+          <CommonHighlighter>
+            {`<const [value, setValue] = useState(123456);
+
+//...
+
+<SlotCounter value={value} />
+<button onClick={() => setValue(value + 1)}>
+  +1
+</button>`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <h3>Using the `ref` to Start Animation</h3>
+          <h4>startAnimation</h4>
+          <p>
+            This method starts the animation of the `SlotCounter` component.
+          </p>
+          <div className="playground">
+            <SlotCounter ref={counterRef} value="54321" />
+            <button
+              className="example-button"
+              onClick={() => counterRef.current?.startAnimation()}
+            >
+              start animation
+            </button>
+          </div>
         </div>
 
         <div className="example-area">
@@ -79,7 +108,7 @@ function App() {
               separatorClassName="sep"
             />
           </div>
-          CSS
+          <div className="format">CSS</div>
           <CommonHighlighter language="css">
             {`.char {
   padding: 0 10px;
@@ -92,7 +121,8 @@ function App() {
   padding: 0 2px;
 }`}
           </CommonHighlighter>
-          JSX
+          <br />
+          <div className="format">JSX</div>
           <CommonHighlighter>
             {`<SlotCounter
   value="36.5"
