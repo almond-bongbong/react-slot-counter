@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/react-slot-counter/static/css/main.4b869dfc.css",
-    "main.js": "/react-slot-counter/static/js/main.46a58ae6.js",
+    "main.css": "/react-slot-counter/static/css/main.65171c65.css",
+    "main.js": "/react-slot-counter/static/js/main.87cf6d0a.js",
     "static/js/787.759e47f1.chunk.js": "/react-slot-counter/static/js/787.759e47f1.chunk.js",
     "index.html": "/react-slot-counter/index.html",
-    "main.4b869dfc.css.map": "/react-slot-counter/static/css/main.4b869dfc.css.map",
-    "main.46a58ae6.js.map": "/react-slot-counter/static/js/main.46a58ae6.js.map",
+    "main.65171c65.css.map": "/react-slot-counter/static/css/main.65171c65.css.map",
+    "main.87cf6d0a.js.map": "/react-slot-counter/static/js/main.87cf6d0a.js.map",
     "787.759e47f1.chunk.js.map": "/react-slot-counter/static/js/787.759e47f1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.4b869dfc.css",
-    "static/js/main.46a58ae6.js"
+    "static/css/main.65171c65.css",
+    "static/js/main.87cf6d0a.js"
   ]
 }
