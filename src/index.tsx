@@ -1,5 +1,6 @@
 import React, {
   forwardRef,
+  memo,
   useCallback,
   useEffect,
   useImperativeHandle,
@@ -8,7 +9,7 @@ import React, {
   useState,
 } from 'react';
 import styles from './index.module.scss';
-import { mergeClassNames, random, range } from './utils';
+import { mergeClassNames, random, range, shuffle } from './utils';
 import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
 
 export interface SlotCounterRef {
@@ -16,8 +17,9 @@ export interface SlotCounterRef {
 }
 
 interface Props {
-  value: string | number;
+  value: string | number | string[];
   duration?: number;
+  dummyCharacters?: string[];
   charClassName?: string;
   separatorClassName?: string;
 }
@@ -26,16 +28,23 @@ const DUMMY_NUMBER_COUNT = 6;
 const SEPARATOR = [',', '.'];
 
 function SlotCounter(
-  { value, duration = 0.6, charClassName, separatorClassName }: Props,
+  {
+    value,
+    duration = 0.6,
+    dummyCharacters,
+    charClassName,
+    separatorClassName,
+  }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
   const [active, setActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
   const [fontHeight, setFontHeight] = useState(0);
   const numbersRef = useRef<HTMLDivElement>(null);
-  const dummyNumbers = useMemo(
-    () => range(1, DUMMY_NUMBER_COUNT).map(() => random(1, 10)),
-    [],
+  const dummyList = useMemo(
+    () =>
+      dummyCharacters ?? range(1, DUMMY_NUMBER_COUNT).map(() => random(1, 10)),
+    [dummyCharacters],
   );
 
   const startAnimation = useCallback(() => {
@@ -67,64 +76,55 @@ function SlotCounter(
 
   return (
     <div className={mergeClassNames(styles.slot_wrap, active && styles.active)}>
-      {localValue
-        .toString()
-        .split('')
-        .map((v, i) => {
-          if (SEPARATOR.includes(v)) {
-            return (
-              <div
-                key={i}
-                className={mergeClassNames(
-                  styles.separator,
-                  separatorClassName,
-                )}
-              >
-                {v}
-              </div>
-            );
-          }
-
+      {(Array.isArray(localValue)
+        ? localValue
+        : localValue.toString().split('')
+      ).map((v, i) => {
+        if (SEPARATOR.includes(v)) {
           return (
             <div
               key={i}
-              className={mergeClassNames(styles.slot, charClassName)}
-              style={{ height: fontHeight }}
+              className={mergeClassNames(styles.separator, separatorClassName)}
             >
-              <div
-                ref={numbersRef}
-                className={styles.numbers}
-                style={{
-                  transition: 'none',
-                  ...(active && {
-                    transform: `translateY(-${
-                      fontHeight * DUMMY_NUMBER_COUNT
-                    }px)`,
-                    transition: `transform ${duration}s ${
-                      i * 0.1
-                    }s ease-in-out`,
-                  }),
-                }}
-              >
-                <div className={styles.num} aria-hidden="true">
-                  {v}
-                </div>
-                {dummyNumbers.map((dummyNumber, slotIndex) => (
-                  <div
-                    key={slotIndex}
-                    className={styles.num}
-                    aria-hidden="true"
-                  >
-                    {dummyNumber}
-                  </div>
-                ))}
-                <div className={styles.num}>{v}</div>
-              </div>
+              {v}
             </div>
           );
-        })}
+        }
+
+        return (
+          <div
+            key={i}
+            className={mergeClassNames(styles.slot, charClassName)}
+            style={{ height: fontHeight }}
+          >
+            <div
+              ref={numbersRef}
+              className={styles.numbers}
+              style={{
+                transition: 'none',
+                ...(active && {
+                  transform: `translateY(-${
+                    fontHeight * (dummyList.length + 1)
+                  }px)`,
+                  transition: `transform ${duration}s ${i * 0.1}s ease-in-out`,
+                }),
+              }}
+            >
+              <div className={styles.num} aria-hidden="true">
+                {v}
+              </div>
+              {shuffle(dummyList).map((dummyNumber, slotIndex) => (
+                <div key={slotIndex} className={styles.num} aria-hidden="true">
+                  {dummyNumber}
+                </div>
+              ))}
+              <div className={styles.num}>{v}</div>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
 
-export default forwardRef(SlotCounter);
+export default memo(forwardRef(SlotCounter));

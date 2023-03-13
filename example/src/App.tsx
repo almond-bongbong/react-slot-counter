@@ -1,8 +1,7 @@
 import React from 'react';
 import CommonHighlighter from './components/CommonHighlighter';
-import SlotCounter from 'react-slot-counter';
+import SlotCounter, { SlotCounterRef } from 'react-slot-counter';
 import './App.css';
-import { SlotCounterRef } from '../../src';
 
 function App() {
   const [value, setValue] = React.useState(123456);
@@ -35,10 +34,10 @@ function App() {
 
         <div className="example-area">
           <div className="playground">
-            <SlotCounter value="??????" />
+            <SlotCounter value="?????" />
           </div>
           <CommonHighlighter>
-            {`<SlotCounter value="??????" />`}
+            {`<SlotCounter value="?????" />`}
           </CommonHighlighter>
         </div>
 
@@ -93,6 +92,18 @@ function App() {
           <CommonHighlighter>
             {`<SlotCounter value="36.5" duration={2} />`}
           </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <h4>dummyCharacters</h4>
+          <p>It is possible to set the dummy characters.</p>
+          <div className="playground">
+            <SlotCounter
+              value={['❤️', '❤️', '❤️']}
+              dummyCharacters={['❤️', '🔥', '⚙️', '💡', '👕']}
+              duration={2}
+            />
+          </div>
         </div>
 
         <div className="example-area">
