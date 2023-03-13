@@ -122,7 +122,7 @@ p {
 
 .example-button {
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 20px;
   padding: 8px 20px;
   outline: 0;
   border: 2px solid #5d657a;
@@ -147,6 +147,8 @@ p {
 
 .playground {
   margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #eee;
   font-size: 30px;
 }
 
@@ -175,4 +177,12 @@ hr {
 
 .sep {
   padding: 0 2px;
+}
+
+.test span {
+  display: inline-block;
+}
+
+.slot-counter {
+  vertical-align: middle;
 }

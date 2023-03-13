@@ -45,7 +45,7 @@ function App() {
           <h3>Dynamic value</h3>
           <p>The animation will start when the value changes.</p>
           <div className="playground">
-            <SlotCounter value={value} />
+            <SlotCounter value={value} containerClassName="slot-counter" />
             <button
               className="example-button"
               onClick={() => setValue(value + 1)}
@@ -72,7 +72,11 @@ function App() {
             This method starts the animation of the `SlotCounter` component.
           </p>
           <div className="playground">
-            <SlotCounter ref={counterRef} value="54321" />
+            <SlotCounter
+              ref={counterRef}
+              value="54321"
+              containerClassName="slot-counter"
+            />
             <button
               className="example-button"
               onClick={() => counterRef.current?.startAnimation()}
@@ -80,6 +84,24 @@ function App() {
               start animation
             </button>
           </div>
+          <CommonHighlighter>
+            {`const counterRef = useRef<SlotCounterRef>(null);
+
+// ...
+
+<SlotCounter
+  ref={counterRef}
+  value="54321"
+  containerClassName="slot-counter"
+/>
+
+<button
+  className="example-button"
+  onClick={() => counterRef.current?.startAnimation()}
+>
+  start animation
+</button>`}
+          </CommonHighlighter>
         </div>
 
         <div className="example-area">
@@ -99,11 +121,35 @@ function App() {
           <p>It is possible to set the dummy characters.</p>
           <div className="playground">
             <SlotCounter
-              value={['❤️', '❤️', '❤️']}
-              dummyCharacters={['❤️', '🔥', '⚙️', '💡', '👕']}
+              value="COURAGE"
+              dummyCharacters={'COURAGE'.split('')}
               duration={2}
             />
           </div>
+          <CommonHighlighter>
+            {`<SlotCounter
+  value="COURAGE"
+  dummyCharacters={'COURAGE'.split('')}
+  duration={2}
+/>`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <div className="playground">
+            <SlotCounter
+              value={['🍎', '🍎️', '🍎']}
+              dummyCharacters={['🍎', '🍇', '🍉', '🍓', '🍋', '🍑', '🍒']}
+              duration={2}
+            />
+          </div>
+          <CommonHighlighter>
+            {`<SlotCounter
+  value={['🍎', '🍎️', '🍎']}
+  dummyCharacters={['🍎', '🍇', '🍉', '🍓', '🍋', '🍑', '🍒']}
+  duration={2}
+/>`}
+          </CommonHighlighter>
         </div>
 
         <div className="example-area">

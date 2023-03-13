@@ -20,6 +20,7 @@ interface Props {
   value: string | number | string[];
   duration?: number;
   dummyCharacters?: string[];
+  containerClassName?: string;
   charClassName?: string;
   separatorClassName?: string;
 }
@@ -32,6 +33,7 @@ function SlotCounter(
     value,
     duration = 0.6,
     dummyCharacters,
+    containerClassName,
     charClassName,
     separatorClassName,
   }: Props,
@@ -75,7 +77,13 @@ function SlotCounter(
   }, []);
 
   return (
-    <div className={mergeClassNames(styles.slot_wrap, active && styles.active)}>
+    <div
+      className={mergeClassNames(
+        containerClassName,
+        styles.slot_wrap,
+        active && styles.active,
+      )}
+    >
       {(Array.isArray(localValue)
         ? localValue
         : localValue.toString().split('')
