@@ -5,7 +5,11 @@ import './App.css';
 
 function App() {
   const [value, setValue] = React.useState(123456);
-  const counterRef = React.useRef<SlotCounterRef>(null);
+  const counterRef1 = React.useRef<SlotCounterRef>(null);
+  const counterRef2 = React.useRef<SlotCounterRef>(null);
+  const counterRef3 = React.useRef<SlotCounterRef>(null);
+  const counterRef4 = React.useRef<SlotCounterRef>(null);
+  const counterRef5 = React.useRef<SlotCounterRef>(null);
 
   return (
     <div className="example">
@@ -43,7 +47,7 @@ function App() {
 
         <div className="example-area">
           <h3>Dynamic value</h3>
-          <p>The animation will start when the value changes.</p>
+          <p>When the value changes, the animation will automatically start.</p>
           <div className="playground">
             <SlotCounter value={value} containerClassName="slot-counter" />
             <button
@@ -66,50 +70,23 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h3>Using the `ref` to Start Animation</h3>
-          <h4>startAnimation</h4>
-          <p>
-            This method starts the animation of the `SlotCounter` component.
-          </p>
-          <div className="playground">
-            <SlotCounter
-              ref={counterRef}
-              value="54321"
-              containerClassName="slot-counter"
-            />
-            <button
-              className="example-button"
-              onClick={() => counterRef.current?.startAnimation()}
-            >
-              start animation
-            </button>
-          </div>
-          <CommonHighlighter>
-            {`const counterRef = useRef<SlotCounterRef>(null);
-
-// ...
-
-<SlotCounter
-  ref={counterRef}
-  value="54321"
-  containerClassName="slot-counter"
-/>
-
-<button
-  className="example-button"
-  onClick={() => counterRef.current?.startAnimation()}
->
-  start animation
-</button>`}
-          </CommonHighlighter>
-        </div>
-
-        <div className="example-area">
           <h3>Options</h3>
           <h4>duration (second)</h4>
           <p>It is possible to set the duration of the animation.</p>
           <div className="playground">
-            <SlotCounter value="36.5" duration={2} />
+            <SlotCounter
+              ref={counterRef2}
+              value="36.5"
+              duration={2}
+              containerClassName="slot-counter"
+            />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => counterRef2.current?.startAnimation()}
+            >
+              ▶︎
+            </button>
           </div>
           <CommonHighlighter>
             {`<SlotCounter value="36.5" duration={2} />`}
@@ -121,15 +98,24 @@ function App() {
           <p>It is possible to set the dummy characters.</p>
           <div className="playground">
             <SlotCounter
-              value="COURAGE"
-              dummyCharacters={'COURAGE'.split('')}
+              ref={counterRef3}
+              value="SUCCESS"
+              containerClassName="slot-counter"
+              dummyCharacters={'SUCCESS'.split('')}
               duration={2}
             />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => counterRef3.current?.startAnimation()}
+            >
+              ▶︎
+            </button>
           </div>
           <CommonHighlighter>
             {`<SlotCounter
-  value="COURAGE"
-  dummyCharacters={'COURAGE'.split('')}
+  value="SUCCESS"
+  dummyCharacters={'SUCCESS'.split('')}
   duration={2}
 />`}
           </CommonHighlighter>
@@ -138,10 +124,19 @@ function App() {
         <div className="example-area">
           <div className="playground">
             <SlotCounter
+              ref={counterRef4}
+              containerClassName="slot-counter"
               value={['🍎', '🍎️', '🍎']}
               dummyCharacters={['🍎', '🍇', '🍉', '🍓', '🍋', '🍑', '🍒']}
               duration={2}
             />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => counterRef4.current?.startAnimation()}
+            >
+              ▶︎
+            </button>
           </div>
           <CommonHighlighter>
             {`<SlotCounter
@@ -160,10 +155,19 @@ function App() {
           </p>
           <div className="playground">
             <SlotCounter
+              ref={counterRef5}
+              containerClassName="slot-counter"
               value="36.5"
               charClassName="char"
               separatorClassName="sep"
             />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => counterRef5.current?.startAnimation()}
+            >
+              ▶︎
+            </button>
           </div>
           <div className="format">CSS</div>
           <CommonHighlighter language="css">
@@ -186,6 +190,45 @@ function App() {
   charClassName="char"
   separatorClassName="sep"
 />`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <h3>Using the `ref` to Start Animation</h3>
+          <h4>startAnimation</h4>
+          <p>
+            This method starts the animation of the `SlotCounter` component.
+          </p>
+          <div className="playground">
+            <SlotCounter
+              ref={counterRef1}
+              value="54321"
+              containerClassName="slot-counter"
+            />
+            <button
+              className="example-button"
+              onClick={() => counterRef1.current?.startAnimation()}
+            >
+              start animation
+            </button>
+          </div>
+          <CommonHighlighter>
+            {`const counterRef = useRef<SlotCounterRef>(null);
+
+// ...
+
+<SlotCounter
+  ref={counterRef}
+  value="54321"
+  containerClassName="slot-counter"
+/>
+
+<button
+  className="example-button"
+  onClick={() => counterRef.current?.startAnimation()}
+>
+  start animation
+</button>`}
           </CommonHighlighter>
         </div>
       </div>

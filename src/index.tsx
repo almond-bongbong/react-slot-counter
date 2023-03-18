@@ -20,19 +20,20 @@ interface Props {
   value: string | number | string[];
   duration?: number;
   dummyCharacters?: string[];
+  dummyCharacterCount?: number;
   containerClassName?: string;
   charClassName?: string;
   separatorClassName?: string;
 }
 
-const DUMMY_NUMBER_COUNT = 6;
 const SEPARATOR = [',', '.'];
 
 function SlotCounter(
   {
     value,
-    duration = 0.6,
+    duration = 0.7,
     dummyCharacters,
+    dummyCharacterCount = 6,
     containerClassName,
     charClassName,
     separatorClassName,
@@ -45,8 +46,14 @@ function SlotCounter(
   const numbersRef = useRef<HTMLDivElement>(null);
   const dummyList = useMemo(
     () =>
-      dummyCharacters ?? range(1, DUMMY_NUMBER_COUNT).map(() => random(1, 10)),
-    [dummyCharacters],
+      range(0, dummyCharacterCount - 1).map((i) => {
+        if (!dummyCharacters) return random(0, 10);
+
+        const index =
+          i >= dummyCharacters.length ? random(0, dummyCharacters.length) : i;
+        return dummyCharacters[index];
+      }),
+    [dummyCharacters, dummyCharacterCount],
   );
 
   const startAnimation = useCallback(() => {
