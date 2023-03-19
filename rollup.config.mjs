@@ -3,6 +3,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
+import babel from '@rollup/plugin-babel';
 
 import packageJson from './package.json' assert { type: 'json' };
 
@@ -28,6 +29,12 @@ export default {
     commonjs(),
     typescript({
       tsconfig: './tsconfig.json',
+    }),
+    babel({
+      babelHelpers: 'bundled',
+      exclude: 'node_modules/**',
+      extensions,
+      include: ['src/**/*'],
     }),
     postcss({
       extract: false,
