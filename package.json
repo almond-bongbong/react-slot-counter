@@ -1,6 +1,6 @@
 {
   "name": "react-slot-counter",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "React Slot Counter Component",
   "author": "almond-bongbong",
   "license": "MIT",
@@ -50,7 +50,12 @@
   ],
   "keywords": [
     "react",
-    "typescript",
-    "module"
+    "slot-machine",
+    "counter",
+    "animation",
+    "component",
+    "slot-counter",
+    "react-component",
+    "typescript"
   ]
 }
