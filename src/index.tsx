@@ -21,6 +21,7 @@ interface Props {
   duration?: number;
   dummyCharacters?: string[];
   dummyCharacterCount?: number;
+  autoAnimationStart?: boolean;
   containerClassName?: string;
   charClassName?: string;
   separatorClassName?: string;
@@ -34,6 +35,7 @@ function SlotCounter(
     duration = 0.7,
     dummyCharacters,
     dummyCharacterCount = 6,
+    autoAnimationStart = true,
     containerClassName,
     charClassName,
     separatorClassName,
@@ -62,9 +64,14 @@ function SlotCounter(
   }, []);
 
   useEffect(() => {
+    if (!autoAnimationStart) {
+      setLocalValue(value);
+      return;
+    }
+
     startAnimation();
     setTimeout(() => setLocalValue(value), value.toString().length * 100);
-  }, [value, startAnimation]);
+  }, [autoAnimationStart, value, startAnimation]);
 
   useImperativeHandle(ref, () => ({
     startAnimation,

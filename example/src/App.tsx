@@ -78,6 +78,7 @@ function App() {
               ref={counterRef2}
               value="36.5"
               duration={2}
+              autoAnimationStart={false}
               containerClassName="slot-counter"
             />
             <button

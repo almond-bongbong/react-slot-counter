@@ -31,6 +31,7 @@ function App() {
     <>
       <SlotCounter value={123456} />
       <SlotCounter value="1,234,567" />
+      <SlotCounter value={['1', '2', '3', '4', '5', '6']} />
       <SlotCounter value="??????" />
       <SlotCounter value={36.5} duration={2} />
       <SlotCounter
@@ -57,6 +58,7 @@ For more examples of usage and available options, check out the [demo page](http
 | duration            | `number`             | `0.7`                                  | The duration of the animation in seconds.                                                             |
 | dummyCharacters     | `Array<string>`      | Defaults to random numbers from 0 to 9 | An array of dummy characters to be used in the animation.                                             |
 | dummyCharacterCount | `number`             | `6`                                    | The number of dummy characters to be displayed in the animation before reaching the target character. |
+| autoAnimationStart  | `boolean`            | `true`                                 | Determines whether the animation should start automatically when the component is first mounted.      |
 | containerClassName  | `string`             |                                        | The class name of container.                                                                          |
 | charClassName       | `string`             |                                        | The class name of each character.                                                                     |
 | separatorClassName  | `string`             |                                        | The class name of the separator character (`.` or `,`).                                               |
@@ -95,7 +97,15 @@ export default App;
 
 ## Contributing
 
-Contributions, issues and feature requests are welcome!
+Contributions, issues, and feature requests are welcome! If you'd like to contribute, please follow these steps:
+
+1. Fork the project
+2. Create a new branch for your feature or bugfix
+3. Commit your changes
+4. Push your changes to the branch
+5. Open a pull request
+
+Please also make sure to update tests as appropriate and follow the coding style of the project.
 
 ## License
 
