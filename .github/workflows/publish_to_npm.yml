@@ -1,12 +1,12 @@
-name: Publish Package
+name: Publish NPM Package
 
-#on:
-#  release:
-#    types: [created]
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [created]
+#on:
+#  push:
+#    branches:
+#      - main
 
 jobs:
   build:
