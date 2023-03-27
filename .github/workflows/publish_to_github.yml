@@ -5,20 +5,26 @@ name: Publish Package
 #    types: [created]
 on:
   push:
-      branches:
+    branches:
       - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: '16.x'
+          registry-url: 'https://npm.pkg.github.com'
+          # Defaults to the user or organization that owns the workflow file
+          scope: '@almond-bongbong'
 
       - name: Install dependencies
         run: yarn install
@@ -29,22 +35,12 @@ jobs:
       - name: Install jq
         run: sudo apt-get install -y jq
 
-      - name: Update package.json for npm
-        run: |
-          jq '.name = "react-slot-counter"' package.json > package.temp.json
-          mv package.temp.json package.json
-
-      - name: Publish to npm
-        run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Update package.json for GitHub Packages
         run: |
           jq '.name = "@almond-bongbong/react-slot-counter"' package.json > package.temp.json
           mv package.temp.json package.json
 
       - name: Publish to GitHub Packages
-        run: npm publish --registry=https://npm.pkg.github.com/
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
