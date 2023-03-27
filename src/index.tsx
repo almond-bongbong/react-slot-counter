@@ -32,7 +32,7 @@ export interface SlotCounterRef {
 
 type StartAnimationOptions = Parameters<SlotCounterRef['startAnimation']>[0];
 
-const SEPARATOR = [',', '.'];
+const SEPARATOR = [',', '.', ' '];
 
 function SlotCounter(
   {
