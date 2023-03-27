@@ -1,0 +1,46 @@
+name: Publish Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build
+
+      - name: Install jq
+        run: sudo apt-get install -y jq
+
+      - name: Update package.json for npm
+        run: |
+          jq '.name = "react-slot-counter"' package.json > package.temp.json
+          mv package.temp.json package.json
+
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Update package.json for GitHub Packages
+        run: |
+          jq '.name = "@almond-bongbong/react-slot-counter"' package.json > package.temp.json
+          mv package.temp.json package.json
+
+      - name: Publish to GitHub Packages
+        run: npm publish --registry=https://npm.pkg.github.com/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

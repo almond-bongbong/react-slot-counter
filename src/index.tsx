@@ -12,10 +12,6 @@ import styles from './index.module.scss';
 import { mergeClassNames, random, range, shuffle } from './utils';
 import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
 
-export interface SlotCounterRef {
-  startAnimation: () => void;
-}
-
 interface Props {
   value: string | number | string[];
   duration?: number;
@@ -26,6 +22,15 @@ interface Props {
   charClassName?: string;
   separatorClassName?: string;
 }
+
+export interface SlotCounterRef {
+  startAnimation: (options?: {
+    duration?: number;
+    dummyCharacterCount?: number;
+  }) => void;
+}
+
+type StartAnimationOptions = Parameters<SlotCounterRef['startAnimation']>[0];
 
 const SEPARATOR = [',', '.'];
 
@@ -45,20 +50,40 @@ function SlotCounter(
   const [active, setActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
   const [fontHeight, setFontHeight] = useState(0);
+  const [startAnimationOptions, setStartAnimationOptions] =
+    useState<StartAnimationOptions>();
   const numbersRef = useRef<HTMLDivElement>(null);
+  const effectiveDummyCharacterCount = useMemo(
+    () => startAnimationOptions?.dummyCharacterCount ?? dummyCharacterCount,
+    [startAnimationOptions?.dummyCharacterCount, dummyCharacterCount],
+  );
+  const effectiveDuration = useMemo(
+    () => startAnimationOptions?.duration ?? duration,
+    [startAnimationOptions?.duration, duration],
+  );
   const dummyList = useMemo(
     () =>
-      range(0, dummyCharacterCount - 1).map((i) => {
+      range(0, effectiveDummyCharacterCount - 1).map((i) => {
         if (!dummyCharacters) return random(0, 10);
 
         const index =
           i >= dummyCharacters.length ? random(0, dummyCharacters.length) : i;
         return dummyCharacters[index];
       }),
-    [dummyCharacters, dummyCharacterCount],
+    [dummyCharacters, effectiveDummyCharacterCount],
   );
+  const valueList = useMemo(
+    () =>
+      Array.isArray(localValue) ? localValue : localValue.toString().split(''),
+    [localValue],
+  );
+  const calculatedInterval = useMemo(() => {
+    const MAX_INTERVAL = 0.1;
+    return Math.min(MAX_INTERVAL, effectiveDuration / valueList.length);
+  }, [effectiveDuration, valueList.length]);
 
-  const startAnimation = useCallback(() => {
+  const startAnimation = useCallback((options?: StartAnimationOptions) => {
+    setStartAnimationOptions(options);
     setActive(false);
     setTimeout(() => setActive(true), 20);
   }, []);
@@ -98,10 +123,7 @@ function SlotCounter(
         active && styles.active,
       )}
     >
-      {(Array.isArray(localValue)
-        ? localValue
-        : localValue.toString().split('')
-      ).map((v, i) => {
+      {valueList.map((v, i) => {
         if (SEPARATOR.includes(v)) {
           return (
             <div
@@ -128,7 +150,9 @@ function SlotCounter(
                   transform: `translateY(-${
                     fontHeight * (dummyList.length + 1)
                   }px)`,
-                  transition: `transform ${duration}s ${i * 0.1}s ease-in-out`,
+                  transition: `transform ${effectiveDuration}s ${
+                    i * calculatedInterval
+                  }s ease-in-out`,
                 }),
               }}
             >

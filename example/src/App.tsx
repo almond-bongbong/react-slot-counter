@@ -198,7 +198,7 @@ function App() {
           <h3>Using the `ref` to Start Animation</h3>
           <h4>startAnimation</h4>
           <p>
-            This method starts the animation of the `SlotCounter` component.
+            This method starts the animation of the `SlotCounter` component with optional parameters.
           </p>
           <div className="playground">
             <SlotCounter
@@ -210,7 +210,16 @@ function App() {
               className="example-button"
               onClick={() => counterRef1.current?.startAnimation()}
             >
-              start animation
+              start animation (default)
+            </button>
+            <button
+              className="example-button"
+              onClick={() => counterRef1.current?.startAnimation({
+                duration: 1.5,
+                dummyCharacterCount: 10
+              })}
+            >
+              start animation (with options)
             </button>
           </div>
           <CommonHighlighter>
@@ -228,7 +237,17 @@ function App() {
   className="example-button"
   onClick={() => counterRef.current?.startAnimation()}
 >
-  start animation
+  start animation (default)
+</button>
+
+<button
+  className="example-button"
+  onClick={() => counterRef.current?.startAnimation({
+    duration: 1.5,
+    dummyCharacterCount: 10
+  })}
+>
+  start animation (with options)
 </button>`}
           </CommonHighlighter>
         </div>

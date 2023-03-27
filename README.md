@@ -71,6 +71,12 @@ You can access the SlotCounter component using a ref. This ref can be used to st
 | ---------------- | ------------------------------------ |
 | `startAnimation` | Start the animation of the component |
 
+The `startAnimation` method accepts an optional object with the following properties:
+
+- `duration`: The duration of the animation in seconds. Overrides the `duration` prop.
+- `dummyCharacterCount`: The number of dummy characters to be displayed in the animation before reaching the target character. Overrides the `dummyCharacterCount` prop.
+
+
 Example:
 
 ```jsx
