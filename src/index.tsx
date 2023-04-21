@@ -8,9 +8,10 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import styles from './index.module.scss';
-import { mergeClassNames, random, range, shuffle } from './utils';
+import { mergeClassNames, random, range } from './utils';
 import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
+import styles from './index.module.scss';
+import Slot from './components/Slot';
 
 interface Props {
   value: string | number | string[];
@@ -21,6 +22,7 @@ interface Props {
   containerClassName?: string;
   charClassName?: string;
   separatorClassName?: string;
+  animateUnchanged?: boolean;
 }
 
 export interface SlotCounterRef {
@@ -44,23 +46,24 @@ function SlotCounter(
     containerClassName,
     charClassName,
     separatorClassName,
+    animateUnchanged = false,
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
+  const serializedValue = useMemo(() => JSON.stringify(value), [value]);
   const [active, setActive] = useState(false);
-  const [localValue, setLocalValue] = useState(value);
   const [fontHeight, setFontHeight] = useState(0);
-  const [startAnimationOptions, setStartAnimationOptions] =
-    useState<StartAnimationOptions>();
+  const startAnimationOptionsRef = useRef<StartAnimationOptions>();
   const numbersRef = useRef<HTMLDivElement>(null);
-  const effectiveDummyCharacterCount = useMemo(
-    () => startAnimationOptions?.dummyCharacterCount ?? dummyCharacterCount,
-    [startAnimationOptions?.dummyCharacterCount, dummyCharacterCount],
-  );
-  const effectiveDuration = useMemo(
-    () => startAnimationOptions?.duration ?? duration,
-    [startAnimationOptions?.duration, duration],
-  );
+  const valueRef = useRef(value);
+  const prevValueRef = useRef<Props['value']>();
+
+  const effectiveDummyCharacterCount =
+    startAnimationOptionsRef.current?.dummyCharacterCount ??
+    dummyCharacterCount;
+  const effectiveDuration =
+    startAnimationOptionsRef.current?.duration ?? duration;
+
   const dummyList = useMemo(
     () =>
       range(0, effectiveDummyCharacterCount - 1).map((i) => {
@@ -72,34 +75,65 @@ function SlotCounter(
       }),
     [dummyCharacters, effectiveDummyCharacterCount],
   );
+
+  useMemo(() => {
+    if (valueRef.current === value) return;
+    prevValueRef.current = valueRef.current;
+    valueRef.current = value;
+  }, [value]);
+
+  const prevValueRefList = Array.isArray(prevValueRef.current)
+    ? prevValueRef.current
+    : prevValueRef.current?.toString().split('') ?? [];
+  const valueRefList = Array.isArray(valueRef.current)
+    ? valueRef.current
+    : valueRef.current?.toString().split('') ?? [];
+
   const valueList = useMemo(
-    () =>
-      Array.isArray(localValue) ? localValue : localValue.toString().split(''),
-    [localValue],
+    () => (Array.isArray(value) ? value : value.toString().split('')),
+    [value],
   );
+
+  const isChangedValueLength = prevValueRefList.length !== valueRefList.length;
+  const isChangedValueIndexList: number[] = [];
+  valueRefList.forEach((v, i) => {
+    const targetIndex = valueRefList.length - i - 1;
+    if (
+      valueRefList[targetIndex] !== prevValueRefList[targetIndex] ||
+      isChangedValueLength ||
+      animateUnchanged
+    ) {
+      isChangedValueIndexList.push(targetIndex);
+    }
+  });
+  isChangedValueIndexList.reverse();
+
   const calculatedInterval = useMemo(() => {
     const MAX_INTERVAL = 0.1;
     return Math.min(MAX_INTERVAL, effectiveDuration / valueList.length);
   }, [effectiveDuration, valueList.length]);
 
-  const startAnimation = useCallback((options?: StartAnimationOptions) => {
-    setStartAnimationOptions(options);
+  const startAnimation = useCallback(() => {
     setActive(false);
     setTimeout(() => setActive(true), 20);
   }, []);
 
-  useEffect(() => {
-    if (!autoAnimationStart) {
-      setLocalValue(value);
-      return;
-    }
+  const startAnimationAll = useCallback(
+    (options?: StartAnimationOptions) => {
+      prevValueRef.current = undefined;
+      startAnimationOptionsRef.current = options;
+      startAnimation();
+    },
+    [startAnimation],
+  );
 
+  useEffect(() => {
+    if (!autoAnimationStart) return;
     startAnimation();
-    setTimeout(() => setLocalValue(value), value.toString().length * 100);
-  }, [autoAnimationStart, value, startAnimation]);
+  }, [autoAnimationStart, serializedValue, startAnimation]);
 
   useImperativeHandle(ref, () => ({
-    startAnimation,
+    startAnimation: startAnimationAll,
   }));
 
   useIsomorphicLayoutEffect(() => {
@@ -116,18 +150,18 @@ function SlotCounter(
   }, []);
 
   return (
-    <div
-      className={mergeClassNames(
-        containerClassName,
-        styles.slot_wrap,
-        active && styles.active,
-      )}
-    >
+    <div className={mergeClassNames(containerClassName, styles.slot_wrap)}>
       {valueList.map((v, i) => {
+        const isChanged = isChangedValueIndexList.includes(i);
+        const delay =
+          (isChanged ? isChangedValueIndexList.indexOf(i) : 0) *
+          calculatedInterval;
+        const slotNumbersHeight = fontHeight * (dummyList.length + 1);
+
         if (SEPARATOR.includes(v)) {
           return (
             <div
-              key={i}
+              key={valueRefList.length - i - 1}
               className={mergeClassNames(styles.separator, separatorClassName)}
             >
               {v}
@@ -136,37 +170,19 @@ function SlotCounter(
         }
 
         return (
-          <div
-            key={i}
-            className={mergeClassNames(styles.slot, charClassName)}
-            style={{ height: fontHeight }}
-          >
-            <div
-              ref={numbersRef}
-              className={styles.numbers}
-              style={{
-                transition: 'none',
-                ...(active && {
-                  transform: `translateY(-${
-                    fontHeight * (dummyList.length + 1)
-                  }px)`,
-                  transition: `transform ${effectiveDuration}s ${
-                    i * calculatedInterval
-                  }s ease-in-out`,
-                }),
-              }}
-            >
-              <div className={styles.num} aria-hidden="true">
-                {v}
-              </div>
-              {shuffle(dummyList).map((dummyNumber, slotIndex) => (
-                <div key={slotIndex} className={styles.num} aria-hidden="true">
-                  {dummyNumber}
-                </div>
-              ))}
-              <div className={styles.num}>{v}</div>
-            </div>
-          </div>
+          <Slot
+            key={valueRefList.length - i - 1}
+            fontHeight={fontHeight}
+            numbersRef={numbersRef}
+            active={active}
+            isChanged={isChanged}
+            charClassName={charClassName}
+            slotNumbersHeight={slotNumbersHeight}
+            effectiveDuration={effectiveDuration}
+            delay={delay}
+            value={v}
+            dummyList={dummyList}
+          />
         );
       })}
     </div>

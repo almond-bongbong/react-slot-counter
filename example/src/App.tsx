@@ -5,6 +5,7 @@ import './App.css';
 
 function App() {
   const [value, setValue] = React.useState(123456);
+  const [value2, setValue2] = React.useState(50);
   const counterRef1 = React.useRef<SlotCounterRef>(null);
   const counterRef2 = React.useRef<SlotCounterRef>(null);
   const counterRef3 = React.useRef<SlotCounterRef>(null);
@@ -67,6 +68,18 @@ function App() {
   +1
 </button>`}
           </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <div className="playground">
+            <SlotCounter value={value2} containerClassName="slot-counter" />
+            <button
+              className="example-button"
+              onClick={() => setValue2((prev) => prev + 50)}
+            >
+              +50
+            </button>
+          </div>
         </div>
 
         <div className="example-area">
@@ -198,7 +211,8 @@ function App() {
           <h3>Using the `ref` to Start Animation</h3>
           <h4>startAnimation</h4>
           <p>
-            This method starts the animation of the `SlotCounter` component with optional parameters.
+            This method starts the animation of the `SlotCounter` component with
+            optional parameters.
           </p>
           <div className="playground">
             <SlotCounter
@@ -214,10 +228,12 @@ function App() {
             </button>
             <button
               className="example-button"
-              onClick={() => counterRef1.current?.startAnimation({
-                duration: 1.5,
-                dummyCharacterCount: 10
-              })}
+              onClick={() =>
+                counterRef1.current?.startAnimation({
+                  duration: 3,
+                  dummyCharacterCount: 10,
+                })
+              }
             >
               start animation (with options)
             </button>
@@ -243,7 +259,7 @@ function App() {
 <button
   className="example-button"
   onClick={() => counterRef.current?.startAnimation({
-    duration: 1.5,
+    duration: 3,
     dummyCharacterCount: 10
   })}
 >

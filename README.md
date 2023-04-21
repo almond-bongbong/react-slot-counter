@@ -3,10 +3,12 @@
 `react-slot-counter` is a React component that uses slot machine animations to display numbers and strings.
 
 [![NPM](https://img.shields.io/npm/v/react-slot-counter.svg)](https://www.npmjs.com/package/react-slot-counter)
+![License](https://img.shields.io/npm/l/react-confetti-boom)
+![Size](https://img.shields.io/bundlephobia/min/react-confetti-boom)
 
 <p align="center">
     <a target="_blank" href="https://almond-bongbong.github.io/react-slot-counter/">
-        <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYjdmZGFkMjdiYjI2ZTBhMTg3YWIxMGEyNDk5YzcyNTIzMzFmMDI4YyZjdD1n/EIO8W6Qeqn4eQxIOxh/giphy.gif" />
+        <img src="https://raw.githubusercontent.com/almond-bongbong/react-slot-counter/main/preview.gif" />
     </a>
 </p>
 
@@ -59,6 +61,7 @@ For more examples of usage and available options, check out the [demo page](http
 | dummyCharacters     | `Array<string>`      | Defaults to random numbers from 0 to 9 | An array of dummy characters to be used in the animation.                                             |
 | dummyCharacterCount | `number`             | `6`                                    | The number of dummy characters to be displayed in the animation before reaching the target character. |
 | autoAnimationStart  | `boolean`            | `true`                                 | Determines whether the animation should start automatically when the component is first mounted.      |
+| animateUnchanged    | `boolean`            | `false`                                | Determines whether to animate only the characters that have changed.                                  |
 | containerClassName  | `string`             |                                        | The class name of container.                                                                          |
 | charClassName       | `string`             |                                        | The class name of each character.                                                                     |
 | separatorClassName  | `string`             |                                        | The class name of the separator character (`.` or `,`).                                               |
@@ -75,7 +78,6 @@ The `startAnimation` method accepts an optional object with the following proper
 
 - `duration`: The duration of the animation in seconds. Overrides the `duration` prop.
 - `dummyCharacterCount`: The number of dummy characters to be displayed in the animation before reaching the target character. Overrides the `dummyCharacterCount` prop.
-
 
 Example:
 
