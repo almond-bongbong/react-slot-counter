@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/react-slot-counter/static/css/main.c9b40483.css",
-    "main.js": "/react-slot-counter/static/js/main.6f2c45a3.js",
+    "main.js": "/react-slot-counter/static/js/main.91fd4285.js",
     "static/js/787.759e47f1.chunk.js": "/react-slot-counter/static/js/787.759e47f1.chunk.js",
     "index.html": "/react-slot-counter/index.html",
     "main.c9b40483.css.map": "/react-slot-counter/static/css/main.c9b40483.css.map",
-    "main.6f2c45a3.js.map": "/react-slot-counter/static/js/main.6f2c45a3.js.map",
+    "main.91fd4285.js.map": "/react-slot-counter/static/js/main.91fd4285.js.map",
     "787.759e47f1.chunk.js.map": "/react-slot-counter/static/js/787.759e47f1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c9b40483.css",
-    "static/js/main.6f2c45a3.js"
+    "static/js/main.91fd4285.js"
   ]
 }
