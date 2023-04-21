@@ -8,7 +8,7 @@
 
 <p align="center">
     <a target="_blank" href="https://almond-bongbong.github.io/react-slot-counter/">
-        <img src="https://raw.githubusercontent.com/almond-bongbong/react-slot-counter/main/preview.gif" />
+        <img src="./docs/preview.gif" />
     </a>
 </p>
 
