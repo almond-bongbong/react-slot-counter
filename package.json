@@ -1,6 +1,6 @@
 {
   "name": "react-slot-counter",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "React Slot Counter Component",
   "author": "almond-bongbong",
   "license": "MIT",
@@ -26,6 +26,7 @@
     "@babel/core": "^7.21.3",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-eslint": "^9.0.3",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@types/react": "^18.0.28",
     "@typescript-eslint/eslint-plugin": "^5.54.1",

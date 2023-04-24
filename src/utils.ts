@@ -1,4 +1,4 @@
-export const mergeClassNames = (...args: (any | null | undefined)[]) =>
+export const mergeClassNames = (...args: (string | null | undefined)[]) =>
   args.filter(Boolean).join(' ');
 
 export const range = (start: number, end: number) => {

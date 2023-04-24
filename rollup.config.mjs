@@ -4,6 +4,7 @@ import typescript from 'rollup-plugin-typescript2';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 import babel from '@rollup/plugin-babel';
+import eslint from '@rollup/plugin-eslint';
 
 import packageJson from './package.json' assert { type: 'json' };
 
@@ -24,6 +25,9 @@ export default {
     },
   ],
   plugins: [
+    eslint({
+      include: ['src/**/*.ts', 'src/**/*.tsx'],
+    }),
     peerDepsExternal(),
     nodeResolve({ extensions }),
     commonjs(),

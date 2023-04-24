@@ -1,6 +1,6 @@
 # react-slot-counter
 
-`react-slot-counter` is a React component that uses slot machine animations to display numbers and strings.
+`react-slot-counter` is a feature-rich React component that displays numbers and strings with an engaging slot machine animation effect.
 
 [![NPM](https://img.shields.io/npm/v/react-slot-counter.svg)](https://www.npmjs.com/package/react-slot-counter)
 ![License](https://img.shields.io/npm/l/react-confetti-boom)
@@ -8,9 +8,15 @@
 
 <p align="center">
     <a target="_blank" href="https://almond-bongbong.github.io/react-slot-counter/">
-        <img src="./docs/preview.gif" />
+        <img src="https://github.com/almond-bongbong/react-slot-counter/raw/main/docs/preview.gif" />
     </a>
 </p>
+
+## Features
+- Customize animation duration and other settings
+- Animate only changed characters
+- Control animation start with a ref
+- Easily add custom styles to the characters and separators
 
 ## Installation
 
@@ -22,7 +28,7 @@ npm install react-slot-counter
 
 ## Usage
 
-Import SlotCounter and use it in your component. Here's a simple example:
+Import `SlotCounter` and use it in your component. Here's a simple example:
 
 ```jsx
 import React from 'react';
