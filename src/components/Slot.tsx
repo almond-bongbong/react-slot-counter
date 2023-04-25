@@ -13,6 +13,7 @@ interface Props {
   delay: number;
   value: string | number;
   dummyList: (string | number)[];
+  hasInfiniteList?: boolean;
 }
 
 function Slot({
@@ -26,6 +27,7 @@ function Slot({
   delay,
   value,
   dummyList,
+  hasInfiniteList
 }: Props) {
   const [localActive, setLocalActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
@@ -57,6 +59,14 @@ function Slot({
     setDummyListState(shuffle(dummyList));
   }, [value, dummyList]);
 
+  const renderDummyList = () => {
+    return dummyListState.map((dummyNumber, slotIndex) => (
+      <div key={slotIndex} className={styles.num} aria-hidden="true">
+        {dummyNumber}
+      </div>
+    ))
+  }
+
   return (
     <div
       className={mergeClassNames(styles.slot, charClassName)}
@@ -77,12 +87,9 @@ function Slot({
         <div className={styles.num} aria-hidden="true">
           {localValue}
         </div>
-        {dummyListState.map((dummyNumber, slotIndex) => (
-          <div key={slotIndex} className={styles.num} aria-hidden="true">
-            {dummyNumber}
-          </div>
-        ))}
+        {renderDummyList()}
         <div className={styles.num}>{localValue}</div>
+        {hasInfiniteList ? renderDummyList() : null}
       </div>
     </div>
   );
