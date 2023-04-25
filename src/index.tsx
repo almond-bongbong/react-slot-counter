@@ -24,6 +24,7 @@ interface Props {
   separatorClassName?: string;
   animateUnchanged?: boolean;
   hasInfiniteList?: boolean;
+  valueClassName?: string;
 }
 
 export interface SlotCounterRef {
@@ -49,6 +50,7 @@ function SlotCounter(
     separatorClassName,
     animateUnchanged = false,
     hasInfiniteList = false,
+    valueClassName,
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
@@ -185,6 +187,7 @@ function SlotCounter(
             value={v}
             dummyList={dummyList}
             hasInfiniteList={hasInfiniteList}
+            valueClassName={valueClassName}
           />
         );
       })}
