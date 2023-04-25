@@ -69,10 +69,11 @@ For more examples of usage and available options, check out the [demo page](http
 | dummyCharacterCount | `number`             | `6`                                    | The number of dummy characters to be displayed in the animation before reaching the target character.                                |         |
 | autoAnimationStart  | `boolean`            | `true`                                 | Determines whether the animation should start automatically when the component is first mounted.                                     |         |
 | animateUnchanged    | `boolean`            | `false`                                | Determines whether to animate only the characters that have changed.                                                                 |         |
+| hasInfiniteList     | `boolean`            | `false`                                | Determines whether the list should appear as continuous, with the end of the target character seamlessly connected to the beginning. | 1.4.2   |
 | containerClassName  | `string`             |                                        | The class name of container.                                                                                                         |         |
 | charClassName       | `string`             |                                        | The class name of each character.                                                                                                    |         |
 | separatorClassName  | `string`             |                                        | The class name of the separator character (`.` or `,`).                                                                              |         |
-| hasInfiniteList     | `boolean`            | `false`                                | Determines whether the list should appear as continuous, with the end of the target character seamlessly connected to the beginning. | 1.4.2   |
+| valueClassName      | `string`             |                                        | The class name for the value of the slot, making it possible to customize the styling and visibility of the value.                   | 1.4.3   |
 
 ## Ref
 
