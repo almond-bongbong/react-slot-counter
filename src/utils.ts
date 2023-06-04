@@ -22,3 +22,13 @@ export const shuffle = (arr: (number | string)[]) => {
   }
   return result;
 };
+
+export const toNumeric = (value: string | string[] | number) => {
+  if (typeof value === 'number') return value;
+
+  const str = Array.isArray(value) ? value.join('') : value;
+  return str.replace(/[,.]/g, '');
+};
+
+export const isNumeric = (value: string | string[] | number) =>
+  !Number.isNaN(toNumeric(value));

@@ -57,6 +57,12 @@ function App() {
             >
               +1
             </button>
+            <button
+              className="example-button"
+              onClick={() => setValue(value - 1)}
+            >
+              -1
+            </button>
           </div>
           <CommonHighlighter>
             {`<const [value, setValue] = useState(123456);
@@ -66,6 +72,9 @@ function App() {
 <SlotCounter value={value} />
 <button onClick={() => setValue(value + 1)}>
   +1
+</button>
+<button onClick={() => setValue(value - 1)}>
+  -1
 </button>`}
           </CommonHighlighter>
         </div>
