@@ -15,6 +15,7 @@ interface Props {
   dummyList: (string | number)[];
   hasInfiniteList?: boolean;
   valueClassName?: string;
+  reverse?: boolean;
 }
 
 function Slot({
@@ -29,7 +30,8 @@ function Slot({
   value,
   dummyList,
   hasInfiniteList,
-  valueClassName
+  valueClassName,
+  reverse,
 }: Props) {
   const [localActive, setLocalActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
@@ -66,8 +68,8 @@ function Slot({
       <div key={slotIndex} className={styles.num} aria-hidden="true">
         {dummyNumber}
       </div>
-    ))
-  }
+    ));
+  };
 
   return (
     <div
@@ -79,9 +81,14 @@ function Slot({
         className={styles.numbers}
         style={{
           transition: 'none',
+          transform: reverse
+            ? `translateY(-${slotNumbersHeight}px)`
+            : `translateY(0px)`,
           ...(localActive &&
             isChanged && {
-              transform: `translateY(-${slotNumbersHeight}px)`,
+              transform: reverse
+                ? `translateY(0px)`
+                : `translateY(-${slotNumbersHeight}px)`,
               transition: `transform ${effectiveDuration}s ${delay}s ease-in-out`,
             }),
         }}
@@ -90,7 +97,9 @@ function Slot({
           {localValue}
         </div>
         {renderDummyList()}
-        <div className={mergeClassNames(styles.num, valueClassName)}>{localValue}</div>
+        <div className={mergeClassNames(styles.num, valueClassName)}>
+          {localValue}
+        </div>
         {hasInfiniteList ? renderDummyList() : null}
       </div>
     </div>

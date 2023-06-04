@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { mergeClassNames, random, range } from './utils';
+import { isNumeric, mergeClassNames, random, range, toNumeric } from './utils';
 import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
 import styles from './index.module.scss';
 import Slot from './components/Slot';
@@ -161,6 +161,11 @@ function SlotCounter(
           (isChanged ? isChangedValueIndexList.indexOf(i) : 0) *
           calculatedInterval;
         const slotNumbersHeight = fontHeight * (dummyList.length + 1);
+        const prevValue = prevValueRef.current;
+        const reverseAnimation =
+          value != null && prevValue != null && isNumeric(value)
+            ? toNumeric(value) < toNumeric(prevValue)
+            : false;
 
         if (SEPARATOR.includes(v)) {
           return (
@@ -188,6 +193,7 @@ function SlotCounter(
             dummyList={dummyList}
             hasInfiniteList={hasInfiniteList}
             valueClassName={valueClassName}
+            reverse={reverseAnimation}
           />
         );
       })}
