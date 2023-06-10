@@ -61,19 +61,20 @@ For more examples of usage and available options, check out the [demo page](http
 
 ## Props
 
-| Prop                | Type                 | Default                                | Description                                                                                                                          | Version |
-| ------------------- | -------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------- |
-| value _(required)_  | `number` or `string` |                                        | The value to be displayed. It can be a number or a string with numbers and commas.                                                   |         |
-| duration            | `number`             | `0.7`                                  | The duration of the animation in seconds.                                                                                            |         |
-| dummyCharacters     | `Array<string>`      | Defaults to random numbers from 0 to 9 | An array of dummy characters to be used in the animation.                                                                            |         |
-| dummyCharacterCount | `number`             | `6`                                    | The number of dummy characters to be displayed in the animation before reaching the target character.                                |         |
-| autoAnimationStart  | `boolean`            | `true`                                 | Determines whether the animation should start automatically when the component is first mounted.                                     |         |
-| animateUnchanged    | `boolean`            | `false`                                | Determines whether to animate only the characters that have changed.                                                                 |         |
-| hasInfiniteList     | `boolean`            | `false`                                | Determines whether the list should appear as continuous, with the end of the target character seamlessly connected to the beginning. | 1.4.2   |
-| containerClassName  | `string`             |                                        | The class name of container.                                                                                                         |         |
-| charClassName       | `string`             |                                        | The class name of each character.                                                                                                    |         |
-| separatorClassName  | `string`             |                                        | The class name of the separator character (`.` or `,`).                                                                              |         |
-| valueClassName      | `string`             |                                        | The class name for the value of the slot, making it possible to customize the styling and visibility of the value.                   | 1.4.3   |
+| Prop                | Type                               | Default                                | Description                                                                                                                          | Version |
+| ------------------- | ---------------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| value _(required)_  | `number` \| `string` \| `string[]` |                                        | The value to be displayed. It can be a number or a string with numbers and commas.                                                   |         |
+| startValue          | `number` \| `string` \| `string[]` |                                        | The initial value to be displayed before the animation starts. It sets the beginning of the slot machine animation.                  | 1.7.0   |
+| duration            | `number`                           | `0.7`                                  | The duration of the animation in seconds.                                                                                            |         |
+| dummyCharacters     | `Array<string>`                    | Defaults to random numbers from 0 to 9 | An array of dummy characters to be used in the animation.                                                                            |         |
+| dummyCharacterCount | `number`                           | `6`                                    | The number of dummy characters to be displayed in the animation before reaching the target character.                                |         |
+| autoAnimationStart  | `boolean`                          | `true`                                 | Determines whether the animation should start automatically when the component is first mounted.                                     |         |
+| animateUnchanged    | `boolean`                          | `false`                                | Determines whether to animate only the characters that have changed.                                                                 |         |
+| hasInfiniteList     | `boolean`                          | `false`                                | Determines whether the list should appear as continuous, with the end of the target character seamlessly connected to the beginning. | 1.4.2   |
+| containerClassName  | `string`                           |                                        | The class name of container.                                                                                                         |         |
+| charClassName       | `string`                           |                                        | The class name of each character.                                                                                                    |         |
+| separatorClassName  | `string`                           |                                        | The class name of the separator character (`.` or `,`).                                                                              |         |
+| valueClassName      | `string`                           |                                        | The class name for the value of the slot, making it possible to customize the styling and visibility of the value.                   | 1.4.3   |
 
 ## Ref
 
