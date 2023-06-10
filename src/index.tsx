@@ -31,6 +31,7 @@ export interface SlotCounterRef {
   startAnimation: (options?: {
     duration?: number;
     dummyCharacterCount?: number;
+    direction?: 'bottom-up' | 'top-down';
   }) => void;
 }
 
@@ -162,10 +163,11 @@ function SlotCounter(
           calculatedInterval;
         const slotNumbersHeight = fontHeight * (dummyList.length + 1);
         const prevValue = prevValueRef.current;
+        const isDecrease =
+          value != null && prevValue != null && isNumeric(value);
         const reverseAnimation =
-          value != null && prevValue != null && isNumeric(value)
-            ? toNumeric(value) < toNumeric(prevValue)
-            : false;
+          startAnimationOptionsRef.current?.direction === 'top-down' ||
+          (isDecrease ? toNumeric(value) < toNumeric(prevValue) : false);
 
         if (SEPARATOR.includes(v)) {
           return (

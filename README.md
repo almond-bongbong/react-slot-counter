@@ -87,6 +87,7 @@ The `startAnimation` method accepts an optional object with the following proper
 
 - `duration`: The duration of the animation in seconds. Overrides the `duration` prop.
 - `dummyCharacterCount`: The number of dummy characters to be displayed in the animation before reaching the target character. Overrides the `dummyCharacterCount` prop.
+- `direction`: This option determines the direction of the slot machine animation. The accepted values are `bottom-top` and `top-bottom`. The default value is `bottom-top`. If `bottom-top` is chosen, the animation will start from the bottom and move towards the top. If `top-bottom` is chosen, the animation will start from the top and move downwards.
 
 Example:
 
