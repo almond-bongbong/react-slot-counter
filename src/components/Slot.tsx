@@ -12,6 +12,7 @@ interface Props {
   effectiveDuration: number;
   delay: number;
   value: string | number;
+  startValue?: string | number;
   dummyList: (string | number)[];
   hasInfiniteList?: boolean;
   valueClassName?: string;
@@ -28,6 +29,7 @@ function Slot({
   effectiveDuration,
   delay,
   value,
+  startValue,
   dummyList,
   hasInfiniteList,
   valueClassName,
@@ -40,11 +42,7 @@ function Slot({
   const [dummyListState, setDummyListState] = useState(shuffle(dummyList));
 
   useEffect(() => {
-    if (active) {
-      setTimeout(() => setLocalActive(active), 20);
-    } else {
-      setLocalActive(active);
-    }
+    setLocalActive(active);
   }, [active]);
 
   useEffect(() => {
@@ -94,7 +92,7 @@ function Slot({
         }}
       >
         <div className={styles.num} aria-hidden="true">
-          {localValue}
+          {startValue ?? localValue}
         </div>
         {renderDummyList()}
         <div className={mergeClassNames(styles.num, valueClassName)}>

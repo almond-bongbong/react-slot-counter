@@ -15,6 +15,7 @@ import Slot from './components/Slot';
 
 interface Props {
   value: string | number | string[];
+  startValue?: string | number | string[];
   duration?: number;
   dummyCharacters?: string[];
   dummyCharacterCount?: number;
@@ -42,6 +43,7 @@ const SEPARATOR = [',', '.', ' '];
 function SlotCounter(
   {
     value,
+    startValue,
     duration = 0.7,
     dummyCharacters,
     dummyCharacterCount = 6,
@@ -97,6 +99,11 @@ function SlotCounter(
   const valueList = useMemo(
     () => (Array.isArray(value) ? value : value.toString().split('')),
     [value],
+  );
+  const startValueList = useMemo(
+    () =>
+      Array.isArray(startValue) ? startValue : startValue?.toString().split(''),
+    [startValue],
   );
 
   const isChangedValueLength = prevValueRefList.length !== valueRefList.length;
@@ -192,6 +199,7 @@ function SlotCounter(
             effectiveDuration={effectiveDuration}
             delay={delay}
             value={v}
+            startValue={startValueList?.[i]}
             dummyList={dummyList}
             hasInfiniteList={hasInfiniteList}
             valueClassName={valueClassName}

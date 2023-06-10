@@ -11,6 +11,7 @@ function App() {
   const counterRef3 = React.useRef<SlotCounterRef>(null);
   const counterRef4 = React.useRef<SlotCounterRef>(null);
   const counterRef5 = React.useRef<SlotCounterRef>(null);
+  const counterRef6 = React.useRef<SlotCounterRef>(null);
 
   return (
     <div className="example">
@@ -108,7 +109,7 @@ function App() {
               className="example-button"
               onClick={() => counterRef2.current?.startAnimation()}
             >
-              ▶︎
+              play
             </button>
           </div>
           <CommonHighlighter>
@@ -132,7 +133,7 @@ function App() {
               className="example-button"
               onClick={() => counterRef3.current?.startAnimation()}
             >
-              ▶︎
+              play
             </button>
           </div>
           <CommonHighlighter>
@@ -158,7 +159,7 @@ function App() {
               className="example-button"
               onClick={() => counterRef4.current?.startAnimation()}
             >
-              ▶︎
+              play
             </button>
           </div>
           <CommonHighlighter>
@@ -189,7 +190,7 @@ function App() {
               className="example-button"
               onClick={() => counterRef5.current?.startAnimation()}
             >
-              ▶︎
+              play
             </button>
           </div>
           <div className="format">CSS</div>
@@ -213,6 +214,56 @@ function App() {
   charClassName="char"
   separatorClassName="sep"
 />`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <h4>startValue</h4>
+          <p>
+            This example demonstrates the usage of the "startValue" property to
+            set the starting value of the slot counter animation. Here, we set
+            the start value to "123" and the end value to "777". When the
+            animation runs, you can see it starting from "123" and ending at
+            "777". The animation is triggered each time the "play" button is
+            clicked.
+          </p>
+          <div className="playground">
+            <SlotCounter
+              ref={counterRef6}
+              startValue="123"
+              value="777"
+              charClassName="char"
+              dummyCharacterCount={10}
+              duration={3}
+              autoAnimationStart={false}
+            />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => counterRef6.current?.startAnimation()}
+            >
+              play
+            </button>
+          </div>
+          <CommonHighlighter>
+            {`<SlotCounter
+  ref={counterRef6}
+  startValue="123"
+  value="777"
+  charClassName="char"
+  dummyCharacterCount={10}
+  duration={3}
+  autoAnimationStart={false}
+/>
+
+// ...
+
+<button
+  type="button"
+  onClick={() => counterRef6.current?.startAnimation()}
+>
+  play
+</button>`}
           </CommonHighlighter>
         </div>
 
@@ -241,6 +292,7 @@ function App() {
                 counterRef1.current?.startAnimation({
                   duration: 3,
                   dummyCharacterCount: 10,
+                  direction: 'top-down',
                 })
               }
             >
@@ -269,7 +321,8 @@ function App() {
   className="example-button"
   onClick={() => counterRef.current?.startAnimation({
     duration: 3,
-    dummyCharacterCount: 10
+    dummyCharacterCount: 10,
+    direction: 'top-down',
   })}
 >
   start animation (with options)
