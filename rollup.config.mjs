@@ -5,6 +5,7 @@ import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 import babel from '@rollup/plugin-babel';
 import eslint from '@rollup/plugin-eslint';
+import banner2 from 'rollup-plugin-banner2';
 
 import packageJson from './package.json' assert { type: 'json' };
 
@@ -46,5 +47,6 @@ export default {
       sourceMap: false,
       use: ['sass'],
     }),
+    banner2(() => `'use client';\n`),
   ],
 };

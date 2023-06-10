@@ -1,6 +1,6 @@
 {
   "name": "react-slot-counter",
-  "version": "1.7.2",
+  "version": "1.7.3",
   "description": "A versatile and engaging component to display numbers in a captivating slot machine UI, perfect for enhancing user experience and grabbing attention in your web projects",
   "author": "almond-bongbong",
   "license": "MIT",
@@ -40,6 +40,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rollup": "^3.18.0",
+    "rollup-plugin-banner2": "^1.2.2",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
