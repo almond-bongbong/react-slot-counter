@@ -1,15 +1,21 @@
 {
   "files": {
-    "main.css": "/react-slot-counter/static/css/main.c9b40483.css",
-    "main.js": "/react-slot-counter/static/js/main.058c80f5.js",
+    "main.css": "/react-slot-counter/static/css/main.62ae67d7.css",
+    "main.js": "/react-slot-counter/static/js/main.0f4e05ff.js",
     "static/js/787.759e47f1.chunk.js": "/react-slot-counter/static/js/787.759e47f1.chunk.js",
+    "static/media/cherries.png": "/react-slot-counter/static/media/cherries.435c65ee0e8a815e0350.png",
+    "static/media/apple.png": "/react-slot-counter/static/media/apple.b910ac50c27c4e2aa63e.png",
+    "static/media/orange.png": "/react-slot-counter/static/media/orange.95fa47ac3f5f86e586a6.png",
+    "static/media/watermelon.png": "/react-slot-counter/static/media/watermelon.2e4e8348a4ddae8f3f28.png",
+    "static/media/diamond.png": "/react-slot-counter/static/media/diamond.3ec9360d68710bde3b72.png",
+    "static/media/seven.png": "/react-slot-counter/static/media/seven.46dcb5b34a53c6ae655f.png",
     "index.html": "/react-slot-counter/index.html",
-    "main.c9b40483.css.map": "/react-slot-counter/static/css/main.c9b40483.css.map",
-    "main.058c80f5.js.map": "/react-slot-counter/static/js/main.058c80f5.js.map",
+    "main.62ae67d7.css.map": "/react-slot-counter/static/css/main.62ae67d7.css.map",
+    "main.0f4e05ff.js.map": "/react-slot-counter/static/js/main.0f4e05ff.js.map",
     "787.759e47f1.chunk.js.map": "/react-slot-counter/static/js/787.759e47f1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.c9b40483.css",
-    "static/js/main.058c80f5.js"
+    "static/css/main.62ae67d7.css",
+    "static/js/main.0f4e05ff.js"
   ]
 }
