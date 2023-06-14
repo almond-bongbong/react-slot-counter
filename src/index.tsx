@@ -200,3 +200,4 @@ function SlotCounter(
 }
 
 export default memo(forwardRef(SlotCounter));
+export type { SlotCounterRef, StartAnimationOptions };
