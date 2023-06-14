@@ -186,3 +186,11 @@ hr {
 .slot-counter {
   vertical-align: middle;
 }
+
+.item {
+  box-sizing: border-box;
+  display: block;
+  width: 40px;
+  height: 40px;
+  padding: 5px;
+}

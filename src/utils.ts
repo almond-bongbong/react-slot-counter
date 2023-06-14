@@ -1,3 +1,5 @@
+import { Value } from './types/common';
+
 export const mergeClassNames = (...args: (string | null | undefined)[]) =>
   args.filter(Boolean).join(' ');
 
@@ -14,7 +16,7 @@ export const random = (min: number, max: number) => {
   return Math.floor(r + min);
 };
 
-export const shuffle = (arr: (number | string)[]) => {
+export const shuffle = (arr: (number | string | JSX.Element)[]) => {
   const result = [...arr];
   for (let i = result.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -30,5 +32,12 @@ export const toNumeric = (value: string | string[] | number) => {
   return str.replace(/[,.]/g, '');
 };
 
-export const isNumeric = (value: string | string[] | number) =>
-  !Number.isNaN(toNumeric(value));
+export const isNumeric = (value: Value): value is string | string[] | number =>
+  typeof value !== 'object' && !Number.isNaN(toNumeric(value));
+
+export const isJSXElement = (
+  value: string | number | JSX.Element,
+): value is JSX.Element => typeof value === 'object';
+
+export const isJSXElementArray = (value: Value): value is JSX.Element[] =>
+  Array.isArray(value) && isJSXElement(value[0]);

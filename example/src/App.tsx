@@ -1,11 +1,22 @@
 import React from 'react';
 import CommonHighlighter from './components/CommonHighlighter';
 import SlotCounter, { SlotCounterRef } from 'react-slot-counter';
+import item1 from './images/diamond.png';
+import item2 from './images/apple.png';
+import item3 from './images/cherries.png';
+import item4 from './images/watermelon.png';
+import item5 from './images/orange.png';
+import item6 from './images/seven.png';
 import './App.css';
 
 function App() {
   const [value, setValue] = React.useState(123456);
   const [value2, setValue2] = React.useState(50);
+  const slot1Ref = React.useRef<SlotCounterRef>(null);
+  const slot2Ref = React.useRef<SlotCounterRef>(null);
+  const slot3Ref = React.useRef<SlotCounterRef>(null);
+  const slot4Ref = React.useRef<SlotCounterRef>(null);
+  const slot5Ref = React.useRef<SlotCounterRef>(null);
   const counterRef1 = React.useRef<SlotCounterRef>(null);
   const counterRef2 = React.useRef<SlotCounterRef>(null);
   const counterRef3 = React.useRef<SlotCounterRef>(null);
@@ -26,24 +37,70 @@ function App() {
         <p>It is possible to display numbers and strings.</p>
         <div className="example-area">
           <div className="playground">
-            <SlotCounter value={123456} />
+            <SlotCounter ref={slot1Ref} value={123456} />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => slot1Ref.current?.startAnimation()}
+            >
+              play
+            </button>
           </div>
           <CommonHighlighter>{`<SlotCounter value={123456} />`}</CommonHighlighter>
         </div>
 
         <div className="example-area">
           <div className="playground">
-            <SlotCounter value="1,234,567" />
+            <SlotCounter ref={slot2Ref} value="1,234,567" />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => slot2Ref.current?.startAnimation()}
+            >
+              play
+            </button>
           </div>
           <CommonHighlighter>{`<SlotCounter value="1,234,567" />`}</CommonHighlighter>
         </div>
 
         <div className="example-area">
           <div className="playground">
-            <SlotCounter value="?????" />
+            <SlotCounter ref={slot3Ref} value="?????" />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => slot3Ref.current?.startAnimation()}
+            >
+              play
+            </button>
           </div>
           <CommonHighlighter>
             {`<SlotCounter value="?????" />`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <div className="playground">
+            <SlotCounter
+              ref={slot4Ref}
+              value={[<span>1</span>, <span>2</span>, <span>3</span>]}
+            />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => slot4Ref.current?.startAnimation()}
+            >
+              play
+            </button>
+          </div>
+          <CommonHighlighter>
+            {`<SlotCounter
+  value={[
+    <span>1</span>,
+    <span>2</span>, 
+    <span>3</span>,
+  ]}
+/>`}
           </CommonHighlighter>
         </div>
 
@@ -264,6 +321,61 @@ function App() {
 >
   play
 </button>`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <div className="playground">
+            <SlotCounter
+              ref={slot5Ref}
+              value={[
+                <img className="item" src={item6} alt="" />,
+                <img className="item" src={item6} alt="" />,
+                <img className="item" src={item6} alt="" />,
+              ]}
+              startValue={[
+                <img className="item" src={item1} alt="" />,
+                <img className="item" src={item2} alt="" />,
+                <img className="item" src={item3} alt="" />,
+              ]}
+              dummyCharacters={[
+                <img className="item" src={item1} alt="" />,
+                <img className="item" src={item2} alt="" />,
+                <img className="item" src={item3} alt="" />,
+                <img className="item" src={item4} alt="" />,
+                <img className="item" src={item5} alt="" />,
+                <img className="item" src={item6} alt="" />,
+              ]}
+            />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => slot5Ref.current?.startAnimation()}
+            >
+              play
+            </button>
+          </div>
+          <CommonHighlighter>
+            {`<SlotCounter
+  value={[
+    <img className="item" src={item6} alt="" />,
+    <img className="item" src={item6} alt="" />,
+    <img className="item" src={item6} alt="" />,
+  ]}
+  startValue={[
+    <img className="item" src={item1} alt="" />,
+    <img className="item" src={item2} alt="" />,
+    <img className="item" src={item3} alt="" />,
+  ]}
+  dummyCharacters={[
+    <img className="item" src={item1} alt="" />,
+    <img className="item" src={item2} alt="" />,
+    <img className="item" src={item3} alt="" />,
+    <img className="item" src={item4} alt="" />,
+    <img className="item" src={item5} alt="" />,
+    <img className="item" src={item6} alt="" />,
+  ]}
+/>`}
           </CommonHighlighter>
         </div>
 

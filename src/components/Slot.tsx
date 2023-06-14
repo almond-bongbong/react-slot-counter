@@ -1,19 +1,18 @@
 import React, { memo, RefObject, useEffect, useRef, useState } from 'react';
 import { mergeClassNames, shuffle } from '../utils';
 import styles from '../index.module.scss';
+import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
 
 interface Props {
   charClassName?: string;
-  fontHeight: number;
   numbersRef: RefObject<HTMLDivElement>;
   active: boolean;
   isChanged: boolean;
-  slotNumbersHeight: number;
   effectiveDuration: number;
   delay: number;
-  value: string | number;
-  startValue?: string | number;
-  dummyList: (string | number)[];
+  value: string | number | JSX.Element;
+  startValue?: string | number | JSX.Element;
+  dummyList: (string | number | JSX.Element)[];
   hasInfiniteList?: boolean;
   valueClassName?: string;
   reverse?: boolean;
@@ -21,11 +20,9 @@ interface Props {
 
 function Slot({
   charClassName,
-  fontHeight,
   numbersRef,
   active,
   isChanged,
-  slotNumbersHeight,
   effectiveDuration,
   delay,
   value,
@@ -39,7 +36,14 @@ function Slot({
   const [localValue, setLocalValue] = useState(value);
   const prevValueRef = useRef<typeof value>();
   const valueRef = useRef(value);
+  const itemRef = useRef<HTMLDivElement>(null);
   const [dummyListState, setDummyListState] = useState(shuffle(dummyList));
+  const [fontHeight, setFontHeight] = useState(0);
+  const slotNumbersHeight = fontHeight * (dummyList.length + 1);
+
+  useIsomorphicLayoutEffect(() => {
+    setFontHeight(itemRef.current?.offsetHeight ?? 0);
+  }, []);
 
   useEffect(() => {
     setLocalActive(active);
@@ -95,7 +99,10 @@ function Slot({
           {startValue ?? localValue}
         </div>
         {renderDummyList()}
-        <div className={mergeClassNames(styles.num, valueClassName)}>
+        <div
+          className={mergeClassNames(styles.num, valueClassName)}
+          ref={itemRef}
+        >
           {localValue}
         </div>
         {hasInfiniteList ? renderDummyList() : null}

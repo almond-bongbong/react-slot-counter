@@ -8,16 +8,24 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { isNumeric, mergeClassNames, random, range, toNumeric } from './utils';
-import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
+import {
+  isJSXElement,
+  isJSXElementArray,
+  isNumeric,
+  mergeClassNames,
+  random,
+  range,
+  toNumeric,
+} from './utils';
 import styles from './index.module.scss';
 import Slot from './components/Slot';
+import { SlotCounterRef, StartAnimationOptions, Value } from './types/common';
 
 interface Props {
-  value: string | number | string[];
-  startValue?: string | number | string[];
+  value: Value;
+  startValue?: Value;
   duration?: number;
-  dummyCharacters?: string[];
+  dummyCharacters?: string[] | JSX.Element[];
   dummyCharacterCount?: number;
   autoAnimationStart?: boolean;
   containerClassName?: string;
@@ -27,16 +35,6 @@ interface Props {
   hasInfiniteList?: boolean;
   valueClassName?: string;
 }
-
-export interface SlotCounterRef {
-  startAnimation: (options?: {
-    duration?: number;
-    dummyCharacterCount?: number;
-    direction?: 'bottom-up' | 'top-down';
-  }) => void;
-}
-
-type StartAnimationOptions = Parameters<SlotCounterRef['startAnimation']>[0];
 
 const SEPARATOR = [',', '.', ' '];
 
@@ -57,9 +55,11 @@ function SlotCounter(
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
-  const serializedValue = useMemo(() => JSON.stringify(value), [value]);
+  const serializedValue = useMemo(
+    () => (isJSXElementArray(value) ? '' : JSON.stringify(value)),
+    [value],
+  );
   const [active, setActive] = useState(false);
-  const [fontHeight, setFontHeight] = useState(0);
   const startAnimationOptionsRef = useRef<StartAnimationOptions>();
   const numbersRef = useRef<HTMLDivElement>(null);
   const valueRef = useRef(value);
@@ -148,19 +148,6 @@ function SlotCounter(
     startAnimation: startAnimationAll,
   }));
 
-  useIsomorphicLayoutEffect(() => {
-    const div = document.createElement('div');
-    div.style.position = 'absolute';
-    div.style.visibility = 'hidden';
-    div.innerHTML = '0';
-    if (!numbersRef.current) return;
-
-    numbersRef.current.appendChild(div);
-    const height = div.offsetHeight;
-    numbersRef.current.removeChild(div);
-    setFontHeight(height);
-  }, []);
-
   return (
     <div className={mergeClassNames(containerClassName, styles.slot_wrap)}>
       {valueList.map((v, i) => {
@@ -168,15 +155,18 @@ function SlotCounter(
         const delay =
           (isChanged ? isChangedValueIndexList.indexOf(i) : 0) *
           calculatedInterval;
-        const slotNumbersHeight = fontHeight * (dummyList.length + 1);
         const prevValue = prevValueRef.current;
         const isDecrease =
-          value != null && prevValue != null && isNumeric(value);
+          value != null &&
+          prevValue != null &&
+          isNumeric(value) &&
+          isNumeric(prevValue) &&
+          toNumeric(value) < toNumeric(prevValue);
         const reverseAnimation =
           startAnimationOptionsRef.current?.direction === 'top-down' ||
-          (isDecrease ? toNumeric(value) < toNumeric(prevValue) : false);
+          isDecrease;
 
-        if (SEPARATOR.includes(v)) {
+        if (!isJSXElement(v) && SEPARATOR.includes(v)) {
           return (
             <div
               key={valueRefList.length - i - 1}
@@ -190,12 +180,10 @@ function SlotCounter(
         return (
           <Slot
             key={valueRefList.length - i - 1}
-            fontHeight={fontHeight}
             numbersRef={numbersRef}
             active={active}
             isChanged={isChanged}
             charClassName={charClassName}
-            slotNumbersHeight={slotNumbersHeight}
             effectiveDuration={effectiveDuration}
             delay={delay}
             value={v}
