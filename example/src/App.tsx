@@ -123,7 +123,7 @@ function App() {
             </button>
           </div>
           <CommonHighlighter>
-            {`<const [value, setValue] = useState(123456);
+            {`const [value, setValue] = useState(123456);
 
 //...
 
