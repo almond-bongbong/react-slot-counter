@@ -24,7 +24,6 @@ function App() {
   const counterRef1 = React.useRef<SlotCounterRef>(null);
   const counterRef2 = React.useRef<SlotCounterRef>(null);
   const counterRef3 = React.useRef<SlotCounterRef>(null);
-  const counterRef4 = React.useRef<SlotCounterRef>(null);
   const counterRef5 = React.useRef<SlotCounterRef>(null);
   const counterRef6 = React.useRef<SlotCounterRef>(null);
 
