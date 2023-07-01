@@ -10,8 +10,8 @@ import item6 from './images/seven.png';
 import './App.css';
 
 function App() {
-  const [value, setValue] = React.useState(123456);
-  const [value2, setValue2] = React.useState(50);
+  const [value1, setValue1] = React.useState(123);
+  const [value2, setValue2] = React.useState(0);
   const slot1Ref = React.useRef<SlotCounterRef>(null);
   const slot2Ref = React.useRef<SlotCounterRef>(null);
   const slot3Ref = React.useRef<SlotCounterRef>(null);
@@ -27,14 +27,17 @@ function App() {
   return (
     <div className="example">
       <div className="container">
-        <h2>react slot counter</h2>
+        <h2>🎉 Make Fun with React Slot Counter! 🎰</h2>
+
         <p className="description">
-          This module uses React library to implement slot machine animations
-          and display text.
+          Step into the exciting world of animations with our easy-to-use and
+          customizable module. Let's spice up your application with slot machine
+          style counters! 🎊
         </p>
 
-        <h3>Basic usage</h3>
-        <p>It is possible to display numbers and strings.</p>
+        <h3>🚀 Get Started!</h3>
+        <p>Displaying numbers and strings have never been more fun! 😄</p>
+
         <div className="example-area">
           <div className="playground">
             <SlotCounter ref={slot1Ref} value={123456} />
@@ -43,7 +46,7 @@ function App() {
               className="example-button"
               onClick={() => slot1Ref.current?.startAnimation()}
             >
-              play
+              Play
             </button>
           </div>
           <CommonHighlighter>{`<SlotCounter value={123456} />`}</CommonHighlighter>
@@ -57,7 +60,7 @@ function App() {
               className="example-button"
               onClick={() => slot2Ref.current?.startAnimation()}
             >
-              play
+              Play
             </button>
           </div>
           <CommonHighlighter>{`<SlotCounter value="1,234,567" />`}</CommonHighlighter>
@@ -71,7 +74,7 @@ function App() {
               className="example-button"
               onClick={() => slot3Ref.current?.startAnimation()}
             >
-              play
+              Play
             </button>
           </div>
           <CommonHighlighter>
@@ -90,7 +93,7 @@ function App() {
               className="example-button"
               onClick={() => slot4Ref.current?.startAnimation()}
             >
-              play
+              Play
             </button>
           </div>
           <CommonHighlighter>
@@ -105,21 +108,37 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h3>Dynamic value</h3>
-          <p>When the value changes, the animation will automatically start.</p>
+          <h3>🎈 Dynamic Value: Let's Go With the Flow!</h3>
+          <p>
+            Life is dynamic and so are our animations! Whenever the value
+            changes, our slot counter instantly springs into action with a fun
+            animation. Join the fun and see it for yourself!
+          </p>
           <div className="playground">
-            <SlotCounter value={value} containerClassName="slot-counter" />
+            <SlotCounter value={value1} containerClassName="slot-counter" />
             <button
               className="example-button"
-              onClick={() => setValue(value + 1)}
+              onClick={() => setValue1(value1 + 1)}
             >
               +1
             </button>
             <button
               className="example-button"
-              onClick={() => setValue(value - 1)}
+              onClick={() => setValue1(value1 + 5)}
+            >
+              +5
+            </button>
+            <button
+              className="example-button"
+              onClick={() => setValue1(value1 - 1)}
             >
               -1
+            </button>
+            <button
+              className="example-button"
+              onClick={() => setValue1(value1 - 5)}
+            >
+              -5
             </button>
           </div>
           <CommonHighlighter>
@@ -138,21 +157,14 @@ function App() {
         </div>
 
         <div className="example-area">
-          <div className="playground">
-            <SlotCounter value={value2} containerClassName="slot-counter" />
-            <button
-              className="example-button"
-              onClick={() => setValue2((prev) => prev + 50)}
-            >
-              +50
-            </button>
-          </div>
-        </div>
+          <h3>⏱️ Options: Customize to Your Heart's Content!</h3>
+          <h4>Duration: Because Time Matters!</h4>
+          <p>
+            Love slow and smooth transitions or a quick flip? We've got you
+            covered! Set the duration of your animation and watch your counters
+            roll at your pace. Give it a try!
+          </p>
 
-        <div className="example-area">
-          <h3>Options</h3>
-          <h4>duration (second)</h4>
-          <p>It is possible to set the duration of the animation.</p>
           <div className="playground">
             <SlotCounter
               ref={counterRef2}
@@ -166,7 +178,7 @@ function App() {
               className="example-button"
               onClick={() => counterRef2.current?.startAnimation()}
             >
-              play
+              Play
             </button>
           </div>
           <CommonHighlighter>
@@ -175,8 +187,13 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h4>dummyCharacters</h4>
-          <p>It is possible to set the dummy characters.</p>
+          <h4>Dummy Characters: Play with Surprises!</h4>
+          <p>
+            Why limit yourself to 0-9 when you can choose any character to be
+            your placeholder? Set your dummy characters and add a touch of
+            surprise to your slot counters. Let's play with the unexpected!
+          </p>
+
           <div className="playground">
             <SlotCounter
               ref={counterRef3}
@@ -190,7 +207,7 @@ function App() {
               className="example-button"
               onClick={() => counterRef3.current?.startAnimation()}
             >
-              play
+              Play
             </button>
           </div>
           <CommonHighlighter>
@@ -216,7 +233,7 @@ function App() {
               className="example-button"
               onClick={() => counterRef4.current?.startAnimation()}
             >
-              play
+              Play
             </button>
           </div>
           <CommonHighlighter>
@@ -229,10 +246,11 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h4>charClassName / separatorClassName</h4>
+          <h4>CharClassName / SeparatorClassName: Dress Up Your Characters!</h4>
           <p>
-            It is possible to set the class name of the character and the
-            separator.
+            Customize the style of your characters and separators with unique
+            class names. It's like a fashion show for your digits! Let's dress
+            up and hit the play button!
           </p>
           <div className="playground">
             <SlotCounter
@@ -247,7 +265,7 @@ function App() {
               className="example-button"
               onClick={() => counterRef5.current?.startAnimation()}
             >
-              play
+              Play
             </button>
           </div>
           <div className="format">CSS</div>
@@ -275,22 +293,20 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h4>startValue</h4>
+          <h4>StartValue: The Power of Setting the Initial State</h4>
           <p>
-            This example demonstrates the usage of the "startValue" property to
-            set the starting value of the slot counter animation. Here, we set
-            the start value to "123" and the end value to "777". When the
-            animation runs, you can see it starting from "123" and ending at
-            "777". The animation is triggered each time the "play" button is
-            clicked.
+            Get a control over the beginning of your slot animation! With
+            "startValue" property, you can set the starting point for your
+            animation, and witness the magical transition from the start value
+            to the final value. It's time for a test run, hit that "Play"
+            button! 🕹️
           </p>
           <div className="playground">
             <SlotCounter
               ref={counterRef6}
-              startValue="123"
-              value="777"
-              charClassName="char"
-              dummyCharacterCount={10}
+              startValue={123}
+              value={777}
+              dummyCharacterCount={15}
               duration={3}
               autoAnimationStart={false}
             />
@@ -299,16 +315,15 @@ function App() {
               className="example-button"
               onClick={() => counterRef6.current?.startAnimation()}
             >
-              play
+              Play
             </button>
           </div>
           <CommonHighlighter>
             {`<SlotCounter
-  ref={counterRef6}
-  startValue="123"
-  value="777"
-  charClassName="char"
-  dummyCharacterCount={10}
+  ref={counterRef}
+  startValue={123}
+  value={777}
+  dummyCharacterCount={15}
   duration={3}
   autoAnimationStart={false}
 />
@@ -317,7 +332,7 @@ function App() {
 
 <button
   type="button"
-  onClick={() => counterRef6.current?.startAnimation()}
+  onClick={() => counterRef.current?.startAnimation()}
 >
   play
 </button>`}
@@ -352,7 +367,7 @@ function App() {
               className="example-button"
               onClick={() => slot5Ref.current?.startAnimation()}
             >
-              play
+              Play
             </button>
           </div>
           <CommonHighlighter>
@@ -380,11 +395,81 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h3>Using the `ref` to Start Animation</h3>
-          <h4>startAnimation</h4>
+          <h4>SequentialAnimationMode: For the Logical Minds!</h4>
           <p>
-            This method starts the animation of the `SlotCounter` component with
-            optional parameters.
+            Want your animation to make sense and be sequential? With
+            "sequentialAnimationMode" property, each step in the animation
+            follows the previous one. No more random jumps, just clean logical
+            transitions.
+          </p>
+
+          <h4>UseMonospaceWidth: Keep It Uniform!</h4>
+          <p>
+            Ever dreamed of having all your numbers occupy the same horizontal
+            space? Set the 'useMonospaceWidth' property to true and voilà! It's
+            like dressing your numbers in a monospace suit, perfect for when the
+            width of the digits is crucial, such as in a slot machine or counter
+            animation. If you prefer a more casual look, set it to false (the
+            default value) and let each digit show off its unique width based on
+            the chosen font.
+            <br />
+            <br />
+            Keep in mind, this stylish prop is only applicable when numeric
+            characters are the stars of your show. If you're using non-numeric
+            characters or images, the effect might be less noticeable or not
+            applicable at all. So, let's keep it uniform and enjoy the ride!
+          </p>
+
+          <div className="playground">
+            <SlotCounter
+              value={value2}
+              sequentialAnimationMode
+              useMonospaceWidth
+            />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => setValue2(value2 + 1)}
+            >
+              +1
+            </button>
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => setValue2(value2 + 5)}
+            >
+              +5
+            </button>
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => setValue2(Math.max(value2 - 1, 0))}
+            >
+              -1
+            </button>
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => setValue2(Math.max(value2 - 5, 0))}
+            >
+              -5
+            </button>
+          </div>
+          <CommonHighlighter>{`<SlotCounter
+  value={value}
+  sequentialAnimationMode
+  useMonospaceWidth
+/>`}</CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <h3>🎮 Take the Control with `ref`</h3>
+          <h4>🕹️ StartAnimation: Command your Animation!</h4>
+          <p>
+            With the power of "startAnimation" method and 'ref', you are the
+            true commander of your slot counter animation. Initiate the
+            animation whenever you want and even define the parameters of the
+            animation. Ready? Hit "Start Animation"! 🚀
           </p>
           <div className="playground">
             <SlotCounter
@@ -450,7 +535,7 @@ function App() {
             rel="noopener noreferrer"
             href="https://github.com/almond-bongbong/react-slot-counter"
           >
-            https://github.com/almond-bongbong/react-slot-counter
+            📚 Dive deeper into React Slot Counter here!
           </a>
         </div>
       </footer>

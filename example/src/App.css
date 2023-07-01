@@ -8,10 +8,18 @@ body {
   margin: 0;
   padding: 0;
   background-color: #fefefe;
-  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
-    helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+  font-family: 'Comic Neue', cursive, -apple-system, BlinkMacSystemFont,
+    avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto,
+    noto, arial, sans-serif;
   color: #444;
   line-height: 1.5;
+}
+
+button,
+a {
+  font-family: 'Comic Neue', cursive, -apple-system, BlinkMacSystemFont,
+    avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto,
+    noto, arial, sans-serif;
 }
 
 body code {
@@ -42,7 +50,6 @@ header .header-content {
 
 header h1 {
   font-size: 24px;
-  font-weight: 300;
 }
 
 .links {
@@ -54,7 +61,6 @@ header h1 {
 .links a {
   color: #5d657a;
   font-size: 15px;
-  font-weight: 300;
   text-decoration: none;
 }
 
@@ -75,7 +81,6 @@ footer .footer-content {
 
 footer a {
   color: #999;
-  font-weight: 300;
   text-decoration: none;
 }
 
@@ -92,25 +97,21 @@ h2 {
   border-bottom: 1px solid #eee;
   color: #555;
   font-size: 40px;
-  font-weight: 300;
 }
 
 h3 {
   margin-bottom: 20px;
   font-size: 30px;
-  font-weight: 300;
 }
 
 h4 {
   margin-bottom: 10px;
   font-size: 24px;
-  font-weight: 300;
 }
 
 p {
   margin-bottom: 30px;
   color: #666;
-  font-weight: 300;
   font-size: 18px;
 }
 
@@ -122,14 +123,14 @@ p {
 
 .example-button {
   display: inline-block;
-  margin-left: 20px;
-  padding: 8px 20px;
+  min-width: 60px;
+  margin-left: 30px;
+  padding: 6px 14px;
   outline: 0;
-  border: 2px solid #5d657a;
-  border-radius: 4px;
+  border: 1px solid dodgerblue;
+  color: dodgerblue;
+  border-radius: 2px;
   background-color: #fff;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
-  color: #5d657a;
   font-size: 16px;
   text-align: center;
   cursor: pointer;
@@ -137,8 +138,9 @@ p {
   vertical-align: middle;
 }
 
-.example-button:active {
-  background-color: #eee;
+.example-button:active,
+.example-button:hover {
+  opacity: 0.8;
 }
 
 .example-button + .example-button {
@@ -147,9 +149,13 @@ p {
 
 .playground {
   margin-bottom: 20px;
-  padding: 20px;
+  padding: 20px 30px;
   border: 1px solid #eee;
   font-size: 30px;
+}
+
+.playground > div {
+  vertical-align: middle;
 }
 
 .example-area + .example-area {

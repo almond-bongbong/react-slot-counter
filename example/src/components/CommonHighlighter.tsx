@@ -1,6 +1,6 @@
 import React from 'react';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import prism from 'react-syntax-highlighter/dist/esm/styles/prism/prism';
+import prism from 'react-syntax-highlighter/dist/esm/styles/prism/coldark-cold';
 import jsx from 'react-syntax-highlighter/dist/esm/languages/prism/jsx';
 
 SyntaxHighlighter.registerLanguage('jsx', jsx);
@@ -23,4 +23,3 @@ function CommonHighlighter({ children, language = 'jsx' }: Props) {
 }
 
 export default CommonHighlighter;
-

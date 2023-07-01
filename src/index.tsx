@@ -8,15 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import {
-  isJSXElement,
-  isJSXElementArray,
-  isNumeric,
-  mergeClassNames,
-  random,
-  range,
-  toNumeric,
-} from './utils';
+import { isJSXElement, isJSXElementArray, isNumeric, mergeClassNames, random, range, toNumeric, } from './utils';
 import styles from './index.module.scss';
 import Slot from './components/Slot';
 import { SlotCounterRef, StartAnimationOptions, Value } from './types/common';
@@ -34,6 +26,8 @@ interface Props {
   animateUnchanged?: boolean;
   hasInfiniteList?: boolean;
   valueClassName?: string;
+  sequentialAnimationMode?: boolean;
+  useMonospaceWidth?: boolean;
 }
 
 const SEPARATOR = [',', '.', ' '];
@@ -52,6 +46,8 @@ function SlotCounter(
     animateUnchanged = false,
     hasInfiniteList = false,
     valueClassName,
+    sequentialAnimationMode = false,
+    useMonospaceWidth = false,
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
@@ -139,6 +135,35 @@ function SlotCounter(
     [startAnimation],
   );
 
+  const getSequentialDummyListByDigit = useCallback(
+    (digit: number) => {
+      const prevValue = prevValueRef.current;
+      if (prevValue == null || !isNumeric(prevValue) || !isNumeric(value)) {
+        return [];
+      }
+
+      const prevNumValue = Number(toNumeric(prevValue));
+      const numValue = Number(toNumeric(value));
+      const divider = 10 ** (digit - 1);
+
+      const dummyList =
+        prevNumValue < numValue
+          ? range(
+              Math.floor(prevNumValue / divider) + 1,
+              Math.floor(numValue / divider),
+            )
+          : range(
+              Math.floor(numValue / divider) + 1,
+              Math.floor(prevNumValue / divider),
+            );
+
+      return Array.from(
+        new Set(dummyList.map((v) => v.toString()[v.toString().length - 1])),
+      ).filter(Boolean);
+    },
+    [value],
+  );
+
   useEffect(() => {
     if (!autoAnimationStart) return;
     startAnimation();
@@ -188,10 +213,16 @@ function SlotCounter(
             delay={delay}
             value={v}
             startValue={startValueList?.[i]}
-            dummyList={dummyList}
+            dummyList={
+              sequentialAnimationMode
+                ? getSequentialDummyListByDigit(valueList.length - i)
+                : dummyList
+            }
             hasInfiniteList={hasInfiniteList}
             valueClassName={valueClassName}
             reverse={reverseAnimation}
+            sequentialAnimationMode={sequentialAnimationMode}
+            useMonospaceWidth={useMonospaceWidth}
           />
         );
       })}
