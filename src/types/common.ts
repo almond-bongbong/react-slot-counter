@@ -1,9 +1,11 @@
 export type Value = string | number | string[] | JSX.Element[];
 
+export type Direction = 'bottom-up' | 'top-down';
+
 export type StartAnimationOptions = {
   duration?: number;
   dummyCharacterCount?: number;
-  direction?: 'bottom-up' | 'top-down';
+  direction?: Direction;
 };
 
 export interface SlotCounterRef {

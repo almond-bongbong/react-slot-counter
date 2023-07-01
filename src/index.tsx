@@ -8,14 +8,23 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { isJSXElement, isJSXElementArray, isNumeric, mergeClassNames, random, range, toNumeric, } from './utils';
+import {
+  isJSXElement,
+  isJSXElementArray,
+  isNumeric,
+  mergeClassNames,
+  random,
+  range,
+  toNumeric,
+} from './utils';
 import styles from './index.module.scss';
 import Slot from './components/Slot';
-import { SlotCounterRef, StartAnimationOptions, Value } from './types/common';
+import { Direction, SlotCounterRef, StartAnimationOptions, Value } from './types/common';
 
 interface Props {
   value: Value;
   startValue?: Value;
+  startValueOnce?: boolean;
   duration?: number;
   dummyCharacters?: string[] | JSX.Element[];
   dummyCharacterCount?: number;
@@ -28,6 +37,7 @@ interface Props {
   valueClassName?: string;
   sequentialAnimationMode?: boolean;
   useMonospaceWidth?: boolean;
+  direction?: Direction;
 }
 
 const SEPARATOR = [',', '.', ' '];
@@ -36,6 +46,7 @@ function SlotCounter(
   {
     value,
     startValue,
+    startValueOnce = false,
     duration = 0.7,
     dummyCharacters,
     dummyCharacterCount = 6,
@@ -48,6 +59,7 @@ function SlotCounter(
     valueClassName,
     sequentialAnimationMode = false,
     useMonospaceWidth = false,
+    direction,
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
@@ -60,20 +72,18 @@ function SlotCounter(
   const numbersRef = useRef<HTMLDivElement>(null);
   const valueRef = useRef(value);
   const prevValueRef = useRef<Props['value']>();
+  const animationCountRef = useRef(0);
 
   const effectiveDummyCharacterCount =
-    startAnimationOptionsRef.current?.dummyCharacterCount ??
-    dummyCharacterCount;
-  const effectiveDuration =
-    startAnimationOptionsRef.current?.duration ?? duration;
+    startAnimationOptionsRef.current?.dummyCharacterCount ?? dummyCharacterCount;
+  const effectiveDuration = startAnimationOptionsRef.current?.duration ?? duration;
 
   const dummyList = useMemo(
     () =>
       range(0, effectiveDummyCharacterCount - 1).map((i) => {
         if (!dummyCharacters) return random(0, 10);
 
-        const index =
-          i >= dummyCharacters.length ? random(0, dummyCharacters.length) : i;
+        const index = i >= dummyCharacters.length ? random(0, dummyCharacters.length) : i;
         return dummyCharacters[index];
       }),
     [dummyCharacters, effectiveDummyCharacterCount],
@@ -97,8 +107,7 @@ function SlotCounter(
     [value],
   );
   const startValueList = useMemo(
-    () =>
-      Array.isArray(startValue) ? startValue : startValue?.toString().split(''),
+    () => (Array.isArray(startValue) ? startValue : startValue?.toString().split('')),
     [startValue],
   );
 
@@ -123,6 +132,7 @@ function SlotCounter(
 
   const startAnimation = useCallback(() => {
     setActive(false);
+    animationCountRef.current += 1;
     setTimeout(() => setActive(true), 20);
   }, []);
 
@@ -148,14 +158,8 @@ function SlotCounter(
 
       const dummyList =
         prevNumValue < numValue
-          ? range(
-              Math.floor(prevNumValue / divider) + 1,
-              Math.floor(numValue / divider),
-            )
-          : range(
-              Math.floor(numValue / divider) + 1,
-              Math.floor(prevNumValue / divider),
-            );
+          ? range(Math.floor(prevNumValue / divider) + 1, Math.floor(numValue / divider))
+          : range(Math.floor(numValue / divider) + 1, Math.floor(prevNumValue / divider));
 
       return Array.from(
         new Set(dummyList.map((v) => v.toString()[v.toString().length - 1])),
@@ -165,9 +169,13 @@ function SlotCounter(
   );
 
   useEffect(() => {
-    if (!autoAnimationStart) return;
+    if (prevValueRef.current == null) return;
     startAnimation();
-  }, [autoAnimationStart, serializedValue, startAnimation]);
+  }, [serializedValue, startAnimation, autoAnimationStart]);
+
+  useEffect(() => {
+    if (autoAnimationStart) startAnimation();
+  }, [autoAnimationStart, startAnimation]);
 
   useImperativeHandle(ref, () => ({
     startAnimation: startAnimationAll,
@@ -177,19 +185,20 @@ function SlotCounter(
     <div className={mergeClassNames(containerClassName, styles.slot_wrap)}>
       {valueList.map((v, i) => {
         const isChanged = isChangedValueIndexList.includes(i);
-        const delay =
-          (isChanged ? isChangedValueIndexList.indexOf(i) : 0) *
-          calculatedInterval;
+        const delay = (isChanged ? isChangedValueIndexList.indexOf(i) : 0) * calculatedInterval;
         const prevValue = prevValueRef.current;
+        const disableStartValue = startValueOnce && animationCountRef.current > 1;
         const isDecrease =
           value != null &&
           prevValue != null &&
           isNumeric(value) &&
           isNumeric(prevValue) &&
           toNumeric(value) < toNumeric(prevValue);
-        const reverseAnimation =
-          startAnimationOptionsRef.current?.direction === 'top-down' ||
-          isDecrease;
+
+        let reverseAnimation = isDecrease;
+        if (startAnimationOptionsRef.current?.direction)
+          reverseAnimation = startAnimationOptionsRef.current?.direction === 'top-down';
+        if (direction) reverseAnimation = direction === 'top-down';
 
         if (!isJSXElement(v) && SEPARATOR.includes(v)) {
           return (
@@ -212,7 +221,7 @@ function SlotCounter(
             effectiveDuration={effectiveDuration}
             delay={delay}
             value={v}
-            startValue={startValueList?.[i]}
+            startValue={!disableStartValue ? startValueList?.[i] : undefined}
             dummyList={
               sequentialAnimationMode
                 ? getSequentialDummyListByDigit(valueList.length - i)

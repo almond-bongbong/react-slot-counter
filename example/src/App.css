@@ -8,18 +8,16 @@ body {
   margin: 0;
   padding: 0;
   background-color: #fefefe;
-  font-family: 'Comic Neue', cursive, -apple-system, BlinkMacSystemFont,
-    avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto,
-    noto, arial, sans-serif;
+  font-family: 'Comic Neue', cursive, -apple-system, BlinkMacSystemFont, avenir next, avenir,
+    segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
   color: #444;
   line-height: 1.5;
 }
 
 button,
 a {
-  font-family: 'Comic Neue', cursive, -apple-system, BlinkMacSystemFont,
-    avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, roboto,
-    noto, arial, sans-serif;
+  font-family: 'Comic Neue', cursive, -apple-system, BlinkMacSystemFont, avenir next, avenir,
+    segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
 }
 
 body code {
@@ -199,4 +197,19 @@ hr {
   width: 40px;
   height: 40px;
   padding: 5px;
+}
+
+.thanks {
+  display: block;
+  margin-top: 15px;
+  color: #333;
+  font-style: italic;
+}
+
+.my-code {
+  padding: 2px 5px;
+  border-radius: 2px;
+  font-size: 16px;
+  background-color: #e3eaf2;
+  color: #333;
 }
