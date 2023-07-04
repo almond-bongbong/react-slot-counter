@@ -35,9 +35,8 @@ export const toNumeric = (value: string | string[] | number) => {
 export const isNumeric = (value: Value): value is string | string[] | number =>
   typeof value !== 'object' && !Number.isNaN(toNumeric(value));
 
-export const isJSXElement = (
-  value: string | number | JSX.Element,
-): value is JSX.Element => typeof value === 'object';
+export const isJSXElement = (value: string | number | JSX.Element): value is JSX.Element =>
+  typeof value === 'object';
 
 export const isJSXElementArray = (value: Value): value is JSX.Element[] =>
   Array.isArray(value) && isJSXElement(value[0]);
