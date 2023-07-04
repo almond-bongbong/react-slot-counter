@@ -20,6 +20,7 @@ import {
 import styles from './index.module.scss';
 import Slot from './components/Slot';
 import { Direction, SlotCounterRef, StartAnimationOptions, Value } from './types/common';
+import useDebounce from './hooks/useDebounce';
 
 interface Props {
   value: Value;
@@ -38,13 +39,14 @@ interface Props {
   sequentialAnimationMode?: boolean;
   useMonospaceWidth?: boolean;
   direction?: Direction;
+  debounceDelay?: number;
 }
 
 const SEPARATOR = [',', '.', ' '];
 
 function SlotCounter(
   {
-    value,
+    value: _value,
     startValue,
     startValueOnce = false,
     duration = 0.7,
@@ -60,9 +62,11 @@ function SlotCounter(
     sequentialAnimationMode = false,
     useMonospaceWidth = false,
     direction,
+    debounceDelay,
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
+  const value = useDebounce(_value, debounceDelay ?? 0);
   const serializedValue = useMemo(
     () => (isJSXElementArray(value) ? '' : JSON.stringify(value)),
     [value],
