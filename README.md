@@ -1,4 +1,4 @@
-# react-slot-counter
+# react-slot-counter 🎰
 
 `react-slot-counter` is a feature-rich React component that displays numbers and strings with an engaging slot machine animation effect.
 
@@ -62,24 +62,24 @@ For more examples of usage and available options, check out the [demo page](http
 
 ## Props
 
-| Prop                    | Type                                                  | Default                                | Description                                                                                                                                     | Version            |
-| ----------------------- | ----------------------------------------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ |
-| value _(required)_      | `number` \| `string` \| `string[]` \| `JSX.Element[]` |                                        | The value to be displayed. It can be a number or a string with numbers and commas.                                                              | JSX.Element: 1.8.0 |
-| startValue              | `number` \| `string` \| `string[]` \| `JSX.Element[]` |                                        | The initial value to be displayed before the animation starts. It sets the beginning of the slot machine animation.                             | 1.7.0              |
-| startValueOnce          | `boolean`                                             | `false`                                | If set to true, the animation starts from the `startValue` only for the first render. For subsequent animations, it starts from the last value. | 1.10.0             |
-| duration                | `number`                                              | `0.7`                                  | The duration of the animation in seconds.                                                                                                       |                    |
-| dummyCharacters         | `string[]` \| `JSX.Element[]`                         | Defaults to random numbers from 0 to 9 | An array of dummy characters to be used in the animation.                                                                                       |                    |
-| dummyCharacterCount     | `number`                                              | `6`                                    | The number of dummy characters to be displayed in the animation before reaching the target character.                                           |                    |
-| autoAnimationStart      | `boolean`                                             | `true`                                 | Determines whether the animation should start automatically when the component is first mounted.                                                |                    |
-| animateUnchanged        | `boolean`                                             | `false`                                | Determines whether to animate only the characters that have changed.                                                                            |                    |
-| hasInfiniteList         | `boolean`                                             | `false`                                | Determines whether the list should appear as continuous, with the end of the target character seamlessly connected to the beginning.            | 1.4.2              |
-| containerClassName      | `string`                                              |                                        | The class name of container.                                                                                                                    |                    |
-| charClassName           | `string`                                              |                                        | The class name of each character.                                                                                                               |                    |
-| separatorClassName      | `string`                                              |                                        | The class name of the separator character (`.` or `,`).                                                                                         |                    |
-| valueClassName          | `string`                                              |                                        | The class name for the value of the slot, making it possible to customize the styling and visibility of the value.                              | 1.4.3              |
-| sequentialAnimationMode | `boolean`                                             | `false`                                | Determines if the animation should increment or decrement sequentially from the startValue to value instead of random animation.                | 1.9.0              |
-| useMonospaceWidth       | `boolean`                                             | `false`                                | Ensures that all numeric characters occupy the same horizontal space, just like they would in a monospace font.                                 | 1.9.0              |
-| debounceDelay           | `number`                                              | `0`                                    | Specifies the delay in milliseconds for debouncing animations. When the value changes rapidly, it allows the animation to execute smoothly.     | 1.11.0             |
+| Prop                    | Type                                                  | Default                                | Description                                                                                                                                     |
+| ----------------------- | ----------------------------------------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| value _(required)_      | `number` \| `string` \| `string[]` \| `JSX.Element[]` |                                        | The value to be displayed. It can be a number or a string with numbers and commas.                                                              |
+| startValue              | `number` \| `string` \| `string[]` \| `JSX.Element[]` |                                        | The initial value to be displayed before the animation starts. It sets the beginning of the slot machine animation.                             |
+| startValueOnce          | `boolean`                                             | `false`                                | If set to true, the animation starts from the `startValue` only for the first render. For subsequent animations, it starts from the last value. |
+| duration                | `number`                                              | `0.7`                                  | The duration of the animation in seconds.                                                                                                       |
+| dummyCharacters         | `string[]` \| `JSX.Element[]`                         | Defaults to random numbers from 0 to 9 | An array of dummy characters to be used in the animation.                                                                                       |
+| dummyCharacterCount     | `number`                                              | `6`                                    | The number of dummy characters to be displayed in the animation before reaching the target character.                                           |
+| autoAnimationStart      | `boolean`                                             | `true`                                 | Determines whether the animation should start automatically when the component is first mounted.                                                |
+| animateUnchanged        | `boolean`                                             | `false`                                | Determines whether to animate only the characters that have changed.                                                                            |
+| hasInfiniteList         | `boolean`                                             | `false`                                | Determines whether the list should appear as continuous, with the end of the target character seamlessly connected to the beginning.            |
+| containerClassName      | `string`                                              |                                        | The class name of container.                                                                                                                    |
+| charClassName           | `string`                                              |                                        | The class name of each character.                                                                                                               |
+| separatorClassName      | `string`                                              |                                        | The class name of the separator character (`.` or `,`).                                                                                         |
+| valueClassName          | `string`                                              |                                        | The class name for the value of the slot, making it possible to customize the styling and visibility of the value.                              |
+| sequentialAnimationMode | `boolean`                                             | `false`                                | Determines if the animation should increment or decrement sequentially from the startValue to value instead of random animation.                |
+| useMonospaceWidth       | `boolean`                                             | `false`                                | Ensures that all numeric characters occupy the same horizontal space, just like they would in a monospace font.                                 |
+| debounceDelay           | `number`                                              | `0`                                    | Specifies the delay in milliseconds for debouncing animations. When the value changes rapidly, it allows the animation to execute smoothly.     |
 
 ## Ref
 
@@ -119,13 +119,24 @@ function App() {
 export default App;
 ```
 
+## Change Log
+
+- **JSX.Element support**: Added in version 1.8.0 for value and startValue props.
+- **startValue feature**: Introduced in version 1.7.0.
+- **startValueOnce feature**: Introduced in version 1.10.0.
+- **Infinite List Appearance**: Added in version 1.4.2.
+- **valueClassName customization**: Added in version 1.4.3.
+- **sequentialAnimationMode and useMonospaceWidth**: Introduced in version 1.9.0.
+- **debounceDelay feature**: Introduced in version 1.11.0.
+
 ## Contributing
 
 Contributions are always welcome!
 
-## Support Us
+## Enjoying this repository? 💙
 
-If you find this library useful, consider giving us a star on [GitHub!](https://github.com/almond-bongbong/react-slot-counter/stargazers) Your support is greatly appreciated and it helps the project grow.
+Show your support by giving a star! ⭐
+And don't forget to follow me on GitHub for more exciting projects! 🚀
 
 ## License
 
