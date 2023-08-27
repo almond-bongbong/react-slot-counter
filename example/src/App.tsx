@@ -7,6 +7,7 @@ import item3 from './images/cherries.png';
 import item4 from './images/watermelon.png';
 import item5 from './images/orange.png';
 import item6 from './images/seven.png';
+import githubIcon from './images/common/github-icon.png';
 import './App.css';
 
 const random = (min: number, max: number): number =>
@@ -30,7 +31,7 @@ function App() {
   return (
     <div className="example">
       <div className="container">
-        <h2>🎉 Make Fun with React Slot Counter! 🎰</h2>
+        <h2>Make Fun with React Slot Counter! 🎰</h2>
 
         <p className="description">
           Step into the exciting world of animations with our easy-to-use and customizable module.
@@ -521,12 +522,22 @@ function App() {
 
       <footer>
         <div className="footer-content">
+          <span>🌟 Enjoying React Slot Counter? </span>
           <a
             target="_blank"
             rel="noopener noreferrer"
             href="https://github.com/almond-bongbong/react-slot-counter"
           >
-            📚 Dive deeper into React Slot Counter here!
+            Show your love with a star! ⭐
+          </a>
+
+          <a
+            className="github-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://github.com/almond-bongbong/react-slot-counter"
+          >
+            <img src={githubIcon} alt="Github icon" />
           </a>
         </div>
       </footer>

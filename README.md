@@ -5,6 +5,9 @@
 [![NPM](https://img.shields.io/npm/v/react-slot-counter.svg)](https://www.npmjs.com/package/react-slot-counter)
 ![License](https://img.shields.io/npm/l/react-confetti-boom)
 ![Size](https://img.shields.io/bundlephobia/min/react-confetti-boom)
+![NPM Downloads](https://img.shields.io/npm/dw/react-slot-counter.svg)
+<br>
+[![Deploy to GitHub Pages](https://github.com/almond-bongbong/react-slot-counter/actions/workflows/deploy_to_github_pages.yml/badge.svg)](https://github.com/almond-bongbong/react-slot-counter/actions/workflows/deploy_to_github_pages.yml)
 
 <p align="center">
     <a target="_blank" href="https://almond-bongbong.github.io/react-slot-counter/">
@@ -12,7 +15,7 @@
     </a>
 </p>
 
-## Features
+## 🌟 Features
 
 - **Flexible Inputs**: Support for displaying numbers, strings, and JSX elements. You can even use a combination of these in a single slot counter instance!
 - **Animated Changes**: Only the characters that change get animated, bringing life and motion to your app's interface.
@@ -25,7 +28,7 @@
 
 Immerse your users in an interactive, engaging, and enjoyable experience with `react-slot-counter`. Whether you're displaying user scores, loading status, or real-time data, `react-slot-counter` adds that extra 'spin' to your numbers and strings.
 
-## Installation
+## 📦 Installation
 
 To install the package, run the following command:
 
@@ -33,7 +36,7 @@ To install the package, run the following command:
 npm install react-slot-counter
 ```
 
-## Usage
+## 🛠 Usage
 
 Import `SlotCounter` and use it in your component. Here's a simple example:
 
@@ -56,11 +59,11 @@ function App() {
 export default App;
 ```
 
-## Demo
+## 🎥 Demo
 
 For more examples of usage and available options, check out the [demo page](https://almond-bongbong.github.io/react-slot-counter/).
 
-## Props
+## 📝 Props
 
 | Prop                    | Type                                                  | Default                                | Description                                                                                                                                     |
 | ----------------------- | ----------------------------------------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -81,7 +84,7 @@ For more examples of usage and available options, check out the [demo page](http
 | useMonospaceWidth       | `boolean`                                             | `false`                                | Ensures that all numeric characters occupy the same horizontal space, just like they would in a monospace font.                                 |
 | debounceDelay           | `number`                                              | `0`                                    | Specifies the delay in milliseconds for debouncing animations. When the value changes rapidly, it allows the animation to execute smoothly.     |
 
-## Ref
+## 🤖 Ref
 
 You can access the SlotCounter component using a ref. This ref can be used to start the animation of the component.
 
@@ -119,25 +122,20 @@ function App() {
 export default App;
 ```
 
-## Change Log
+## 📜 Change Log
 
-- **JSX.Element support**: Added in version 1.8.0 for value and startValue props.
-- **startValue feature**: Introduced in version 1.7.0.
-- **startValueOnce feature**: Introduced in version 1.10.0.
-- **Infinite List Appearance**: Added in version 1.4.2.
-- **valueClassName customization**: Added in version 1.4.3.
-- **sequentialAnimationMode and useMonospaceWidth**: Introduced in version 1.9.0.
-- **debounceDelay feature**: Introduced in version 1.11.0.
+For a detailed list of changes, check out the [CHANGELOG.md](./CHANGELOG.md) file.
 
-## Contributing
+
+## 👨‍💻 Contributing
 
 Contributions are always welcome!
 
-## Enjoying this repository? 💙
+## ❤️ Enjoying this repository?
 
 Show your support by giving a star! ⭐
-And don't forget to follow me on GitHub for more exciting projects! 🚀
+And don't forget to follow me on GitHub for more exciting projects!
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License.

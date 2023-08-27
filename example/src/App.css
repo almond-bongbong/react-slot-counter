@@ -66,32 +66,16 @@ header h1 {
   margin-left: 20px;
 }
 
-footer {
-  border-top: 1px solid #eee;
-}
-
-footer .footer-content {
-  width: 1100px;
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 50px 30px 70px;
-}
-
-footer a {
-  color: #999;
-  text-decoration: none;
-}
-
 .container {
   width: 1100px;
   max-width: 100%;
   margin: 0 auto;
-  padding: 40px 30px 120px;
+  padding: 80px 30px 120px;
 }
 
 h2 {
   margin-bottom: 30px;
-  padding: 50px 0 20px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #eee;
   color: #555;
   font-size: 40px;
@@ -212,4 +196,90 @@ hr {
   font-size: 16px;
   background-color: #e3eaf2;
   color: #333;
+}
+
+footer {
+  border-top: 1px solid #eee;
+}
+
+footer .footer-content {
+  position: relative;
+  width: 1100px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 50px 30px 70px;
+}
+
+footer a {
+  color: #999;
+  text-decoration: none;
+}
+
+footer .github-link {
+  position: absolute;
+  top: 50px;
+  right: 30px;
+  width: 25px;
+}
+
+footer .github-link img {
+  display: block;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 30px 20px 50px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  .description {
+    font-size: 18px;
+  }
+
+  .playground {
+    padding: 10px 20px;
+    font-size: 20px;
+  }
+
+  .example-button {
+    min-width: 50px;
+    margin-left: 20px;
+    padding: 4px 10px;
+    font-size: 14px;
+  }
+
+  body code {
+    font-size: 13px;
+  }
+
+  .my-code {
+    font-size: 14px;
+  }
+
+  footer .footer-content {
+    padding: 30px 20px;
+  }
+
+  footer .github-link {
+    display: block;
+    position: static;
+    margin: 30px 0 0 auto;
+    width: 20px;
+  }
 }
