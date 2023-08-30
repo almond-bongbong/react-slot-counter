@@ -86,18 +86,23 @@ For more examples of usage and available options, check out the [demo page](http
 
 ## 🤖 Ref
 
-You can access the SlotCounter component using a ref. This ref can be used to start the animation of the component.
+You can manipulate the SlotCounter component's behavior using a ref.
 
-| Method           | Description                          |
-| ---------------- | ------------------------------------ |
-| `startAnimation` | Start the animation of the component |
+| Method           | Type                          | Description                                                                      |
+| ---------------- | ----------------------------- | -------------------------------------------------------------------------------- |
+| `startAnimation` | `(options?: Options) => void` | Initiates the animation of the component with optional customization parameters. |
 
-The `startAnimation` method accepts an optional object with the following properties:
+### Options Object
 
-- `duration`: The duration of the animation in seconds. Overrides the `duration` prop.
-- `dummyCharacterCount`: The number of dummy characters to be displayed in the animation before reaching the target character. Overrides the `dummyCharacterCount` prop.
-- `direction`: This option determines the direction of the slot machine animation. The accepted values are `bottom-top` and `top-bottom`. The default value is `bottom-top`. If `bottom-top` is chosen, the animation will start from the bottom and move towards the top. If `top-bottom` is chosen, the animation will start from the top and move downwards.
+The `options` object accepts the following properties for customizing the component's behavior:
 
+- **`duration`**: (Optional) A number representing the duration of the animation in seconds. This will override the `duration` prop if provided.
+- **`dummyCharacterCount`**: (Optional) A number indicating how many dummy characters should be shown in the animation before the target character is displayed. This will override the `dummyCharacterCount` prop if provided.
+- **`direction`**: (Optional) A string that sets the direction of the slot machine animation. Accepted values are `'bottom-top'` and `'top-bottom'`. The default value is `'bottom-top'`.
+  - **`'bottom-top'`**: The animation will start from the bottom and move towards the top.
+  - **`'top-bottom'`**: The animation will start from the top and move downwards.
+
+ 
 Example:
 
 ```jsx
@@ -125,7 +130,6 @@ export default App;
 ## 📜 Change Log
 
 For a detailed list of changes, check out the [CHANGELOG.md](./CHANGELOG.md) file.
-
 
 ## 👨‍💻 Contributing
 
