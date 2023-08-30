@@ -77,21 +77,22 @@ function SlotCounter(
   const valueRef = useRef(value);
   const prevValueRef = useRef<Props['value']>();
   const animationCountRef = useRef(0);
+  const [dummyList, setDummyList] = useState<(string | number | JSX.Element)[]>([]);
 
   const effectiveDummyCharacterCount =
     startAnimationOptionsRef.current?.dummyCharacterCount ?? dummyCharacterCount;
   const effectiveDuration = startAnimationOptionsRef.current?.duration ?? duration;
 
-  const dummyList = useMemo(
-    () =>
+  useEffect(() => {
+    setDummyList(
       range(0, effectiveDummyCharacterCount - 1).map((i) => {
         if (!dummyCharacters) return random(0, 10);
 
         const index = i >= dummyCharacters.length ? random(0, dummyCharacters.length) : i;
         return dummyCharacters[index];
       }),
-    [dummyCharacters, effectiveDummyCharacterCount],
-  );
+    );
+  }, [dummyCharacters, effectiveDummyCharacterCount]);
 
   useMemo(() => {
     if (valueRef.current === value) return;
