@@ -1,6 +1,6 @@
 # react-slot-counter 🎰
 
-`react-slot-counter` is a feature-rich React component that displays numbers and strings with an engaging slot machine animation effect.
+Transform Your UI with Animated Counters That Your Users Will Love
 
 [![NPM](https://img.shields.io/npm/v/react-slot-counter.svg)](https://www.npmjs.com/package/react-slot-counter)
 ![License](https://img.shields.io/npm/l/react-confetti-boom)
@@ -17,14 +17,10 @@
 
 ## 🌟 Features
 
-- **Flexible Inputs**: Support for displaying numbers, strings, and JSX elements. You can even use a combination of these in a single slot counter instance!
-- **Animated Changes**: Only the characters that change get animated, bringing life and motion to your app's interface.
-- **Customize Animation Settings**: Control the duration of the animation, or decide whether to start the animation automatically upon mounting.
-- **Sequential Animation Mode**: A unique feature that provides the option to animate the numbers incrementally or decrementally from the start value to the target value, rather than a random animation.
-- **Monospace Font Support**: The useMonospaceWidth prop ensures that all numeric characters occupy the same horizontal space as they would in a monospace font.
-- **Infinite List Appearance**: Option to make the list appear as continuous, seamlessly connecting the end of the target character to the beginning.
-- **Style Customization**: Easily add custom styles to the characters, separators, and overall container. You can even customize the class name for the slot value.
-- **Ref Support**: Control the animation start with a ref for increased flexibility.
+- **Flexible Inputs**: No more boring digits. Display numbers, strings, and even JSX elements.
+- **Animated Changes**: Make your UI dynamic. Only animate the characters that change.
+- **Sequential Animation Mode**: Go beyond randomness. Animate numbers incrementally for a purposeful experience.
+- **Customize As You Like**: Make it fit seamlessly into your app with extensive customization options.
 
 Immerse your users in an interactive, engaging, and enjoyable experience with `react-slot-counter`. Whether you're displaying user scores, loading status, or real-time data, `react-slot-counter` adds that extra 'spin' to your numbers and strings.
 
