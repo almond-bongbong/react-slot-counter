@@ -468,7 +468,12 @@ function App() {
             the animation. Ready? Hit "Start Animation"! 🚀
           </p>
           <div className="playground">
-            <SlotCounter ref={counterRef1} value="54321" containerClassName="slot-counter" />
+            <SlotCounter
+              ref={counterRef1}
+              value="54321"
+              useMonospaceWidth
+              containerClassName="slot-counter"
+            />
             <button
               className="example-button"
               onClick={() => counterRef1.current?.startAnimation()}
@@ -496,24 +501,20 @@ function App() {
 <SlotCounter
   ref={counterRef}
   value="54321"
-  containerClassName="slot-counter"
+  useMonospaceWidth
 />
 
-<button
-  className="example-button"
-  onClick={() => counterRef.current?.startAnimation()}
->
+<button onClick={() => counterRef.current?.startAnimation()}>
   start animation (default)
 </button>
 
-<button
-  className="example-button"
-  onClick={() => counterRef.current?.startAnimation({
+<button onClick={() => {
+  counterRef.current?.startAnimation({
     duration: 3,
     dummyCharacterCount: 10,
     direction: 'top-down',
-  })}
->
+  });
+}}>
   start animation (with options)
 </button>`}
           </CommonHighlighter>
