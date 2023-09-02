@@ -78,6 +78,7 @@ function SlotCounter(
   const prevValueRef = useRef<Props['value']>();
   const animationCountRef = useRef(0);
   const [dummyList, setDummyList] = useState<(string | number | JSX.Element)[]>([]);
+  const animationTimerRef = useRef<number>();
 
   const effectiveDummyCharacterCount =
     startAnimationOptionsRef.current?.dummyCharacterCount ?? dummyCharacterCount;
@@ -136,9 +137,15 @@ function SlotCounter(
   }, [effectiveDuration, valueList.length]);
 
   const startAnimation = useCallback(() => {
+    if (animationTimerRef.current) {
+      clearTimeout(animationTimerRef.current);
+    }
+
     setActive(false);
-    animationCountRef.current += 1;
-    setTimeout(() => setActive(true), 20);
+    animationTimerRef.current = setTimeout(() => {
+      animationCountRef.current += 1;
+      setActive(true);
+    }, 20);
   }, []);
 
   const startAnimationAll = useCallback(
