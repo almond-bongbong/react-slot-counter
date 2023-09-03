@@ -77,6 +77,7 @@ function SlotCounter(
   const valueRef = useRef(value);
   const prevValueRef = useRef<Props['value']>();
   const animationCountRef = useRef(0);
+  const animationExecuteCountRef = useRef(0);
   const [dummyList, setDummyList] = useState<(string | number | JSX.Element)[]>([]);
   const animationTimerRef = useRef<number>();
 
@@ -142,8 +143,11 @@ function SlotCounter(
     }
 
     setActive(false);
+    animationCountRef.current = animationExecuteCountRef.current;
+    animationCountRef.current += 1;
+
     animationTimerRef.current = setTimeout(() => {
-      animationCountRef.current += 1;
+      animationExecuteCountRef.current += 1;
       setActive(true);
     }, 20);
   }, []);
@@ -194,7 +198,7 @@ function SlotCounter(
   }));
 
   return (
-    <div className={mergeClassNames(containerClassName, styles.slot_wrap)}>
+    <span className={mergeClassNames(containerClassName, styles.slot_wrap)}>
       {valueList.map((v, i) => {
         const isChanged = isChangedValueIndexList.includes(i);
         const delay = (isChanged ? isChangedValueIndexList.indexOf(i) : 0) * calculatedInterval;
@@ -214,12 +218,12 @@ function SlotCounter(
 
         if (!isJSXElement(v) && SEPARATOR.includes(v)) {
           return (
-            <div
+            <span
               key={valueRefList.length - i - 1}
               className={mergeClassNames(styles.separator, separatorClassName)}
             >
               {v}
-            </div>
+            </span>
           );
         }
 
@@ -247,7 +251,7 @@ function SlotCounter(
           />
         );
       })}
-    </div>
+    </span>
   );
 }
 

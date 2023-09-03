@@ -46,12 +46,17 @@ function Slot({
   );
   const [fontHeight, setFontHeight] = useState(0);
   const [maxNumberWidth, setMaxNumberWidth] = useState(0);
+  const [didMount, setDidMount] = useState(false);
   const slotNumbersHeight = fontHeight * (dummyList.length + 1);
   const isNumericValue = typeof value !== 'object' && isNumeric(value);
 
   useIsomorphicLayoutEffect(() => {
-    setFontHeight(itemRef.current?.offsetHeight ?? 0);
+    setDidMount(true);
   }, []);
+
+  useIsomorphicLayoutEffect(() => {
+    setFontHeight(itemRef.current?.offsetHeight ?? 0);
+  }, [didMount]);
 
   useIsomorphicLayoutEffect(() => {
     if (!isNumericValue || !useMonospaceWidth) return;
@@ -70,7 +75,7 @@ function Slot({
     });
     const maxWidth = Math.max(...widthList);
     setMaxNumberWidth(maxWidth);
-  }, [isNumericValue, useMonospaceWidth]);
+  }, [isNumericValue, useMonospaceWidth, didMount]);
 
   useEffect(() => {
     setLocalActive(active);
@@ -88,14 +93,7 @@ function Slot({
         ? 0
         : (effectiveDuration * 1000 * 1.3) / dummyList.length + delay * 1000,
     );
-  }, [
-    localActive,
-    value,
-    effectiveDuration,
-    delay,
-    dummyList.length,
-    sequentialAnimationMode,
-  ]);
+  }, [localActive, value, effectiveDuration, delay, dummyList.length, sequentialAnimationMode]);
 
   useEffect(() => {
     setDummyListState(sequentialAnimationMode ? dummyList : shuffle(dummyList));
@@ -103,58 +101,54 @@ function Slot({
 
   const renderDummyList = () => {
     return dummyListState.map((dummyNumber, slotIndex) => (
-      <div key={slotIndex} className={styles.num} aria-hidden="true">
+      <span key={slotIndex} className={styles.num} aria-hidden="true">
         {dummyNumber}
-      </div>
+      </span>
     ));
   };
 
   return (
-    <div
+    <span
       className={mergeClassNames(styles.slot, charClassName)}
       style={{
-        width: useMonospaceWidth ? maxNumberWidth : undefined,
-        height: fontHeight,
+        display: 'inline-block',
+        width: didMount && useMonospaceWidth ? maxNumberWidth : undefined,
+        height: didMount ? fontHeight : undefined,
       }}
     >
-      <div
+      <span
         ref={numbersRef}
         className={styles.numbers}
         style={{
           transition: 'none',
-          transform: reverse
-            ? `translateY(-${slotNumbersHeight}px)`
-            : `translateY(0px)`,
+          transform: reverse ? `translateY(-${slotNumbersHeight}px)` : `translateY(0px)`,
           ...(localActive &&
             isChanged && {
-              transform: reverse
-                ? `translateY(0px)`
-                : `translateY(-${slotNumbersHeight}px)`,
+              transform: reverse ? `translateY(0px)` : `translateY(-${slotNumbersHeight}px)`,
               transition: `transform ${effectiveDuration}s ${delay}s ease-in-out`,
             }),
         }}
       >
-        <div
-          className={styles.num}
-          aria-hidden="true"
-          style={{ height: fontHeight }}
-        >
-          {sequentialAnimationMode &&
-            (reverse ? localValue : prevValueRef.current)}
-          {!sequentialAnimationMode && (startValue ?? localValue)}
-        </div>
-        {renderDummyList()}
-        <div
-          className={mergeClassNames(styles.num, valueClassName)}
-          ref={itemRef}
-        >
-          {!sequentialAnimationMode && localValue}
-          {sequentialAnimationMode &&
-            (reverse ? prevValueRef.current : localValue)}
-        </div>
-        {hasInfiniteList ? renderDummyList() : null}
-      </div>
-    </div>
+        {didMount ? (
+          <>
+            <span className={styles.num} aria-hidden="true" style={{ height: fontHeight }}>
+              {sequentialAnimationMode && (reverse ? localValue : prevValueRef.current)}
+              {!sequentialAnimationMode && (startValue ?? localValue)}
+            </span>
+            {renderDummyList()}
+            <span className={mergeClassNames(styles.num, valueClassName)} ref={itemRef}>
+              {!sequentialAnimationMode && localValue}
+              {sequentialAnimationMode && (reverse ? prevValueRef.current : localValue)}
+            </span>
+            {hasInfiniteList ? renderDummyList() : null}
+          </>
+        ) : (
+          <span className={styles.num} aria-hidden="true">
+            {startValue || localValue}
+          </span>
+        )}
+      </span>
+    </span>
   );
 }
 
