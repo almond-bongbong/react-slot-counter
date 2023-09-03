@@ -106,7 +106,7 @@ import React, { useRef } from 'react';
 import SlotCounter, { SlotCounterRef } from 'react-slot-counter';
 
 function App() {
-  const counterRef = useRef < SlotCounterRef > null;
+  const counterRef = useRef<SlotCounterRef>(null);
 
   const handleStartClick = () => {
     counterRef.current?.startAnimation();
