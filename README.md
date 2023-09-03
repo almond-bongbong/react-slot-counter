@@ -98,15 +98,14 @@ The `options` object accepts the following properties for customizing the compon
   - **`'bottom-top'`**: The animation will start from the bottom and move towards the top.
   - **`'top-bottom'`**: The animation will start from the top and move downwards.
 
- 
 Example:
 
 ```jsx
 import React, { useRef } from 'react';
-import SlotCounter, { SlotCounterRef } from 'react-slot-counter';
+import SlotCounter from 'react-slot-counter';
 
 function App() {
-  const counterRef = useRef<SlotCounterRef>(null);
+  const counterRef = useRef(null);
 
   const handleStartClick = () => {
     counterRef.current?.startAnimation();
