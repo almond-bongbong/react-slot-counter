@@ -1,0 +1,10 @@
+.main {
+  padding-top: 300px;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.hello {
+  display: inline-block;
+  width: 12px;
+}
