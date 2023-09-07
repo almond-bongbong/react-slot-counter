@@ -1,6 +1,6 @@
 # react-slot-counter 🎰
 
-Transform Your UI with Animated Counters That Your Users Will Love
+Make Your Numbers Pop 🌟: Simple and Dynamic Counters for Your UI
 
 [![NPM](https://img.shields.io/npm/v/react-slot-counter.svg)](https://www.npmjs.com/package/react-slot-counter)
 ![License](https://img.shields.io/npm/l/react-confetti-boom)
