@@ -2,11 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.13.1] - 2023-09-08
 
-### Added
+### Fixed
 
-- Your future changes will go here.
+- Fixed direction 'top-down' behavior when both `startValue` and `value` are set.
+
 
 ## [1.13.0] - 2023-09-06
 
