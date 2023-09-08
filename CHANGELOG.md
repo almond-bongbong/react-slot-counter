@@ -8,6 +8,12 @@ All notable changes to this project will be documented in this file.
 
 - Your future changes will go here.
 
+## [1.13.0] - 2023-09-06
+
+### Added
+
+- Integrated Terser plugin into Rollup configuration for code minification and optimization.
+
 ## [1.12.0] - 2023-09-03
 
 ### Fixed

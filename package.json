@@ -1,7 +1,7 @@
 {
   "name": "react-slot-counter",
-  "version": "1.12.0",
-  "description": "A versatile and engaging component to display numbers in a captivating slot machine UI, perfect for enhancing user experience and grabbing attention in your web projects",
+  "version": "1.13.0",
+  "description": "Make Your Numbers Pop: Simple and Dynamic Counters for Your UI",
   "author": "almond-bongbong",
   "license": "MIT",
   "repository": {
@@ -28,6 +28,7 @@
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-eslint": "^9.0.3",
     "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.3",
     "@types/react": "^18.0.28",
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",

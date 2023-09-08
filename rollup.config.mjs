@@ -4,6 +4,7 @@ import typescript from 'rollup-plugin-typescript2';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 import babel from '@rollup/plugin-babel';
+import terser from '@rollup/plugin-terser';
 import eslint from '@rollup/plugin-eslint';
 import banner2 from 'rollup-plugin-banner2';
 
@@ -47,6 +48,7 @@ export default {
       sourceMap: false,
       use: ['sass'],
     }),
+    terser(),
     banner2(() => `'use client';\n`),
   ],
 };

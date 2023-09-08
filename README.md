@@ -1,6 +1,6 @@
 # react-slot-counter 🎰
 
-Transform Your UI with Animated Counters That Your Users Will Love
+Make Your Numbers Pop 🌟: Simple and Dynamic Counters for Your UI
 
 [![NPM](https://img.shields.io/npm/v/react-slot-counter.svg)](https://www.npmjs.com/package/react-slot-counter)
 ![License](https://img.shields.io/npm/l/react-confetti-boom)
@@ -98,15 +98,14 @@ The `options` object accepts the following properties for customizing the compon
   - **`'bottom-top'`**: The animation will start from the bottom and move towards the top.
   - **`'top-bottom'`**: The animation will start from the top and move downwards.
 
- 
 Example:
 
 ```jsx
 import React, { useRef } from 'react';
-import SlotCounter, { SlotCounterRef } from 'react-slot-counter';
+import SlotCounter from 'react-slot-counter';
 
 function App() {
-  const counterRef = useRef < SlotCounterRef > null;
+  const counterRef = useRef(null);
 
   const handleStartClick = () => {
     counterRef.current?.startAnimation();
