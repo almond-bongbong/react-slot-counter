@@ -78,27 +78,27 @@ For more examples of usage and available options, check out the [demo page](http
 | valueClassName          | `string`                                              |                                        | The class name for the value of the slot, making it possible to customize the styling and visibility of the value.                              |
 | sequentialAnimationMode | `boolean`                                             | `false`                                | Determines if the animation should increment or decrement sequentially from the startValue to value instead of random animation.                |
 | useMonospaceWidth       | `boolean`                                             | `false`                                | Ensures that all numeric characters occupy the same horizontal space, just like they would in a monospace font.                                 |
+| direction               | `string`                                              | `'bottom-top'`                         | Sets the direction of the slot machine animation. Accepted values are `'bottom-top'` and `'top-bottom'`.                                        |
 | debounceDelay           | `number`                                              | `0`                                    | Specifies the delay in milliseconds for debouncing animations. When the value changes rapidly, it allows the animation to execute smoothly.     |
 
 ## 🤖 Ref
 
 You can manipulate the SlotCounter component's behavior using a ref.
 
-| Method           | Type                          | Description                                                                      |
-| ---------------- | ----------------------------- | -------------------------------------------------------------------------------- |
-| `startAnimation` | `(options?: Options) => void` | Initiates the animation of the component with optional customization parameters. |
+| Method           | Type                          | Description                                                                                                                                                                    |
+| ---------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `refreshStyles`  | `() => void`                  | Recalculates the styles for the SlotCounter component. Useful for scenarios where the font size changes or the window is resized, forcing a re-render to apply the new styles. |
+| `startAnimation` | `(options?: Options) => void` | Initiates the animation of the component with optional customization parameters.                                                                                               |
 
-### Options Object
+### Options for `startAnimation` Method
 
-The `options` object accepts the following properties for customizing the component's behavior:
+| Property              | Type     | Optional | Default        | Description                                                                                                                                      |
+| --------------------- | -------- | -------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `duration`            | `number` | Yes      | None           | A number representing the duration of the animation in seconds. Overrides the `duration` prop if provided.                                       |
+| `dummyCharacterCount` | `number` | Yes      | None           | A number indicating how many dummy characters should be shown before the target character. Overrides the `dummyCharacterCount` prop if provided. |
+| `direction`           | `string` | Yes      | `'bottom-top'` | Sets the direction of the slot machine animation. Accepted values: `'bottom-top'`, `'top-bottom'`. Overrides the `direction` prop if provided.   |
 
-- **`duration`**: (Optional) A number representing the duration of the animation in seconds. This will override the `duration` prop if provided.
-- **`dummyCharacterCount`**: (Optional) A number indicating how many dummy characters should be shown in the animation before the target character is displayed. This will override the `dummyCharacterCount` prop if provided.
-- **`direction`**: (Optional) A string that sets the direction of the slot machine animation. Accepted values are `'bottom-top'` and `'top-bottom'`. The default value is `'bottom-top'`.
-  - **`'bottom-top'`**: The animation will start from the bottom and move towards the top.
-  - **`'top-bottom'`**: The animation will start from the top and move downwards.
-
-Example:
+Ref Example:
 
 ```jsx
 import React, { useRef } from 'react';

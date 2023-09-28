@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.14.0] - 2023-09-28
+
+### Added
+
+- Added `refreshStyles` ref method to recalculate styles for scenarios where the font size changes or the window is resized.
+
+
 ## [1.13.1] - 2023-09-08
 
 ### Fixed

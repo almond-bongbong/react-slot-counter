@@ -30,11 +30,11 @@ interface Props {
   dummyCharacters?: string[] | JSX.Element[];
   dummyCharacterCount?: number;
   autoAnimationStart?: boolean;
+  animateUnchanged?: boolean;
+  hasInfiniteList?: boolean;
   containerClassName?: string;
   charClassName?: string;
   separatorClassName?: string;
-  animateUnchanged?: boolean;
-  hasInfiniteList?: boolean;
   valueClassName?: string;
   sequentialAnimationMode?: boolean;
   useMonospaceWidth?: boolean;
@@ -80,6 +80,7 @@ function SlotCounter(
   const animationExecuteCountRef = useRef(0);
   const [dummyList, setDummyList] = useState<(string | number | JSX.Element)[]>([]);
   const animationTimerRef = useRef<number>();
+  const [key, setKey] = useState(0);
 
   const effectiveDummyCharacterCount =
     startAnimationOptionsRef.current?.dummyCharacterCount ?? dummyCharacterCount;
@@ -110,7 +111,7 @@ function SlotCounter(
     : valueRef.current?.toString().split('') ?? [];
 
   const valueList = useMemo(
-    () => (Array.isArray(value) ? value : value.toString().split('')),
+    () => (Array.isArray(value) ? value : value?.toString().split('')),
     [value],
   );
   const startValueList = useMemo(
@@ -184,6 +185,10 @@ function SlotCounter(
     [value],
   );
 
+  const refreshStyles = useCallback(() => {
+    setKey((prev) => prev + 1);
+  }, []);
+
   useEffect(() => {
     if (prevValueRef.current == null) return;
     startAnimation();
@@ -195,10 +200,11 @@ function SlotCounter(
 
   useImperativeHandle(ref, () => ({
     startAnimation: startAnimationAll,
+    refreshStyles,
   }));
 
   return (
-    <span className={mergeClassNames(containerClassName, styles.slot_wrap)}>
+    <span key={key} className={mergeClassNames(containerClassName, styles.slot_wrap)}>
       {valueList.map((v, i) => {
         const isChanged = isChangedValueIndexList.includes(i);
         const delay = (isChanged ? isChangedValueIndexList.indexOf(i) : 0) * calculatedInterval;
