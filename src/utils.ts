@@ -11,6 +11,17 @@ export const range = (start: number, end: number) => {
   return result;
 };
 
+export const generateCyclicRange = (start: number, end: number) => {
+  const result = [];
+  let num = start;
+  while (num !== end) {
+    result.push(num);
+    num += 1;
+    if (num === 10) num = 0;
+  }
+  return result;
+};
+
 export const random = (min: number, max: number) => {
   const r = Math.random() * (max - min);
   return Math.floor(r + min);

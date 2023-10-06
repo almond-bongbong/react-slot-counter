@@ -78,6 +78,11 @@ function Slot({
   }, [isNumericValue, useMonospaceWidth, didMount]);
 
   useEffect(() => {
+    if (!active) {
+      setLocalActive(active);
+      return;
+    }
+
     requestAnimationFrame(() => {
       setLocalActive(active);
     });
@@ -140,7 +145,7 @@ function Slot({
             {renderDummyList()}
             <span className={mergeClassNames(styles.num, valueClassName)} ref={itemRef}>
               {sequentialAnimationMode && (reverse ? prevValueRef.current : localValue)}
-              {!sequentialAnimationMode && reverse ? startValue ?? localValue : localValue}
+              {!sequentialAnimationMode && (reverse ? startValue ?? localValue : localValue)}
             </span>
             {hasInfiniteList ? renderDummyList() : null}
           </>

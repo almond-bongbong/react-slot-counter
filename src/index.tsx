@@ -9,6 +9,7 @@ import React, {
   useState,
 } from 'react';
 import {
+  generateCyclicRange,
   isJSXElement,
   isJSXElementArray,
   isNumeric,
@@ -75,7 +76,7 @@ function SlotCounter(
   const startAnimationOptionsRef = useRef<StartAnimationOptions>();
   const numbersRef = useRef<HTMLDivElement>(null);
   const valueRef = useRef(value);
-  const prevValueRef = useRef<Props['value']>();
+  const prevValueRef = useRef<Props['value'] | undefined>(startValue);
   const animationCountRef = useRef(0);
   const animationExecuteCountRef = useRef(0);
   const [dummyList, setDummyList] = useState<(string | number | JSX.Element)[]>([]);
@@ -162,27 +163,26 @@ function SlotCounter(
     [startAnimation],
   );
 
-  const getSequentialDummyListByDigit = useCallback(
-    (digit: number) => {
-      const prevValue = prevValueRef.current;
+  const getSequentialDummyList = useCallback(
+    (index: number) => {
+      const prevValue =
+        startValue != null && animationCountRef.current === 0 ? startValue : prevValueRef.current;
       if (prevValue == null || !isNumeric(prevValue) || !isNumeric(value)) {
         return [];
       }
 
       const prevNumValue = Number(toNumeric(prevValue));
       const numValue = Number(toNumeric(value));
-      const divider = 10 ** (digit - 1);
-
+      const prevDigit = Number(prevNumValue.toString()[index] || 0);
+      const currentDigit = Number(numValue.toString()[index] || 0);
       const dummyList =
         prevNumValue < numValue
-          ? range(Math.floor(prevNumValue / divider) + 1, Math.floor(numValue / divider))
-          : range(Math.floor(numValue / divider) + 1, Math.floor(prevNumValue / divider));
+          ? generateCyclicRange((prevDigit + 1) % 10, currentDigit)
+          : generateCyclicRange((currentDigit + 1) % 10, prevDigit);
 
-      return Array.from(
-        new Set(dummyList.map((v) => v.toString()[v.toString().length - 1])),
-      ).filter(Boolean);
+      return dummyList;
     },
-    [value],
+    [value, startValue],
   );
 
   const refreshStyles = useCallback(() => {
@@ -203,6 +203,7 @@ function SlotCounter(
     refreshStyles,
   }));
 
+  let noSeparatorValueIndex = -1;
   return (
     <span key={key} className={mergeClassNames(containerClassName, styles.slot_wrap)}>
       {valueList.map((v, i) => {
@@ -233,6 +234,8 @@ function SlotCounter(
           );
         }
 
+        noSeparatorValueIndex += 1;
+
         return (
           <Slot
             key={valueRefList.length - i - 1}
@@ -245,9 +248,7 @@ function SlotCounter(
             value={v}
             startValue={!disableStartValue ? startValueList?.[i] : undefined}
             dummyList={
-              sequentialAnimationMode
-                ? getSequentialDummyListByDigit(valueList.length - i)
-                : dummyList
+              sequentialAnimationMode ? getSequentialDummyList(noSeparatorValueIndex) : dummyList
             }
             hasInfiniteList={hasInfiniteList}
             valueClassName={valueClassName}
