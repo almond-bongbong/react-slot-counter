@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.15.0] - 2023-10-05
+
+### Added
+
+- Improved the animation in `sequentialAnimationMode`.
+
+### Fixed
+
+- Fixed a bug where numbers were duplicated in `sequentialAnimationMode`.
+
 ## [1.14.0] - 2023-09-28
 
 ### Added
