@@ -349,6 +349,7 @@ function App() {
             <SlotCounter
               ref={slot5Ref}
               startValueOnce
+              autoAnimationStart={false}
               startValue={[
                 <img className="item" src={item1} alt="" />,
                 <img className="item" src={item2} alt="" />,
@@ -379,6 +380,7 @@ function App() {
           <CommonHighlighter>
             {`<SlotCounter
   startValueOnce
+  autoAnimationStart={false}
   startValue={[
     <img className="item" src={item1} alt="" />,
     <img className="item" src={item2} alt="" />,
