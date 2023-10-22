@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2023-10-22
+
+### Fixed
+
+- Fix `autoAnimationStart` not working when using `startValue`.
+- Define behavior and fix multiple bugs for `autoAnimationStart`, `startValue`, and `sequentialAnimationMode`.
+
+
 ## [1.15.0] - 2023-10-05
 
 ### Added
@@ -11,6 +19,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - Fixed a bug where numbers were duplicated in `sequentialAnimationMode`.
+
 
 ## [1.14.0] - 2023-09-28
 

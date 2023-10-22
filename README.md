@@ -1,5 +1,7 @@
 # react-slot-counter 🎰
 
+> 🎉 New in 2.0.0: Major bug fixes! Check out the CHANGELOG for all the details.
+
 Make Your Numbers Pop 🌟: Simple and Dynamic Counters for Your UI
 
 [![NPM](https://img.shields.io/npm/v/react-slot-counter.svg)](https://www.npmjs.com/package/react-slot-counter)
