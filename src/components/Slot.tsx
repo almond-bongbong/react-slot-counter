@@ -114,6 +114,16 @@ function Slot({
     ));
   };
 
+  let topValue = reverse ? localValue : startValue ?? localValue;
+  if (sequentialAnimationMode) {
+    topValue = reverse ? localValue : startValue ?? prevValueRef.current ?? localValue;
+  }
+
+  let bottomValue = reverse ? startValue ?? localValue : localValue;
+  if (sequentialAnimationMode) {
+    bottomValue = reverse ? startValue ?? prevValueRef.current ?? localValue : localValue;
+  }
+
   return (
     <span
       className={mergeClassNames(styles.slot, charClassName)}
@@ -139,13 +149,11 @@ function Slot({
         {didMount ? (
           <>
             <span className={styles.num} aria-hidden="true" style={{ height: fontHeight }}>
-              {sequentialAnimationMode && (reverse ? localValue : prevValueRef.current)}
-              {!sequentialAnimationMode && (reverse ? localValue : startValue ?? localValue)}
+              {topValue}
             </span>
             {renderDummyList()}
             <span className={mergeClassNames(styles.num, valueClassName)} ref={itemRef}>
-              {sequentialAnimationMode && (reverse ? prevValueRef.current : localValue)}
-              {!sequentialAnimationMode && (reverse ? startValue ?? localValue : localValue)}
+              {bottomValue}
             </span>
             {hasInfiniteList ? renderDummyList() : null}
           </>
