@@ -75,6 +75,7 @@ function SlotCounter(
   const [active, setActive] = useState(false);
   const startAnimationOptionsRef = useRef<StartAnimationOptions>();
   const numbersRef = useRef<HTMLDivElement>(null);
+  const startValueRef = useRef(startValue);
   const valueRef = useRef(value);
   const prevValueRef = useRef<Props['value'] | undefined>(startValue);
   const animationCountRef = useRef(0);
@@ -82,6 +83,7 @@ function SlotCounter(
   const [dummyList, setDummyList] = useState<(string | number | JSX.Element)[]>([]);
   const animationTimerRef = useRef<number>();
   const [key, setKey] = useState(0);
+  const isDidMountRef = useRef(false);
 
   const effectiveDummyCharacterCount =
     startAnimationOptionsRef.current?.dummyCharacterCount ?? dummyCharacterCount;
@@ -191,22 +193,34 @@ function SlotCounter(
 
   useEffect(() => {
     if (prevValueRef.current == null) return;
+    if (startValueRef.current && !isDidMountRef.current) return;
+
     startAnimation();
-  }, [serializedValue, startAnimation, autoAnimationStart]);
+  }, [serializedValue, startAnimation]);
 
   useEffect(() => {
     if (autoAnimationStart) startAnimation();
   }, [autoAnimationStart, startAnimation]);
+
+  useEffect(() => {
+    requestAnimationFrame(() => {
+      isDidMountRef.current = true;
+    });
+  }, []);
 
   useImperativeHandle(ref, () => ({
     startAnimation: startAnimationAll,
     refreshStyles,
   }));
 
+  const renderValueList = !autoAnimationStart && animationCountRef.current === 0
+    ? startValueList || []
+    : valueList;
+
   let noSeparatorValueIndex = -1;
   return (
     <span key={key} className={mergeClassNames(containerClassName, styles.slot_wrap)}>
-      {valueList.map((v, i) => {
+      {renderValueList.map((v, i) => {
         const isChanged = isChangedValueIndexList.includes(i);
         const delay = (isChanged ? isChangedValueIndexList.indexOf(i) : 0) * calculatedInterval;
         const prevValue = prevValueRef.current;
