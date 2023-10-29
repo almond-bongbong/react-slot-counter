@@ -22,6 +22,7 @@ import styles from './index.module.scss';
 import Slot from './components/Slot';
 import { Direction, SlotCounterRef, StartAnimationOptions, Value } from './types/common';
 import useDebounce from './hooks/useDebounce';
+import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
 
 interface Props {
   value: Value;
@@ -88,6 +89,7 @@ function SlotCounter(
   const [dummyList, setDummyList] = useState<(string | number | JSX.Element)[]>([]);
   const animationTimerRef = useRef<number>();
   const [key, setKey] = useState(0);
+  const [maxNumberWidth, setMaxNumberWidth] = useState<number>();
   const isDidMountRef = useRef(false);
   const displayStartValue =
     startValue != null && (startValueOnce ? animationCountRef.current < 1 : true);
@@ -95,6 +97,33 @@ function SlotCounter(
   const effectiveDummyCharacterCount =
     startAnimationOptionsRef.current?.dummyCharacterCount ?? dummyCharacterCount;
   const effectiveDuration = startAnimationOptionsRef.current?.duration ?? duration;
+
+  useIsomorphicLayoutEffect(() => {
+    const numbersElement = numbersRef.current;
+    if (!numbersElement || !useMonospaceWidth) return;
+
+    const detectMaxNumberWidth = () => {
+      const widthList = range(0, 10).map((i) => {
+        const testElement = document.createElement('span');
+        testElement.style.position = 'absolute';
+        testElement.style.top = '0';
+        testElement.style.left = '-9999px';
+        testElement.style.visibility = 'hidden';
+        testElement.textContent = i.toString();
+        numbersElement.appendChild(testElement);
+        const width = testElement.getBoundingClientRect().width;
+        numbersElement.removeChild(testElement);
+        return width;
+      });
+      const maxWidth = Math.max(...widthList);
+      setMaxNumberWidth(maxWidth);
+    };
+
+    detectMaxNumberWidth();
+    document.fonts?.ready.then(() => {
+      detectMaxNumberWidth();
+    });
+  }, []);
 
   useEffect(() => {
     setDummyList(
@@ -268,6 +297,7 @@ function SlotCounter(
         return (
           <Slot
             key={valueRefList.length - i - 1}
+            maxNumberWidth={maxNumberWidth}
             numbersRef={numbersRef}
             active={active}
             isChanged={isChanged}
