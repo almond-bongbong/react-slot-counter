@@ -203,8 +203,8 @@ function SlotCounter(
   }, []);
 
   useEffect(() => {
-    if (prevValueRef.current == null) return;
-    if (startValueRef.current && !isDidMountRef.current) return;
+    if (!isDidMountRef.current && prevValueRef.current == null) return;
+    if (!isDidMountRef.current && startValueRef.current) return;
 
     startAnimation();
   }, [serializedValue, startAnimation]);
