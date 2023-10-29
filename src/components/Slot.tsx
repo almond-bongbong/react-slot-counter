@@ -1,5 +1,5 @@
 import React, { memo, RefObject, useEffect, useRef, useState } from 'react';
-import { isNumeric, mergeClassNames, range, shuffle } from '../utils';
+import { mergeClassNames, shuffle } from '../utils';
 import styles from '../index.module.scss';
 import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
 
@@ -18,6 +18,7 @@ interface Props {
   reverse?: boolean;
   sequentialAnimationMode: boolean;
   useMonospaceWidth: boolean;
+  maxNumberWidth?: number;
 }
 
 function Slot({
@@ -35,6 +36,7 @@ function Slot({
   reverse,
   sequentialAnimationMode,
   useMonospaceWidth,
+  maxNumberWidth,
 }: Props) {
   const [localActive, setLocalActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
@@ -45,10 +47,8 @@ function Slot({
     sequentialAnimationMode ? dummyList : shuffle(dummyList),
   );
   const [fontHeight, setFontHeight] = useState(0);
-  const [maxNumberWidth, setMaxNumberWidth] = useState(0);
   const [didMount, setDidMount] = useState(false);
   const slotNumbersHeight = fontHeight * (dummyList.length + 1);
-  const isNumericValue = typeof value !== 'object' && isNumeric(value);
 
   useIsomorphicLayoutEffect(() => {
     setDidMount(true);
@@ -57,25 +57,6 @@ function Slot({
   useIsomorphicLayoutEffect(() => {
     setFontHeight(itemRef.current?.offsetHeight ?? 0);
   }, [didMount]);
-
-  useIsomorphicLayoutEffect(() => {
-    if (!isNumericValue || !useMonospaceWidth) return;
-
-    const widthList = range(0, 10).map((i) => {
-      const testElement = document.createElement('div');
-      testElement.style.position = 'absolute';
-      testElement.style.top = '0';
-      testElement.style.left = '-9999px';
-      testElement.style.visibility = 'hidden';
-      testElement.textContent = i.toString();
-      itemRef.current?.appendChild(testElement);
-      const width = testElement.getBoundingClientRect().width;
-      itemRef.current?.removeChild(testElement);
-      return width;
-    });
-    const maxWidth = Math.max(...widthList);
-    setMaxNumberWidth(maxWidth);
-  }, [isNumericValue, useMonospaceWidth, didMount]);
 
   useEffect(() => {
     if (!active) {
