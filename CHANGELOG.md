@@ -2,11 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [2.0.0] - 2023-10-22
+
+### Fixed
+
+- Fix `autoAnimationStart` not working when using `startValue`.
+- Define behavior and fix multiple bugs for `autoAnimationStart`, `startValue`, and `sequentialAnimationMode`.
+
+
+## [1.15.0] - 2023-10-05
 
 ### Added
 
-- Your future changes will go here.
+- Improved the animation in `sequentialAnimationMode`.
+
+### Fixed
+
+- Fixed a bug where numbers were duplicated in `sequentialAnimationMode`.
+
+
+## [1.14.0] - 2023-09-28
+
+### Added
+
+- Added `refreshStyles` ref method to recalculate styles for scenarios where the font size changes or the window is resized.
+
+
+## [1.13.1] - 2023-09-08
+
+### Fixed
+
+- Fixed direction 'top-down' behavior when both `startValue` and `value` are set.
+
 
 ## [1.13.0] - 2023-09-06
 
