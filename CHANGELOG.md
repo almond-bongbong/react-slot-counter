@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.1] - 2023-10-29
+
+### Fixed
+
+- Improved the unstable behavior of the `useMonospaceWidth` prop. Enhanced the `width` calculation logic and fixed issues related to web font download timing.
+- Fixed an issue where the combination of `sequentialAnimationMode: true` and `autoAnimationStart: false` was not working as expected.
+- Modified the initial animation behavior in `sequentialAnimationMode`.
+
+
 ## [2.0.0] - 2023-10-22
 
 ### Fixed
