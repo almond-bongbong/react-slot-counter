@@ -307,7 +307,10 @@ function SlotCounter(
             value={v}
             startValue={!disableStartValue ? startValueList?.[i - startValueLengthDiff] : undefined}
             dummyList={
-              sequentialAnimationMode ? getSequentialDummyList(noSeparatorValueIndex) : dummyList
+              sequentialAnimationMode &&
+              (!autoAnimationStart || animationExecuteCountRef.current > 1)
+                ? getSequentialDummyList(noSeparatorValueIndex)
+                : dummyList
             }
             hasInfiniteList={hasInfiniteList}
             valueClassName={valueClassName}
