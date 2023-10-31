@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.2] - 2023-10-31
+
+### Fixed
+
+- Fixed the issue with measuring monospace width when using `valueClassName`.
+
+
 ## [2.0.1] - 2023-10-29
 
 ### Fixed
