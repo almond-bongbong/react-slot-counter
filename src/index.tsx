@@ -105,6 +105,7 @@ function SlotCounter(
     const detectMaxNumberWidth = () => {
       const widthList = range(0, 10).map((i) => {
         const testElement = document.createElement('span');
+        testElement.classList.add(valueClassName ?? '');
         testElement.style.position = 'absolute';
         testElement.style.top = '0';
         testElement.style.left = '-9999px';
