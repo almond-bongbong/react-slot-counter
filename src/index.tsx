@@ -235,9 +235,10 @@ function SlotCounter(
   useEffect(() => {
     if (!isDidMountRef.current && prevValueRef.current == null) return;
     if (!isDidMountRef.current && startValueRef.current) return;
+    if (!isDidMountRef.current && !autoAnimationStart) return;
 
     startAnimation();
-  }, [serializedValue, startAnimation]);
+  }, [serializedValue, startAnimation, autoAnimationStart]);
 
   useEffect(() => {
     if (autoAnimationStart) startAnimation();
