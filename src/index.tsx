@@ -256,7 +256,7 @@ function SlotCounter(
   }));
 
   const renderValueList =
-    startValue && !autoAnimationStart && animationCountRef.current === 0
+    startValue != null && !autoAnimationStart && animationCountRef.current === 0
       ? startValueList || []
       : valueList;
   const startValueLengthDiff = (startValueList?.length || 0) - renderValueList.length;
