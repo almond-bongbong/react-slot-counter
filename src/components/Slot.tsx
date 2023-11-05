@@ -4,6 +4,7 @@ import styles from '../index.module.scss';
 import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
 
 interface Props {
+  index: number;
   charClassName?: string;
   numbersRef: RefObject<HTMLDivElement>;
   active: boolean;
@@ -13,6 +14,7 @@ interface Props {
   value: string | number | JSX.Element;
   startValue?: string | number | JSX.Element;
   dummyList: (string | number | JSX.Element)[];
+  hasSequentialDummyList?: boolean;
   hasInfiniteList?: boolean;
   valueClassName?: string;
   reverse?: boolean;
@@ -31,6 +33,7 @@ function Slot({
   value,
   startValue,
   dummyList,
+  hasSequentialDummyList,
   hasInfiniteList,
   valueClassName,
   reverse,
@@ -44,7 +47,7 @@ function Slot({
   const valueRef = useRef(value);
   const itemRef = useRef<HTMLDivElement>(null);
   const [dummyListState, setDummyListState] = useState(
-    sequentialAnimationMode ? dummyList : shuffle(dummyList),
+    hasSequentialDummyList ? dummyList : shuffle(dummyList),
   );
   const [fontHeight, setFontHeight] = useState(0);
   const [didMount, setDidMount] = useState(false);
@@ -84,8 +87,8 @@ function Slot({
   }, [localActive, value, effectiveDuration, delay, dummyList.length, sequentialAnimationMode]);
 
   useEffect(() => {
-    setDummyListState(sequentialAnimationMode ? dummyList : shuffle(dummyList));
-  }, [value, dummyList, sequentialAnimationMode]);
+    setDummyListState(hasSequentialDummyList ? dummyList : shuffle(dummyList));
+  }, [value, dummyList, hasSequentialDummyList]);
 
   const renderDummyList = () => {
     return dummyListState.map((dummyNumber, slotIndex) => (
@@ -140,7 +143,7 @@ function Slot({
           </>
         ) : (
           <span className={styles.num} aria-hidden="true">
-            {startValue || localValue}
+            {startValue ?? localValue}
           </span>
         )}
       </span>
