@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+
+## [2.0.3] - 2023-11-15
+
+### Fixed
+
+- Resolved `autoAnimationStart` not working when `startValue` is set.
+- Ensured `startValue: 0` is properly recognized and handled.
+- Refined the calculation logic for number interpolation in sequential mode.
+
+
 ## [2.0.2] - 2023-10-31
 
 ### Fixed
