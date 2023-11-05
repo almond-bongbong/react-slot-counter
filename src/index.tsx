@@ -213,10 +213,18 @@ function SlotCounter(
         return [];
       }
 
+      const prevValueLength = prevValue.toString().length;
+      const valueLength = value.toString().length;
+      const isIncrease = prevValueLength < valueLength;
+      const diff = Math.abs(prevValueLength - valueLength);
       const prevNumValue = Number(toNumeric(prevValue));
       const numValue = Number(toNumeric(value));
-      const prevDigit = Number(prevNumValue.toString()[index] || 0);
+      const prevDigit = Number(
+        prevNumValue.toString()[isIncrease ? -diff + index : diff + index] || 0,
+      );
       const currentDigit = Number(numValue.toString()[index] || 0);
+
+      if (currentDigit === prevDigit) return [];
 
       const dummyList =
         prevNumValue < numValue
@@ -234,7 +242,7 @@ function SlotCounter(
 
   useEffect(() => {
     if (!isDidMountRef.current && prevValueRef.current == null) return;
-    if (!isDidMountRef.current && startValueRef.current) return;
+    if (!isDidMountRef.current && startValueRef.current != null) return;
     if (!isDidMountRef.current && !autoAnimationStart) return;
 
     startAnimation();
@@ -294,11 +302,14 @@ function SlotCounter(
           );
         }
 
+        const hasSequentialDummyList =
+          sequentialAnimationMode && (!autoAnimationStart || animationExecuteCountRef.current > 1);
         noSeparatorValueIndex += 1;
 
         return (
           <Slot
             key={valueRefList.length - i - 1}
+            index={i}
             maxNumberWidth={maxNumberWidth}
             numbersRef={numbersRef}
             active={active}
@@ -309,11 +320,9 @@ function SlotCounter(
             value={v}
             startValue={!disableStartValue ? startValueList?.[i - startValueLengthDiff] : undefined}
             dummyList={
-              sequentialAnimationMode &&
-              (!autoAnimationStart || animationExecuteCountRef.current > 1)
-                ? getSequentialDummyList(noSeparatorValueIndex)
-                : dummyList
+              hasSequentialDummyList ? getSequentialDummyList(noSeparatorValueIndex) : dummyList
             }
+            hasSequentialDummyList={hasSequentialDummyList}
             hasInfiniteList={hasInfiniteList}
             valueClassName={valueClassName}
             reverse={reverseAnimation}
