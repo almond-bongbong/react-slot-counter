@@ -5,6 +5,7 @@ import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
 
 interface Props {
   index: number;
+  isNew?: boolean;
   charClassName?: string;
   numbersRef: RefObject<HTMLDivElement>;
   active: boolean;
@@ -24,6 +25,7 @@ interface Props {
 }
 
 function Slot({
+  isNew,
   charClassName,
   numbersRef,
   active,
@@ -101,6 +103,10 @@ function Slot({
   let topValue = reverse ? localValue : startValue ?? localValue;
   if (sequentialAnimationMode) {
     topValue = reverse ? localValue : startValue ?? prevValueRef.current ?? localValue;
+
+    if (sequentialAnimationMode && isNew) {
+      topValue = '';
+    }
   }
 
   let bottomValue = reverse ? startValue ?? localValue : localValue;
