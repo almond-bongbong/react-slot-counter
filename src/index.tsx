@@ -324,7 +324,8 @@ function SlotCounter(
             effectiveDuration={effectiveDuration}
             delay={delay}
             value={v}
-            startValue={!disableStartValue ? startValueList?.[i - startValueLengthDiff] : undefined}
+            startValue={!disableStartValue ? startValueList?.[i + startValueLengthDiff] : undefined}
+            disableStartValue={disableStartValue}
             dummyList={
               hasSequentialDummyList ? getSequentialDummyList(noSeparatorValueIndex) : dummyList
             }
