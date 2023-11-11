@@ -23,6 +23,7 @@ import Slot from './components/Slot';
 import { Direction, SlotCounterRef, StartAnimationOptions, Value } from './types/common';
 import useDebounce from './hooks/useDebounce';
 import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
+import useValueChangeEffect from './hooks/useValueChangeEffect';
 
 interface Props {
   value: Value;
@@ -197,15 +198,6 @@ function SlotCounter(
     }, 20);
   }, []);
 
-  const startAnimationAll = useCallback(
-    (options?: StartAnimationOptions) => {
-      if (startValue != null && !startValueOnce) prevValueRef.current = undefined;
-      startAnimationOptionsRef.current = options;
-      startAnimation();
-    },
-    [startValue, startValueOnce, startAnimation],
-  );
-
   const getSequentialDummyList = useCallback(
     (index: number) => {
       const prevValue = displayStartValue ? startValue : prevValueRef.current;
@@ -268,6 +260,19 @@ function SlotCounter(
       ? startValueList || []
       : valueList;
   const startValueLengthDiff = (startValueList?.length || 0) - renderValueList.length;
+  const { getPrevDependencies, setPrevDependenciesToSameAsCurrent } =
+    useValueChangeEffect(renderValueList);
+  const diffValueListCount = renderValueList.length - getPrevDependencies().length;
+
+  const startAnimationAll = useCallback(
+    (options?: StartAnimationOptions) => {
+      if (startValue != null && !startValueOnce) prevValueRef.current = undefined;
+      startAnimationOptionsRef.current = options;
+      startAnimation();
+      setPrevDependenciesToSameAsCurrent();
+    },
+    [startValue, startValueOnce, startAnimation, setPrevDependenciesToSameAsCurrent],
+  );
 
   let noSeparatorValueIndex = -1;
 
@@ -308,8 +313,9 @@ function SlotCounter(
 
         return (
           <Slot
-            key={valueRefList.length - i - 1}
+            key={renderValueList.length - i - 1}
             index={i}
+            isNew={diffValueListCount > 0 && i < diffValueListCount}
             maxNumberWidth={maxNumberWidth}
             numbersRef={numbersRef}
             active={active}
