@@ -2,8 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.0] - [Release Date]
 
-## [2.0.3] - 2023-11-15
+### Fixed
+- Resolved an issue where the startValueOnce prop was not functioning as expected.
+
+### Improvements
+- Enhanced the digit increase animation in sequentialAnimationMode for a smoother user experience.
+
+
+## [2.0.3] - 2023-11-05
 
 ### Fixed
 
