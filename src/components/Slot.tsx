@@ -1,4 +1,4 @@
-import React, { memo, RefObject, useEffect, useRef, useState } from 'react';
+import React, { memo, RefObject, useEffect, useMemo, useRef, useState } from 'react';
 import { mergeClassNames, shuffle } from '../utils';
 import styles from '../index.module.scss';
 import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
@@ -14,6 +14,7 @@ interface Props {
   delay: number;
   value: string | number | JSX.Element;
   startValue?: string | number | JSX.Element;
+  disableStartValue?: boolean;
   dummyList: (string | number | JSX.Element)[];
   hasSequentialDummyList?: boolean;
   hasInfiniteList?: boolean;
@@ -34,6 +35,7 @@ function Slot({
   delay,
   value,
   startValue,
+  disableStartValue,
   dummyList,
   hasSequentialDummyList,
   hasInfiniteList,
@@ -73,6 +75,12 @@ function Slot({
       setLocalActive(active);
     });
   }, [active]);
+
+  useMemo(() => {
+    if (disableStartValue) {
+      prevValueRef.current = valueRef.current;
+    }
+  }, [disableStartValue]);
 
   useEffect(() => {
     if (!localActive) return;
