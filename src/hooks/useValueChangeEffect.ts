@@ -5,16 +5,15 @@ function useValueChangeEffect(dependencies: any[]) {
   const dependenciesRef = useRef(dependencies);
   const prevDependencies = useRef<typeof dependencies>(dependenciesRef.current);
 
+  const serialized = dependencies.join(',');
+  const serializedDependencies = dependenciesRef.current?.join(',');
+
   useEffect(() => {
-    const prevSerialized = prevDependencies.current?.join(',');
-    const serialized = dependencies.join(',');
-    const serializedDependencies = dependenciesRef.current?.join(',');
+    if (serializedDependencies === serialized) return;
 
-    if (prevSerialized === serialized || serializedDependencies === serialized) return;
-
-    prevDependencies.current = dependenciesRef.current;
-    dependenciesRef.current = dependencies;
-  });
+    prevDependencies.current = serializedDependencies?.split(',') || [];
+    dependenciesRef.current = serialized.split(',');
+  }, [serialized, serializedDependencies]);
 
   const getPrevDependencies = useCallback(() => prevDependencies.current, []);
 
