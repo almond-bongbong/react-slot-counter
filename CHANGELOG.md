@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2.1.0] - [Release Date]
+## [2.1.1] - 2023-11-19
+
+### Fixed
+- Corrected an issue where number change animations in `sequentialAnimationMode` were not functioning properly.
+
+
+## [2.1.0] - 2023-11-11
 
 ### Fixed
 - Resolved an issue where the startValueOnce prop was not functioning as expected.
