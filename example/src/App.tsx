@@ -485,7 +485,6 @@ function App() {
           <div className="playground">
             <SlotCounter
               value="54321"
-              useMonospaceWidth
               containerClassName="slot-counter"
               animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
             />
@@ -493,7 +492,6 @@ function App() {
           <CommonHighlighter>
             {`<SlotCounter
   value="54321"
-  useMonospaceWidth
   animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
 />`}
           </CommonHighlighter>
