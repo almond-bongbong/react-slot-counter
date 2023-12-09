@@ -38,18 +38,12 @@ function App() {
           Let's spice up your application with slot machine style counters! 🎊
         </p>
 
-        <div style={{ height: 1000 }} />
-
         <h3>🚀 Get Started!</h3>
         <p>Displaying numbers and strings have never been more fun! 😄</p>
 
         <div className="example-area">
           <div className="playground">
-            <SlotCounter
-              ref={slot1Ref}
-              value={123456}
-              animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -300px 0px' }}
-            />
+            <SlotCounter ref={slot1Ref} value={123456} />
             <button
               type="button"
               className="example-button"
