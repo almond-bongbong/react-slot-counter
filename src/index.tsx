@@ -25,6 +25,11 @@ import useDebounce from './hooks/useDebounce';
 import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
 import useValueChangeEffect from './hooks/useValueChangeEffect';
 
+interface AnimateOnVisibleOptions {
+  rootMargin?: string;
+  triggerOnce?: boolean;
+}
+
 interface Props {
   value: Value;
   startValue?: Value;
@@ -43,6 +48,7 @@ interface Props {
   useMonospaceWidth?: boolean;
   direction?: Direction;
   debounceDelay?: number;
+  animateOnVisible?: boolean | AnimateOnVisibleOptions;
 }
 
 const SEPARATOR = [',', '.', ' '];
@@ -55,7 +61,7 @@ function SlotCounter(
     duration = 0.7,
     dummyCharacters,
     dummyCharacterCount = 6,
-    autoAnimationStart = true,
+    autoAnimationStart: _autoAnimationStart = true,
     containerClassName,
     charClassName,
     separatorClassName,
@@ -66,6 +72,7 @@ function SlotCounter(
     useMonospaceWidth = false,
     direction,
     debounceDelay,
+    animateOnVisible,
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
@@ -81,8 +88,26 @@ function SlotCounter(
   );
   const [active, setActive] = useState(false);
   const startAnimationOptionsRef = useRef<StartAnimationOptions>();
+  const slotCounterRef = useRef<HTMLSpanElement>(null);
   const numbersRef = useRef<HTMLDivElement>(null);
   const startValueRef = useRef(startValue);
+
+  const hasAnimateOnVisible = useMemo(() => {
+    if (typeof animateOnVisible === 'boolean') return animateOnVisible;
+    if (typeof animateOnVisible === 'object') return true;
+    return undefined;
+  }, [animateOnVisible]);
+  const animateOnVisibleRootMargin = useMemo(
+    () => (typeof animateOnVisible === 'object' ? animateOnVisible.rootMargin : undefined),
+    [animateOnVisible],
+  );
+  const animateOnVisibleTriggerOnce = useMemo(
+    () => (typeof animateOnVisible === 'object' ? animateOnVisible.triggerOnce : undefined),
+    [animateOnVisible],
+  );
+  const animateOnVisibleReadyRef = useRef(true);
+
+  const autoAnimationStart = hasAnimateOnVisible ? false : _autoAnimationStart;
   const valueRef = useRef(startValue != null && !autoAnimationStart ? startValue : value);
   const prevValueRef = useRef<Props['value'] | undefined>(startValue);
   const animationCountRef = useRef(0);
@@ -274,10 +299,67 @@ function SlotCounter(
     [startValue, startValueOnce, startAnimation, setPrevDependenciesToSameAsCurrent],
   );
 
+  useEffect(() => {
+    if (!hasAnimateOnVisible || !slotCounterRef.current) {
+      return;
+    }
+
+    const animateStartObserver = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+
+        if (!entry.isIntersecting || !animateOnVisibleReadyRef.current) {
+          return;
+        }
+
+        startAnimationAll();
+        animateOnVisibleReadyRef.current = false;
+
+        if (animateOnVisibleTriggerOnce) {
+          animateStartObserver.disconnect();
+          visibleOnViewportObserver.disconnect();
+        }
+      },
+      {
+        rootMargin: animateOnVisibleRootMargin,
+        threshold: 1,
+      },
+    );
+    const visibleOnViewportObserver = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+
+        if (!entry.isIntersecting) {
+          animateOnVisibleReadyRef.current = true;
+        }
+      },
+      {
+        threshold: 0,
+      },
+    );
+
+    animateStartObserver.observe(slotCounterRef.current);
+    visibleOnViewportObserver.observe(slotCounterRef.current);
+
+    return () => {
+      animateStartObserver.disconnect();
+      visibleOnViewportObserver.disconnect();
+    };
+  }, [
+    hasAnimateOnVisible,
+    animateOnVisibleRootMargin,
+    animateOnVisibleTriggerOnce,
+    startAnimationAll,
+  ]);
+
   let noSeparatorValueIndex = -1;
 
   return (
-    <span key={key} className={mergeClassNames(containerClassName, styles.slot_wrap)}>
+    <span
+      key={key}
+      ref={slotCounterRef}
+      className={mergeClassNames(containerClassName, styles.slot_wrap)}
+    >
       {renderValueList.map((v, i) => {
         const isChanged = isChangedValueIndexList.includes(i);
         const delay = (isChanged ? isChangedValueIndexList.indexOf(i) : 0) * calculatedInterval;
