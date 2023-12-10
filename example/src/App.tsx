@@ -461,6 +461,37 @@ function App() {
         </div>
 
         <div className="example-area">
+          <h3>👀 Animate on Visible: Make a Grand Entrance!</h3>
+          <p>
+            Want to make a big impact the moment your counter comes into view? Say no more! With the{' '}
+            <code className="my-code">animateOnVisible</code> property, your slot counter will only
+            start animating when it enters the viewport. And yes, you have the power to customize it
+            further!
+          </p>
+          <p>
+            Use a simple boolean for basic functionality, or get creative with an object that
+            includes <code className="my-code">rootMargin</code> to set the margins around the
+            component. Just like the IntersectionObserver's rootMargin option, it helps in
+            triggering the animation relative to the viewport. And don't forget{' '}
+            <code className="my-code">triggerOnce</code> to decide if the animation should play once
+            or every time it comes into view. The stage is yours!
+          </p>
+          <div className="playground">
+            <SlotCounter
+              value="54321"
+              containerClassName="slot-counter"
+              animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
+            />
+          </div>
+          <CommonHighlighter>
+            {`<SlotCounter
+  value="54321"
+  animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
+/>`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="example-area">
           <h3>🎮 Take the Control with `ref`</h3>
           <h4>🕹️ StartAnimation: Command your Animation!</h4>
           <p>
