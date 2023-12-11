@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.1] - 2023-12-11
+
+### Fixed
+
+- Adjusted text alignment for counters to ensure consistent and visually appealing presentation across different usage scenarios.
+
 ## [2.2.0] - 2023-12-10
 
 ### Added
