@@ -233,9 +233,15 @@ function SlotCounter(
       const prevValueLength = prevValue.toString().length;
       const valueLength = value.toString().length;
       const isIncrease = prevValueLength < valueLength;
+
+      // diff between prevValue and value length
       const diff = Math.abs(prevValueLength - valueLength);
-      const prevNumValue = Number(toNumeric(prevValue));
-      const numValue = Number(toNumeric(value));
+
+      // prevValue to number without separator
+      const prevNumValue = Number(toNumeric(prevValue.toString()));
+
+      // value to number without separator
+      const numValue = Number(toNumeric(value.toString()));
       const prevDigit = Number(
         prevNumValue.toString()[isIncrease ? -diff + index : diff + index] || 0,
       );
