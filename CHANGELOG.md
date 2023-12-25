@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+
+## [2.2.2] - 2023-12-25
+
+### Fixed
+
+- Fixed a bug in `sequentialAnimationMode` for handling decimal numbers. In this update, I addressed an issue where decimal numbers were not processed correctly in `sequentialAnimationMode`.
+
+
 ## [2.2.1] - 2023-12-11
 
 ### Fixed
