@@ -1,9 +1,11 @@
-import React, { memo, RefObject, useEffect, useRef, useState } from 'react';
-import { isNumeric, mergeClassNames, range, shuffle } from '../utils';
+import React, { memo, RefObject, useEffect, useMemo, useRef, useState } from 'react';
+import { mergeClassNames, shuffle } from '../utils';
 import styles from '../index.module.scss';
 import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
 
 interface Props {
+  index: number;
+  isNew?: boolean;
   charClassName?: string;
   numbersRef: RefObject<HTMLDivElement>;
   active: boolean;
@@ -12,15 +14,19 @@ interface Props {
   delay: number;
   value: string | number | JSX.Element;
   startValue?: string | number | JSX.Element;
+  disableStartValue?: boolean;
   dummyList: (string | number | JSX.Element)[];
+  hasSequentialDummyList?: boolean;
   hasInfiniteList?: boolean;
   valueClassName?: string;
   reverse?: boolean;
   sequentialAnimationMode: boolean;
   useMonospaceWidth: boolean;
+  maxNumberWidth?: number;
 }
 
 function Slot({
+  isNew,
   charClassName,
   numbersRef,
   active,
@@ -29,12 +35,15 @@ function Slot({
   delay,
   value,
   startValue,
+  disableStartValue,
   dummyList,
+  hasSequentialDummyList,
   hasInfiniteList,
   valueClassName,
   reverse,
   sequentialAnimationMode,
   useMonospaceWidth,
+  maxNumberWidth,
 }: Props) {
   const [localActive, setLocalActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
@@ -42,13 +51,11 @@ function Slot({
   const valueRef = useRef(value);
   const itemRef = useRef<HTMLDivElement>(null);
   const [dummyListState, setDummyListState] = useState(
-    sequentialAnimationMode ? dummyList : shuffle(dummyList),
+    hasSequentialDummyList ? dummyList : shuffle(dummyList),
   );
   const [fontHeight, setFontHeight] = useState(0);
-  const [maxNumberWidth, setMaxNumberWidth] = useState(0);
   const [didMount, setDidMount] = useState(false);
   const slotNumbersHeight = fontHeight * (dummyList.length + 1);
-  const isNumericValue = typeof value !== 'object' && isNumeric(value);
 
   useIsomorphicLayoutEffect(() => {
     setDidMount(true);
@@ -57,25 +64,6 @@ function Slot({
   useIsomorphicLayoutEffect(() => {
     setFontHeight(itemRef.current?.offsetHeight ?? 0);
   }, [didMount]);
-
-  useIsomorphicLayoutEffect(() => {
-    if (!isNumericValue || !useMonospaceWidth) return;
-
-    const widthList = range(0, 10).map((i) => {
-      const testElement = document.createElement('div');
-      testElement.style.position = 'absolute';
-      testElement.style.top = '0';
-      testElement.style.left = '-9999px';
-      testElement.style.visibility = 'hidden';
-      testElement.textContent = i.toString();
-      itemRef.current?.appendChild(testElement);
-      const width = testElement.getBoundingClientRect().width;
-      itemRef.current?.removeChild(testElement);
-      return width;
-    });
-    const maxWidth = Math.max(...widthList);
-    setMaxNumberWidth(maxWidth);
-  }, [isNumericValue, useMonospaceWidth, didMount]);
 
   useEffect(() => {
     if (!active) {
@@ -87,6 +75,12 @@ function Slot({
       setLocalActive(active);
     });
   }, [active]);
+
+  useMemo(() => {
+    if (disableStartValue) {
+      prevValueRef.current = valueRef.current;
+    }
+  }, [disableStartValue]);
 
   useEffect(() => {
     if (!localActive) return;
@@ -103,8 +97,8 @@ function Slot({
   }, [localActive, value, effectiveDuration, delay, dummyList.length, sequentialAnimationMode]);
 
   useEffect(() => {
-    setDummyListState(sequentialAnimationMode ? dummyList : shuffle(dummyList));
-  }, [value, dummyList, sequentialAnimationMode]);
+    setDummyListState(hasSequentialDummyList ? dummyList : shuffle(dummyList));
+  }, [value, dummyList, hasSequentialDummyList]);
 
   const renderDummyList = () => {
     return dummyListState.map((dummyNumber, slotIndex) => (
@@ -117,6 +111,10 @@ function Slot({
   let topValue = reverse ? localValue : startValue ?? localValue;
   if (sequentialAnimationMode) {
     topValue = reverse ? localValue : startValue ?? prevValueRef.current ?? localValue;
+
+    if (sequentialAnimationMode && isNew) {
+      topValue = '';
+    }
   }
 
   let bottomValue = reverse ? startValue ?? localValue : localValue;
@@ -159,7 +157,7 @@ function Slot({
           </>
         ) : (
           <span className={styles.num} aria-hidden="true">
-            {startValue || localValue}
+            {startValue ?? localValue}
           </span>
         )}
       </span>

@@ -22,6 +22,13 @@ import styles from './index.module.scss';
 import Slot from './components/Slot';
 import { Direction, SlotCounterRef, StartAnimationOptions, Value } from './types/common';
 import useDebounce from './hooks/useDebounce';
+import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
+import useValueChangeEffect from './hooks/useValueChangeEffect';
+
+interface AnimateOnVisibleOptions {
+  rootMargin?: string;
+  triggerOnce?: boolean;
+}
 
 interface Props {
   value: Value;
@@ -41,6 +48,7 @@ interface Props {
   useMonospaceWidth?: boolean;
   direction?: Direction;
   debounceDelay?: number;
+  animateOnVisible?: boolean | AnimateOnVisibleOptions;
 }
 
 const SEPARATOR = [',', '.', ' '];
@@ -53,7 +61,7 @@ function SlotCounter(
     duration = 0.7,
     dummyCharacters,
     dummyCharacterCount = 6,
-    autoAnimationStart = true,
+    autoAnimationStart: _autoAnimationStart = true,
     containerClassName,
     charClassName,
     separatorClassName,
@@ -64,6 +72,7 @@ function SlotCounter(
     useMonospaceWidth = false,
     direction,
     debounceDelay,
+    animateOnVisible,
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
@@ -79,8 +88,26 @@ function SlotCounter(
   );
   const [active, setActive] = useState(false);
   const startAnimationOptionsRef = useRef<StartAnimationOptions>();
+  const slotCounterRef = useRef<HTMLSpanElement>(null);
   const numbersRef = useRef<HTMLDivElement>(null);
   const startValueRef = useRef(startValue);
+
+  const hasAnimateOnVisible = useMemo(() => {
+    if (typeof animateOnVisible === 'boolean') return animateOnVisible;
+    if (typeof animateOnVisible === 'object') return true;
+    return undefined;
+  }, [animateOnVisible]);
+  const animateOnVisibleRootMargin = useMemo(
+    () => (typeof animateOnVisible === 'object' ? animateOnVisible.rootMargin : undefined),
+    [animateOnVisible],
+  );
+  const animateOnVisibleTriggerOnce = useMemo(
+    () => (typeof animateOnVisible === 'object' ? animateOnVisible.triggerOnce : undefined),
+    [animateOnVisible],
+  );
+  const animateOnVisibleReadyRef = useRef(true);
+
+  const autoAnimationStart = hasAnimateOnVisible ? false : _autoAnimationStart;
   const valueRef = useRef(startValue != null && !autoAnimationStart ? startValue : value);
   const prevValueRef = useRef<Props['value'] | undefined>(startValue);
   const animationCountRef = useRef(0);
@@ -88,6 +115,7 @@ function SlotCounter(
   const [dummyList, setDummyList] = useState<(string | number | JSX.Element)[]>([]);
   const animationTimerRef = useRef<number>();
   const [key, setKey] = useState(0);
+  const [maxNumberWidth, setMaxNumberWidth] = useState<number>();
   const isDidMountRef = useRef(false);
   const displayStartValue =
     startValue != null && (startValueOnce ? animationCountRef.current < 1 : true);
@@ -95,6 +123,34 @@ function SlotCounter(
   const effectiveDummyCharacterCount =
     startAnimationOptionsRef.current?.dummyCharacterCount ?? dummyCharacterCount;
   const effectiveDuration = startAnimationOptionsRef.current?.duration ?? duration;
+
+  useIsomorphicLayoutEffect(() => {
+    const numbersElement = numbersRef.current;
+    if (!numbersElement || !useMonospaceWidth) return;
+
+    const detectMaxNumberWidth = () => {
+      const widthList = range(0, 10).map((i) => {
+        const testElement = document.createElement('span');
+        testElement.className = valueClassName ?? '';
+        testElement.style.position = 'absolute';
+        testElement.style.top = '0';
+        testElement.style.left = '-9999px';
+        testElement.style.visibility = 'hidden';
+        testElement.textContent = i.toString();
+        numbersElement.appendChild(testElement);
+        const width = testElement.getBoundingClientRect().width;
+        numbersElement.removeChild(testElement);
+        return width;
+      });
+      const maxWidth = Math.max(...widthList);
+      setMaxNumberWidth(maxWidth);
+    };
+
+    detectMaxNumberWidth();
+    document.fonts?.ready.then(() => {
+      detectMaxNumberWidth();
+    });
+  }, []);
 
   useEffect(() => {
     setDummyList(
@@ -167,15 +223,6 @@ function SlotCounter(
     }, 20);
   }, []);
 
-  const startAnimationAll = useCallback(
-    (options?: StartAnimationOptions) => {
-      if (startValue != null && !startValueOnce) prevValueRef.current = undefined;
-      startAnimationOptionsRef.current = options;
-      startAnimation();
-    },
-    [startValue, startValueOnce, startAnimation],
-  );
-
   const getSequentialDummyList = useCallback(
     (index: number) => {
       const prevValue = displayStartValue ? startValue : prevValueRef.current;
@@ -183,10 +230,18 @@ function SlotCounter(
         return [];
       }
 
+      const prevValueLength = prevValue.toString().length;
+      const valueLength = value.toString().length;
+      const isIncrease = prevValueLength < valueLength;
+      const diff = Math.abs(prevValueLength - valueLength);
       const prevNumValue = Number(toNumeric(prevValue));
       const numValue = Number(toNumeric(value));
-      const prevDigit = Number(prevNumValue.toString()[index] || 0);
+      const prevDigit = Number(
+        prevNumValue.toString()[isIncrease ? -diff + index : diff + index] || 0,
+      );
       const currentDigit = Number(numValue.toString()[index] || 0);
+
+      if (currentDigit === prevDigit) return [];
 
       const dummyList =
         prevNumValue < numValue
@@ -203,11 +258,12 @@ function SlotCounter(
   }, []);
 
   useEffect(() => {
-    if (prevValueRef.current == null) return;
-    if (startValueRef.current && !isDidMountRef.current) return;
+    if (!isDidMountRef.current && prevValueRef.current == null) return;
+    if (!isDidMountRef.current && startValueRef.current != null) return;
+    if (!isDidMountRef.current && !autoAnimationStart) return;
 
     startAnimation();
-  }, [serializedValue, startAnimation]);
+  }, [serializedValue, startAnimation, autoAnimationStart]);
 
   useEffect(() => {
     if (autoAnimationStart) startAnimation();
@@ -225,15 +281,85 @@ function SlotCounter(
   }));
 
   const renderValueList =
-    startValue && !autoAnimationStart && animationCountRef.current === 0
+    startValue != null && !autoAnimationStart && animationCountRef.current === 0
       ? startValueList || []
       : valueList;
   const startValueLengthDiff = (startValueList?.length || 0) - renderValueList.length;
+  const { getPrevDependencies, setPrevDependenciesToSameAsCurrent } =
+    useValueChangeEffect(renderValueList);
+  const diffValueListCount = renderValueList.length - getPrevDependencies().length;
+
+  const startAnimationAll = useCallback(
+    (options?: StartAnimationOptions) => {
+      if (startValue != null && !startValueOnce) prevValueRef.current = undefined;
+      startAnimationOptionsRef.current = options;
+      startAnimation();
+      setPrevDependenciesToSameAsCurrent();
+    },
+    [startValue, startValueOnce, startAnimation, setPrevDependenciesToSameAsCurrent],
+  );
+
+  useEffect(() => {
+    if (!hasAnimateOnVisible || !slotCounterRef.current) {
+      return;
+    }
+
+    const animateStartObserver = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+
+        if (!entry.isIntersecting || !animateOnVisibleReadyRef.current) {
+          return;
+        }
+
+        startAnimationAll();
+        animateOnVisibleReadyRef.current = false;
+
+        if (animateOnVisibleTriggerOnce) {
+          animateStartObserver.disconnect();
+          visibleOnViewportObserver.disconnect();
+        }
+      },
+      {
+        rootMargin: animateOnVisibleRootMargin,
+        threshold: 1,
+      },
+    );
+    const visibleOnViewportObserver = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+
+        if (!entry.isIntersecting) {
+          animateOnVisibleReadyRef.current = true;
+        }
+      },
+      {
+        threshold: 0,
+      },
+    );
+
+    animateStartObserver.observe(slotCounterRef.current);
+    visibleOnViewportObserver.observe(slotCounterRef.current);
+
+    return () => {
+      animateStartObserver.disconnect();
+      visibleOnViewportObserver.disconnect();
+    };
+  }, [
+    hasAnimateOnVisible,
+    animateOnVisibleRootMargin,
+    animateOnVisibleTriggerOnce,
+    startAnimationAll,
+  ]);
 
   let noSeparatorValueIndex = -1;
 
   return (
-    <span key={key} className={mergeClassNames(containerClassName, styles.slot_wrap)}>
+    <span
+      key={key}
+      ref={slotCounterRef}
+      className={mergeClassNames(containerClassName, styles.slot_wrap)}
+    >
       {renderValueList.map((v, i) => {
         const isChanged = isChangedValueIndexList.includes(i);
         const delay = (isChanged ? isChangedValueIndexList.indexOf(i) : 0) * calculatedInterval;
@@ -263,11 +389,16 @@ function SlotCounter(
           );
         }
 
+        const hasSequentialDummyList =
+          sequentialAnimationMode && (!autoAnimationStart || animationExecuteCountRef.current > 1);
         noSeparatorValueIndex += 1;
 
         return (
           <Slot
-            key={valueRefList.length - i - 1}
+            key={renderValueList.length - i - 1}
+            index={i}
+            isNew={diffValueListCount > 0 && i < diffValueListCount}
+            maxNumberWidth={maxNumberWidth}
             numbersRef={numbersRef}
             active={active}
             isChanged={isChanged}
@@ -275,10 +406,12 @@ function SlotCounter(
             effectiveDuration={effectiveDuration}
             delay={delay}
             value={v}
-            startValue={!disableStartValue ? startValueList?.[i - startValueLengthDiff] : undefined}
+            startValue={!disableStartValue ? startValueList?.[i + startValueLengthDiff] : undefined}
+            disableStartValue={disableStartValue}
             dummyList={
-              sequentialAnimationMode ? getSequentialDummyList(noSeparatorValueIndex) : dummyList
+              hasSequentialDummyList ? getSequentialDummyList(noSeparatorValueIndex) : dummyList
             }
+            hasSequentialDummyList={hasSequentialDummyList}
             hasInfiniteList={hasInfiniteList}
             valueClassName={valueClassName}
             reverse={reverseAnimation}
