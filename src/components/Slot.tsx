@@ -55,17 +55,12 @@ function Slot({
   const [dummyListState, setDummyListState] = useState(
     hasSequentialDummyList ? dummyList : shuffle(dummyList),
   );
-  // const [fontHeight, setFontHeight] = useState(0);
   const [didMount, setDidMount] = useState(false);
   const slotNumbersHeight = fontHeight * (dummyList.length + 1);
 
   useIsomorphicLayoutEffect(() => {
     setDidMount(true);
   }, []);
-
-  // useIsomorphicLayoutEffect(() => {
-  //   setFontHeight(itemRef.current?.offsetHeight ?? 0);
-  // }, [didMount]);
 
   useEffect(() => {
     if (!active) {
