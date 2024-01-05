@@ -23,6 +23,7 @@ interface Props {
   sequentialAnimationMode: boolean;
   useMonospaceWidth: boolean;
   maxNumberWidth?: number;
+  fontHeight: number;
 }
 
 function Slot({
@@ -44,6 +45,7 @@ function Slot({
   sequentialAnimationMode,
   useMonospaceWidth,
   maxNumberWidth,
+  fontHeight,
 }: Props) {
   const [localActive, setLocalActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
@@ -53,7 +55,7 @@ function Slot({
   const [dummyListState, setDummyListState] = useState(
     hasSequentialDummyList ? dummyList : shuffle(dummyList),
   );
-  const [fontHeight, setFontHeight] = useState(0);
+  // const [fontHeight, setFontHeight] = useState(0);
   const [didMount, setDidMount] = useState(false);
   const slotNumbersHeight = fontHeight * (dummyList.length + 1);
 
@@ -61,9 +63,9 @@ function Slot({
     setDidMount(true);
   }, []);
 
-  useIsomorphicLayoutEffect(() => {
-    setFontHeight(itemRef.current?.offsetHeight ?? 0);
-  }, [didMount]);
+  // useIsomorphicLayoutEffect(() => {
+  //   setFontHeight(itemRef.current?.offsetHeight ?? 0);
+  // }, [didMount]);
 
   useEffect(() => {
     if (!active) {
@@ -102,7 +104,12 @@ function Slot({
 
   const renderDummyList = () => {
     return dummyListState.map((dummyNumber, slotIndex) => (
-      <span key={slotIndex} className={styles.num} aria-hidden="true">
+      <span
+        key={slotIndex}
+        className={styles.num}
+        aria-hidden="true"
+        style={{ height: fontHeight }}
+      >
         {dummyNumber}
       </span>
     ));
@@ -150,13 +157,17 @@ function Slot({
               {topValue}
             </span>
             {renderDummyList()}
-            <span className={mergeClassNames(styles.num, valueClassName)} ref={itemRef}>
+            <span
+              className={mergeClassNames(styles.num, valueClassName)}
+              style={{ height: fontHeight }}
+              ref={itemRef}
+            >
               {bottomValue}
             </span>
             {hasInfiniteList ? renderDummyList() : null}
           </>
         ) : (
-          <span className={styles.num} aria-hidden="true">
+          <span className={styles.num} aria-hidden="true" style={{ height: fontHeight }}>
             {startValue ?? localValue}
           </span>
         )}
