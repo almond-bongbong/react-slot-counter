@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.4] - 2024-01-05
+
+### Fixed
+
+- Refined font height calculation logic for more accurate and visually pleasing displays.
+
 
 ## [2.2.3] - 2023-12-25
 
