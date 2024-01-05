@@ -99,12 +99,7 @@ function Slot({
 
   const renderDummyList = () => {
     return dummyListState.map((dummyNumber, slotIndex) => (
-      <span
-        key={slotIndex}
-        className={styles.num}
-        aria-hidden="true"
-        style={{ height: fontHeight }}
-      >
+      <span key={slotIndex} className={styles.num} aria-hidden="true">
         {dummyNumber}
       </span>
     ));
@@ -152,17 +147,13 @@ function Slot({
               {topValue}
             </span>
             {renderDummyList()}
-            <span
-              className={mergeClassNames(styles.num, valueClassName)}
-              style={{ height: fontHeight }}
-              ref={itemRef}
-            >
+            <span className={mergeClassNames(styles.num, valueClassName)} ref={itemRef}>
               {bottomValue}
             </span>
             {hasInfiniteList ? renderDummyList() : null}
           </>
         ) : (
-          <span className={styles.num} aria-hidden="true" style={{ height: fontHeight }}>
+          <span className={styles.num} aria-hidden="true">
             {startValue ?? localValue}
           </span>
         )}

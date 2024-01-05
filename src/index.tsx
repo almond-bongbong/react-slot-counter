@@ -141,7 +141,7 @@ function SlotCounter(
       numbersElement.appendChild(testElement);
       const height = testElement.getBoundingClientRect().height;
       numbersElement.removeChild(testElement);
-      setFontHeight(Math.ceil(height));
+      setFontHeight(height);
     };
 
     detectFontHeight();
