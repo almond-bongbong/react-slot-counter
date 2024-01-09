@@ -123,32 +123,6 @@ function SlotCounter(
   const effectiveDummyCharacterCount =
     startAnimationOptionsRef.current?.dummyCharacterCount ?? dummyCharacterCount;
   const effectiveDuration = startAnimationOptionsRef.current?.duration ?? duration;
-  const [fontHeight, setFontHeight] = useState(0);
-
-  // Detect font height
-  useIsomorphicLayoutEffect(() => {
-    const numbersElement = numbersRef.current;
-    if (!numbersElement) return;
-
-    const detectFontHeight = () => {
-      const testElement = document.createElement('span');
-      testElement.className = valueClassName ?? '';
-      testElement.style.position = 'absolute';
-      testElement.style.top = '-9999px';
-      testElement.style.left = '0';
-      testElement.style.visibility = 'hidden';
-      testElement.textContent = '0';
-      numbersElement.appendChild(testElement);
-      const height = testElement.getBoundingClientRect().height;
-      numbersElement.removeChild(testElement);
-      setFontHeight(height);
-    };
-
-    detectFontHeight();
-    document.fonts?.ready.then(() => {
-      detectFontHeight();
-    });
-  }, []);
 
   // Detect max number width
   useIsomorphicLayoutEffect(() => {
@@ -450,7 +424,6 @@ function SlotCounter(
             reverse={reverseAnimation}
             sequentialAnimationMode={sequentialAnimationMode}
             useMonospaceWidth={useMonospaceWidth}
-            fontHeight={fontHeight}
           />
         );
       })}

@@ -23,7 +23,6 @@ interface Props {
   sequentialAnimationMode: boolean;
   useMonospaceWidth: boolean;
   maxNumberWidth?: number;
-  fontHeight: number;
 }
 
 function Slot({
@@ -45,13 +44,13 @@ function Slot({
   sequentialAnimationMode,
   useMonospaceWidth,
   maxNumberWidth,
-  fontHeight,
 }: Props) {
   const [localActive, setLocalActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
   const prevValueRef = useRef<typeof value>();
   const valueRef = useRef(value);
   const itemRef = useRef<HTMLDivElement>(null);
+  const [fontHeight, setFontHeight] = useState(0);
   const [dummyListState, setDummyListState] = useState(
     hasSequentialDummyList ? dummyList : shuffle(dummyList),
   );
@@ -61,6 +60,10 @@ function Slot({
   useIsomorphicLayoutEffect(() => {
     setDidMount(true);
   }, []);
+
+  useIsomorphicLayoutEffect(() => {
+    setFontHeight(itemRef.current?.getBoundingClientRect().height ?? 0);
+  }, [didMount]);
 
   useEffect(() => {
     if (!active) {

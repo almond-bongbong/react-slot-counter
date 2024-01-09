@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.2.5] - 2024-01-09
+
+### Fixed
+
+- Fixed an error caused by inaccurate font height calculation.
+
+
 ## [2.2.4] - 2024-01-05
 
 ### Fixed
