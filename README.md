@@ -1,6 +1,6 @@
-# react-slot-counter 🎰
+# React Slot Counter 🎰 - Make Your UI Count! ✨
 
-> 🎉 New in 2.0.0: Major bug fixes! Check out the CHANGELOG for all the details.
+> 🚀 Elevate Your UI with Dynamic, Eye-Catching Counters - React Slot Counter v2.0.0
 
 Make Your Numbers Pop 🌟: Simple and Dynamic Counters for Your UI
 
@@ -17,24 +17,24 @@ Make Your Numbers Pop 🌟: Simple and Dynamic Counters for Your UI
     </a>
 </p>
 
-## 🌟 Features
+## 💡 Why React Slot Counter?
 
-- **Flexible Inputs**: No more boring digits. Display numbers, strings, and even JSX elements.
-- **Animated Changes**: Make your UI dynamic. Only animate the characters that change.
-- **Sequential Animation Mode**: Go beyond randomness. Animate numbers incrementally for a purposeful experience.
-- **Customize As You Like**: Make it fit seamlessly into your app with extensive customization options.
+React Slot Counter is your go-to solution for adding animated, interactive counters to your web applications. With customizable animations, diverse input compatibility, and easy integration, it's designed to make your numbers not just visible but visually striking.
 
-Immerse your users in an interactive, engaging, and enjoyable experience with `react-slot-counter`. Whether you're displaying user scores, loading status, or real-time data, `react-slot-counter` adds that extra 'spin' to your numbers and strings.
+## 🌟 Key Features
 
-## 📦 Installation
+- **Versatile Inputs**: Beyond numbers—strings, JSX elements, and more.
+- **Animation on Demand**: Updates animate only the changed elements.
+- **Sequential Animation**: For that extra touch of order and purpose.
+- **Total Customizability**: Tailor the look and feel to fit your app perfectly.
 
-To install the package, run the following command:
+## 📦 Quick Installation
 
 ```bash
 npm install react-slot-counter
 ```
 
-## 🛠 Usage
+## 🛠 Easy Usage
 
 Import `SlotCounter` and use it in your component. Here's a simple example:
 
@@ -57,14 +57,24 @@ function App() {
 export default App;
 ```
 
-## 🎥 Demo
+## 🎥 Live Demo
 
-For more examples of usage and available options, check out the [demo page](https://almond-bongbong.github.io/react-slot-counter/).
+Explore more at the [demo page](https://almond-bongbong.github.io/react-slot-counter/).
 
-## 📝 Props
+## 📝 Comprehensive Props
+
+Detailed props for customizing SlotCounter to fit your UI needs:
+
+- **value** (required): Display numbers, strings, or JSX elements.
+- **duration**: Control the speed of the animation.
+- **animateUnchanged**: Choose to animate all or only changed characters.
+- And many more!
+
+<details>
+  <summary>See full props list</summary>
 
 | Prop                    | Type                                                    | Default                                              | Description                                                                                                                                                                                                                                                                          |
-| ----------------------- |---------------------------------------------------------|------------------------------------------------------| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| ----------------------- | ------------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | value _(required)_      | `number` \| `string` \| `string[]` \| `JSX.Element[]`   |                                                      | The value to be displayed. It can be a number or a string with numbers and commas.                                                                                                                                                                                                   |
 | startValue              | `number` \| `string` \| `string[]` \| `JSX.Element[]`   |                                                      | The initial value to be displayed before the animation starts. It sets the beginning of the slot machine animation.                                                                                                                                                                  |
 | startValueOnce          | `boolean`                                               | `false`                                              | If set to true, the animation starts from the `startValue` only for the first render. For subsequent animations, it starts from the last value.                                                                                                                                      |
@@ -84,9 +94,14 @@ For more examples of usage and available options, check out the [demo page](http
 | debounceDelay           | `number`                                                | `0`                                                  | Specifies the delay in milliseconds for debouncing animations. When the value changes rapidly, it allows the animation to execute smoothly.                                                                                                                                          |
 | animateOnVisible        | `boolean` \| `rootMargin: string, triggerOnce: boolean` | `false` \| `rootMargin: '0px'`, `triggerOnce: false` | Activates the animation when the component is visible in the viewport. rootMargin sets the margin around the viewport for triggering the animation, while triggerOnce determines if the animation should occur only once (true) or every time the component becomes visible (false). |
 
-## 🤖 Ref
+</details>
 
-You can manipulate the SlotCounter component's behavior using a ref.
+## 🤖 Advanced Ref Usage
+
+Manipulate the behavior with refreshStyles and startAnimation methods.
+
+<details>
+  <summary>Learn more</summary>
 
 | Method           | Type                          | Description                                                                                                                                                                    |
 | ---------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -125,19 +140,20 @@ function App() {
 export default App;
 ```
 
-## 📜 Change Log
+</details>
 
-For a detailed list of changes, check out the [CHANGELOG.md](./CHANGELOG.md) file.
+## 📜 Stay Updated
 
-## 👨‍💻 Contributing
+Check out our [CHANGELOG.md](./CHANGELOG.md) for the latest updates.
 
-Contributions are always welcome!
+## 👨‍💻 Join the Community
 
-## ❤️ Enjoying this repository?
+Your contributions are welcome! Let's make this project even better together.
 
-Show your support by giving a star! ⭐
-And don't forget to follow me on GitHub for more exciting projects!
+## ❤️ Like Our Work?
+
+Support us with a star ⭐ on GitHub!
 
 ## 📄 License
 
-This project is licensed under the MIT License.
+This project is proudly licensed under the MIT License.
