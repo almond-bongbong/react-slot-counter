@@ -9,6 +9,7 @@ import React, {
   useState,
 } from 'react';
 import {
+  debounce,
   generateCyclicRange,
   isJSXElement,
   isJSXElementArray,
@@ -124,35 +125,46 @@ function SlotCounter(
     startAnimationOptionsRef.current?.dummyCharacterCount ?? dummyCharacterCount;
   const effectiveDuration = startAnimationOptionsRef.current?.duration ?? duration;
 
-  // Detect max number width
-  useIsomorphicLayoutEffect(() => {
+  /**
+   * Detect max number width
+   */
+  const detectMaxNumberWidth = useCallback(() => {
     const numbersElement = numbersRef.current;
-    if (!numbersElement || !useMonospaceWidth) return;
 
-    const detectMaxNumberWidth = () => {
-      const widthList = range(0, 10).map((i) => {
-        const testElement = document.createElement('span');
-        testElement.className = valueClassName ?? '';
-        testElement.style.position = 'absolute';
-        testElement.style.top = '0';
-        testElement.style.left = '-9999px';
-        testElement.style.visibility = 'hidden';
-        testElement.textContent = i.toString();
-        numbersElement.appendChild(testElement);
-        const width = testElement.getBoundingClientRect().width;
-        numbersElement.removeChild(testElement);
-        return width;
-      });
-      const maxWidth = Math.max(...widthList);
-      setMaxNumberWidth(maxWidth);
-    };
+    if (!numbersElement || !useMonospaceWidth) {
+      return;
+    }
 
+    const widthList = range(0, 10).map((i) => {
+      const testElement = document.createElement('span');
+      testElement.className = valueClassName ?? '';
+      testElement.style.position = 'absolute';
+      testElement.style.top = '0';
+      testElement.style.left = '-9999px';
+      testElement.style.visibility = 'hidden';
+      testElement.textContent = i.toString();
+      numbersElement.appendChild(testElement);
+      const width = testElement.getBoundingClientRect().width;
+      numbersElement.removeChild(testElement);
+      return width;
+    });
+    const maxWidth = Math.max(...widthList);
+    setMaxNumberWidth(maxWidth);
+  }, [useMonospaceWidth, valueClassName]);
+
+  /**
+   * Call detectMaxNumberWidth when component mounted
+   */
+  useIsomorphicLayoutEffect(() => {
     detectMaxNumberWidth();
     document.fonts?.ready.then(() => {
       detectMaxNumberWidth();
     });
   }, []);
 
+  /**
+   * Generate dummy list
+   */
   useEffect(() => {
     setDummyList(
       range(0, effectiveDummyCharacterCount - 1).map((i) => {
@@ -262,7 +274,8 @@ function SlotCounter(
 
   const refreshStyles = useCallback(() => {
     setKey((prev) => prev + 1);
-  }, []);
+    detectMaxNumberWidth();
+  }, [detectMaxNumberWidth]);
 
   useEffect(() => {
     if (!isDidMountRef.current && prevValueRef.current == null) return;
@@ -304,6 +317,14 @@ function SlotCounter(
       setPrevDependenciesToSameAsCurrent();
     },
     [startValue, startValueOnce, startAnimation, setPrevDependenciesToSameAsCurrent],
+  );
+
+  const handleFontHeightChange = useMemo(
+    () =>
+      debounce(() => {
+        refreshStyles();
+      }, 0),
+    [refreshStyles],
   );
 
   useEffect(() => {
@@ -424,6 +445,7 @@ function SlotCounter(
             reverse={reverseAnimation}
             sequentialAnimationMode={sequentialAnimationMode}
             useMonospaceWidth={useMonospaceWidth}
+            onFontHeightChange={handleFontHeightChange}
           />
         );
       })}

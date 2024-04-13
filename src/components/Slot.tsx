@@ -23,6 +23,7 @@ interface Props {
   sequentialAnimationMode: boolean;
   useMonospaceWidth: boolean;
   maxNumberWidth?: number;
+  onFontHeightChange?: (fontHeight: number) => void;
 }
 
 function Slot({
@@ -44,6 +45,7 @@ function Slot({
   sequentialAnimationMode,
   useMonospaceWidth,
   maxNumberWidth,
+  onFontHeightChange,
 }: Props) {
   const [localActive, setLocalActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
@@ -75,6 +77,30 @@ function Slot({
       setLocalActive(active);
     });
   }, [active]);
+
+  useEffect(() => {
+    const numberElement = itemRef.current;
+
+    if (!fontHeight || !numberElement || typeof ResizeObserver === 'undefined') {
+      return;
+    }
+
+    const handleResize: ResizeObserverCallback = (entries) => {
+      // Change in height
+      const height = entries[0].contentRect.height;
+
+      if (fontHeight != height) {
+        onFontHeightChange?.(height);
+      }
+    };
+
+    const observer = new ResizeObserver(handleResize);
+    observer.observe(numberElement);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [fontHeight, onFontHeightChange]);
 
   useMemo(() => {
     if (disableStartValue) {
