@@ -176,6 +176,9 @@ function SlotCounter(
     );
   }, [dummyCharacters, effectiveDummyCharacterCount]);
 
+  /**
+   * Update valueRef and prevValueRef when value is changed
+   */
   if (valueRef.current !== value && isDidMountRef.current && animationExecuteCountRef.current > 0) {
     prevValueRef.current = valueRef.current;
     valueRef.current = value;
@@ -216,11 +219,17 @@ function SlotCounter(
   });
   isChangedValueIndexList.reverse();
 
+  /**
+   * Calculate interval for each slot
+   */
   const calculatedInterval = useMemo(() => {
     const MAX_INTERVAL = 0.1;
     return Math.min(MAX_INTERVAL, effectiveDuration / valueList.length);
   }, [effectiveDuration, valueList.length]);
 
+  /**
+   * Start animation
+   */
   const startAnimation = useCallback(() => {
     if (animationTimerRef.current) {
       clearTimeout(animationTimerRef.current);
@@ -236,6 +245,9 @@ function SlotCounter(
     }, 20);
   }, []);
 
+  /**
+   * Get sequential dummy list
+   */
   const getSequentialDummyList = useCallback(
     (index: number) => {
       const prevValue = displayStartValue ? startValue : prevValueRef.current;
@@ -272,11 +284,17 @@ function SlotCounter(
     [displayStartValue, value, startValue],
   );
 
+  /**
+   * Refresh styles
+   */
   const refreshStyles = useCallback(() => {
     setKey((prev) => prev + 1);
     detectMaxNumberWidth();
   }, [detectMaxNumberWidth]);
 
+  /**
+   * Start animation when value is changed
+   */
   useEffect(() => {
     if (!isDidMountRef.current && prevValueRef.current == null) return;
     if (!isDidMountRef.current && startValueRef.current != null) return;
@@ -285,16 +303,25 @@ function SlotCounter(
     startAnimation();
   }, [serializedValue, startAnimation, autoAnimationStart]);
 
+  /**
+   * Start animation when autoAnimationStart is changed
+   */
   useEffect(() => {
     if (autoAnimationStart) startAnimation();
   }, [autoAnimationStart, startAnimation]);
 
+  /**
+   * Set isDidMount to true when component mounted
+   */
   useEffect(() => {
     requestAnimationFrame(() => {
       isDidMountRef.current = true;
     });
   }, []);
 
+  /**
+   * Ref forwarding
+   */
   useImperativeHandle(ref, () => ({
     startAnimation: startAnimationAll,
     refreshStyles,
