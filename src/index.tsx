@@ -44,6 +44,8 @@ interface Props {
   charClassName?: string;
   separatorClassName?: string;
   valueClassName?: string;
+  numberSlotClassName?: string;
+  numberClassName?: string;
   sequentialAnimationMode?: boolean;
   useMonospaceWidth?: boolean;
   direction?: Direction;
@@ -65,9 +67,11 @@ function SlotCounter(
     containerClassName,
     charClassName,
     separatorClassName,
+    valueClassName,
+    numberSlotClassName,
+    numberClassName,
     animateUnchanged = false,
     hasInfiniteList = false,
-    valueClassName,
     sequentialAnimationMode = false,
     useMonospaceWidth = false,
     direction,
@@ -421,6 +425,8 @@ function SlotCounter(
             hasSequentialDummyList={hasSequentialDummyList}
             hasInfiniteList={hasInfiniteList}
             valueClassName={valueClassName}
+            numberSlotClassName={numberSlotClassName}
+            numberClassName={numberClassName}
             reverse={reverseAnimation}
             sequentialAnimationMode={sequentialAnimationMode}
             useMonospaceWidth={useMonospaceWidth}
