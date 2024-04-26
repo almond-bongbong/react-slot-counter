@@ -51,3 +51,17 @@ export const isJSXElement = (value: string | number | JSX.Element): value is JSX
 
 export const isJSXElementArray = (value: Value): value is JSX.Element[] =>
   Array.isArray(value) && isJSXElement(value[0]);
+
+/* eslint-disable-next-line */
+export const debounce = <T extends (...args: any[]) => any>(
+  fn: T,
+  delay: number,
+): ((...args: Parameters<T>) => void) => {
+  let timer: number;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn(...args);
+    }, delay);
+  };
+};
