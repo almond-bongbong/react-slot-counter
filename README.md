@@ -1,6 +1,6 @@
 # React Slot Counter 🎰 - Make Your UI Count! ✨
 
-> 🚀 Elevate Your UI with Dynamic, Eye-Catching Counters - React Slot Counter v2.0.0
+> 🚀 Elevate Your UI with Dynamic, Eye-Catching Counters - React Slot Counter
 
 Make Your Numbers Pop 🌟: Simple and Dynamic Counters for Your UI
 

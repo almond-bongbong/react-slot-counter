@@ -2,12 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.0] - 2024-04-26
+
+### Added
+
+- Introduced `numberSlotClassName` and `numberClassName` props for more customization options. These props allow you to set the class name for the number slot and the number, respectively, enabling you to customize their styling.
+- Implemented the ResizeObserver API to detect changes in font size. This enhancement provides a better experience in responsive services by ensuring that the counter adapts to changes in font size.
+
 ## [2.2.5] - 2024-01-09
 
 ### Fixed
 
 - Fixed an error caused by inaccurate font height calculation.
-
 
 ## [2.2.4] - 2024-01-05
 
@@ -15,13 +21,11 @@ All notable changes to this project will be documented in this file.
 
 - Refined font height calculation logic for more accurate and visually pleasing displays.
 
-
 ## [2.2.3] - 2023-12-25
 
 ### Fixed
 
 - Fixed a bug in `sequentialAnimationMode` for handling decimal numbers. In this update, I addressed an issue where decimal numbers were not processed correctly in `sequentialAnimationMode`.
-
 
 ## [2.2.1] - 2023-12-11
 
@@ -32,7 +36,7 @@ All notable changes to this project will be documented in this file.
 ## [2.2.0] - 2023-12-10
 
 ### Added
- 
+
 - Introduced `animateOnVisible` prop to trigger animations based on component visibility. This feature allows animations to start when the component is visible in the viewport, enhancing user engagement and interactivity. The `animateOnVisible` prop can be a boolean or an object with `rootMargin` and `triggerOnce` options for more precise control.
 
 ## [2.1.1] - 2023-11-19
