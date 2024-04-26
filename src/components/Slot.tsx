@@ -19,6 +19,8 @@ interface Props {
   hasSequentialDummyList?: boolean;
   hasInfiniteList?: boolean;
   valueClassName?: string;
+  numberSlotClassName?: string;
+  numberClassName?: string;
   reverse?: boolean;
   sequentialAnimationMode: boolean;
   useMonospaceWidth: boolean;
@@ -40,6 +42,8 @@ function Slot({
   hasSequentialDummyList,
   hasInfiniteList,
   valueClassName,
+  numberSlotClassName,
+  numberClassName,
   reverse,
   sequentialAnimationMode,
   useMonospaceWidth,
@@ -102,7 +106,11 @@ function Slot({
 
   const renderDummyList = () => {
     return dummyListState.map((dummyNumber, slotIndex) => (
-      <span key={slotIndex} className={styles.num} aria-hidden="true">
+      <span
+        key={slotIndex}
+        className={mergeClassNames(styles.num, numberClassName)}
+        aria-hidden="true"
+      >
         {dummyNumber}
       </span>
     ));
@@ -133,7 +141,7 @@ function Slot({
     >
       <span
         ref={numbersRef}
-        className={styles.numbers}
+        className={mergeClassNames(styles.numbers, numberSlotClassName)}
         style={{
           transition: 'none',
           transform: reverse ? `translateY(-${slotNumbersHeight}px)` : `translateY(0px)`,
@@ -146,17 +154,24 @@ function Slot({
       >
         {didMount ? (
           <>
-            <span className={styles.num} aria-hidden="true" style={{ height: fontHeight }}>
+            <span
+              className={mergeClassNames(styles.num, numberClassName)}
+              aria-hidden="true"
+              style={{ height: fontHeight }}
+            >
               {topValue}
             </span>
             {renderDummyList()}
-            <span className={mergeClassNames(styles.num, valueClassName)} ref={itemRef}>
+            <span
+              className={mergeClassNames(styles.num, numberClassName, valueClassName)}
+              ref={itemRef}
+            >
               {bottomValue}
             </span>
             {hasInfiniteList ? renderDummyList() : null}
           </>
         ) : (
-          <span className={styles.num} aria-hidden="true">
+          <span className={mergeClassNames(styles.num, numberClassName)} aria-hidden="true">
             {startValue ?? localValue}
           </span>
         )}
