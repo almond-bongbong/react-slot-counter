@@ -135,7 +135,7 @@ function SlotCounter(
   const detectMaxNumberWidth = useCallback(() => {
     const numbersElement = numbersRef.current;
 
-    if (!numbersElement || !useMonospaceWidth) {
+    if (!numbersElement) {
       return;
     }
 
@@ -154,7 +154,7 @@ function SlotCounter(
     });
     const maxWidth = Math.max(...widthList);
     setMaxNumberWidth(maxWidth);
-  }, [useMonospaceWidth, valueClassName]);
+  }, [valueClassName]);
 
   /**
    * Call detectMaxNumberWidth when component mounted
