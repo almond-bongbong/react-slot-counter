@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.1] - 2024-04-27
+
+### Fixed
+
+- Fixed an issue where the font width was incorrectly calculated when using `useMonospaceWidth`.
+
 ## [2.3.0] - 2024-04-26
 
 ### Added
