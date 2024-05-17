@@ -53,6 +53,11 @@ function App() {
             </button>
           </div>
           <CommonHighlighter>{`<SlotCounter value={123456} />`}</CommonHighlighter>
+
+          <p className="info">
+            * Curious about how the Play button works? You can check it out in the{' '}
+            <a href="#ref-section">ref section</a> below.
+          </p>
         </div>
 
         <div className="example-area">
@@ -491,7 +496,7 @@ function App() {
           </CommonHighlighter>
         </div>
 
-        <div className="example-area">
+        <div id="ref-section" className="example-area">
           <h3>🎮 Take the Control with `ref`</h3>
           <h4>🕹️ StartAnimation: Command your Animation!</h4>
           <p>

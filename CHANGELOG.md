@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.2] - 2024-05-17
+
+### Fixed
+
+- Fixed a bug in `sequentialAnimationMode` where the first digit was being displayed as a blank space when the number of digits increased and the number decreased. This fix ensures that the correct number is displayed in all situations.
+
 ## [2.3.1] - 2024-04-27
 
 ### Fixed
