@@ -146,7 +146,7 @@ function Slot({
   if (sequentialAnimationMode) {
     topValue = reverse ? localValue : startValue ?? prevValueRef.current ?? localValue;
 
-    if (sequentialAnimationMode && isNew) {
+    if (sequentialAnimationMode && isNew && !reverse) {
       topValue = '';
     }
   }
