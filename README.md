@@ -159,6 +159,33 @@ Your contributions are welcome! Let's make this project even better together.
 Thanks go to these wonderful people:
 
 <!-- readme: collaborators,contributors -start -->
+<table>
+	<tbody>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/tuanngocptn">
+                    <img src="https://avatars.githubusercontent.com/u/22292704?v=4" width="100;" alt="tuanngocptn"/>
+                    <br />
+                    <sub><b>Nick - Ngoc Pham</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/almond-bongbong">
+                    <img src="https://avatars.githubusercontent.com/u/42146674?v=4" width="100;" alt="almond-bongbong"/>
+                    <br />
+                    <sub><b>Max</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://github.com/larsjuvik">
+                    <img src="https://avatars.githubusercontent.com/u/77640590?v=4" width="100;" alt="larsjuvik"/>
+                    <br />
+                    <sub><b>larsjuvik</b></sub>
+                </a>
+            </td>
+		</tr>
+	<tbody>
+</table>
 <!-- readme: collaborators,contributors -end -->
 
 ## ❤️ Like Our Work?
