@@ -79,7 +79,7 @@ Detailed props for customizing SlotCounter to fit your UI needs:
 | startValue              | `number` \| `string` \| `string[]` \| `JSX.Element[]`   |                                                      | The initial value to be displayed before the animation starts. It sets the beginning of the slot machine animation.                                                                                                                                                                  |
 | startValueOnce          | `boolean`                                               | `false`                                              | If set to true, the animation starts from the `startValue` only for the first render. For subsequent animations, it starts from the last value.                                                                                                                                      |
 | duration                | `number`                                                | `0.7`                                                | The duration of the animation in seconds.                                                                                                                                                                                                                                            |
-| speed                   | `number`                                                | `1.5`                                                | The speed of of counter when running.                                                                                                                                                                                                                                                |
+| speed                   | `number`                                                | `1.5`                                                | The speed of counter when running.                                                                                                                                                                                                                                                |
 | delay                   | `number`                                                |                                                      | The delay time of each columns                                                                                                                                                                                                                                                       |
 | dummyCharacters         | `string[]` \| `JSX.Element[]`                           | Defaults to random numbers from 0 to 9               | An array of dummy characters to be used in the animation.                                                                                                                                                                                                                            |
 | dummyCharacterCount     | `number`                                                | `6`                                                  | The number of dummy characters to be displayed in the animation before reaching the target character.                                                                                                                                                                                |
@@ -153,6 +153,13 @@ Check out our [CHANGELOG.md](./CHANGELOG.md) for the latest updates.
 ## 👨‍💻 Join the Community
 
 Your contributions are welcome! Let's make this project even better together.
+
+## Contributors ✨
+
+Thanks go to these wonderful people:
+
+<!-- readme: collaborators,contributors -start -->
+<!-- readme: collaborators,contributors -end -->
 
 ## ❤️ Like Our Work?
 
