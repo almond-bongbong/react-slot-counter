@@ -64,7 +64,7 @@ function SlotCounter(
     startValue,
     startValueOnce = false,
     duration = 0.7,
-    speed = 1.5,
+    speed = 1.4,
     delay,
     dummyCharacters,
     dummyCharacterCount = 6,
