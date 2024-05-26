@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.3] - 2024-05-26
+
+### Added
+
+- Enhanced the logic for checking separators in the `SlotCounter` component. The separator check now includes NBSP and additional whitespace characters, ensuring a more comprehensive and accurate check.
+
 ## [2.3.2] - 2024-05-17
 
 ### Fixed
