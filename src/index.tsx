@@ -499,6 +499,8 @@ function SlotCounter(
             sequentialAnimationMode={sequentialAnimationMode}
             useMonospaceWidth={useMonospaceWidth}
             onFontHeightChange={handleFontHeightChange}
+            speed={speed}
+            duration={duration}
           />
         );
       })}
