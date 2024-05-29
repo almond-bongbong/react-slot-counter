@@ -25,6 +25,12 @@ import { Direction, SlotCounterRef, StartAnimationOptions, Value } from './types
 import useDebounce from './hooks/useDebounce';
 import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
 import useValueChangeEffect from './hooks/useValueChangeEffect';
+import {
+  NARROW_NO_BREAK_SPACE_UNICODE_REGEXP,
+  NBSP_UNICODE_REGEXP,
+  SEPARATOR_CHARACTERS,
+  SPACE_UNICODE_REGEXP,
+} from './constants';
 
 interface AnimateOnVisibleOptions {
   rootMargin?: string;
@@ -55,8 +61,6 @@ interface Props {
   debounceDelay?: number;
   animateOnVisible?: boolean | AnimateOnVisibleOptions;
 }
-
-const SEPARATOR = [',', '.', ' '];
 
 function SlotCounter(
   {
@@ -444,7 +448,16 @@ function SlotCounter(
           reverseAnimation = startAnimationOptionsRef.current?.direction === 'top-down';
         if (direction) reverseAnimation = direction === 'top-down';
 
-        if (!isJSXElement(v) && SEPARATOR.includes(v)) {
+        // Separator check
+        const isSeparator =
+          !isJSXElement(v) &&
+          (SEPARATOR_CHARACTERS.includes(v) ||
+            SPACE_UNICODE_REGEXP.test(v) ||
+            NBSP_UNICODE_REGEXP.test(v) ||
+            NARROW_NO_BREAK_SPACE_UNICODE_REGEXP.test(v));
+
+        // Separator rendering
+        if (isSeparator) {
           return (
             <span
               key={valueRefList.length - i - 1}
