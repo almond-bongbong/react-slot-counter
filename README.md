@@ -154,7 +154,7 @@ Check out our [CHANGELOG.md](./CHANGELOG.md) for the latest updates.
 
 Your contributions are welcome! Let's make this project even better together.
 
-## Contributors ✨
+## ✨ Contributors
 
 Thanks go to these wonderful people:
 
