@@ -3,10 +3,6 @@ name: Publish Github Package
 on:
   release:
     types: [created]
-#on:
-#  push:
-#    branches:
-#      - main
 
 jobs:
   build:
@@ -40,7 +36,16 @@ jobs:
           jq '.name = "@almond-bongbong/react-slot-counter"' package.json > package.temp.json
           mv package.temp.json package.json
 
+      - name: Determine NPM tag
+        id: npm-tag
+        run: |
+          TAG=$(echo "${GITHUB_REF#refs/tags/}" | awk -F '-' '{print $2}')
+          if [ -z "$TAG" ]; then
+            TAG="latest"
+          fi
+          echo "tag=$TAG" >> $GITHUB_ENV
+
       - name: Publish to GitHub Packages
-        run: npm publish
+        run: npm publish --tag ${{ env.tag }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
