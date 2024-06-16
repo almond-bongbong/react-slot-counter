@@ -163,6 +163,13 @@ Thanks go to these wonderful people:
 	<tbody>
 		<tr>
             <td align="center">
+                <a href="https://github.com/almond-bongbong">
+                    <img src="https://avatars.githubusercontent.com/u/42146674?v=4" width="100;" alt="almond-bongbong"/>
+                    <br />
+                    <sub><b>Max</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/tuanngocptn">
                     <img src="https://avatars.githubusercontent.com/u/22292704?v=4" width="100;" alt="tuanngocptn"/>
                     <br />
@@ -174,13 +181,6 @@ Thanks go to these wonderful people:
                     <img src="https://avatars.githubusercontent.com/u/23580920?v=4" width="100;" alt="baronha"/>
                     <br />
                     <sub><b>Bảo Hà.</b></sub>
-                </a>
-            </td>
-            <td align="center">
-                <a href="https://github.com/almond-bongbong">
-                    <img src="https://avatars.githubusercontent.com/u/42146674?v=4" width="100;" alt="almond-bongbong"/>
-                    <br />
-                    <sub><b>Max</b></sub>
                 </a>
             </td>
             <td align="center">
