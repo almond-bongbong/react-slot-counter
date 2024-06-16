@@ -11,6 +11,25 @@ Make Your Numbers Pop 🌟: Simple and Dynamic Counters for Your UI
 <br>
 [![Deploy to GitHub Pages](https://github.com/almond-bongbong/react-slot-counter/actions/workflows/deploy_to_github_pages.yml/badge.svg)](https://github.com/almond-bongbong/react-slot-counter/actions/workflows/deploy_to_github_pages.yml)
 
+## 🚀 What's New in 3.0.0?
+
+### Key Changes
+
+- **New Prop**: `speed`: Adjust animation speed more intuitively with the new speed prop, replacing the previous use of dummyCharacterCount and duration.
+- **New Prop**: `delay`: Each column's animation start can now be delayed using the delay prop.
+- **Performance Enhancements**: Refactored internal code for improved performance and maintainability.
+
+### Installation for Prerelease Version
+To install the latest prerelease version, use the following npm script:
+
+```bash
+npm install react-slot-counter@next
+```
+
+Make sure to include this prerelease installation step to access the latest features and improvements.
+
+---
+
 <p align="center">
     <a target="_blank" href="https://almond-bongbong.github.io/react-slot-counter/">
         <img src="https://github.com/almond-bongbong/react-slot-counter/raw/main/docs/preview.gif" />
