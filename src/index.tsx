@@ -42,6 +42,8 @@ interface Props {
   startValue?: Value;
   startValueOnce?: boolean;
   duration?: number;
+  speed?: number;
+  delay?: number;
   dummyCharacters?: string[] | JSX.Element[];
   dummyCharacterCount?: number;
   autoAnimationStart?: boolean;
@@ -66,6 +68,8 @@ function SlotCounter(
     startValue,
     startValueOnce = false,
     duration = 0.7,
+    speed = 1.4,
+    delay,
     dummyCharacters,
     dummyCharacterCount = 6,
     autoAnimationStart: _autoAnimationStart = true,
@@ -175,14 +179,14 @@ function SlotCounter(
    */
   useEffect(() => {
     setDummyList(
-      range(0, effectiveDummyCharacterCount - 1).map((i) => {
+      range(0, effectiveDummyCharacterCount * duration * speed - 1).map((i) => {
         if (!dummyCharacters) return random(0, 10);
 
         const index = i >= dummyCharacters.length ? random(0, dummyCharacters.length) : i;
         return dummyCharacters[index];
       }),
     );
-  }, [dummyCharacters, effectiveDummyCharacterCount]);
+  }, [dummyCharacters, effectiveDummyCharacterCount, speed, duration]);
 
   /**
    * Update valueRef and prevValueRef when value is changed
@@ -232,8 +236,11 @@ function SlotCounter(
    */
   const calculatedInterval = useMemo(() => {
     const MAX_INTERVAL = 0.1;
+    if (delay) {
+      return delay;
+    }
     return Math.min(MAX_INTERVAL, effectiveDuration / valueList.length);
-  }, [effectiveDuration, valueList.length]);
+  }, [effectiveDuration, valueList.length, delay]);
 
   /**
    * Start animation
@@ -492,6 +499,8 @@ function SlotCounter(
             sequentialAnimationMode={sequentialAnimationMode}
             useMonospaceWidth={useMonospaceWidth}
             onFontHeightChange={handleFontHeightChange}
+            speed={speed}
+            duration={duration}
           />
         );
       })}

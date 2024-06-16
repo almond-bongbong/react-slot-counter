@@ -26,6 +26,8 @@ interface Props {
   useMonospaceWidth: boolean;
   maxNumberWidth?: number;
   onFontHeightChange?: (fontHeight: number) => void;
+  speed: number;
+  duration: number;
 }
 
 function Slot({
@@ -36,6 +38,8 @@ function Slot({
   isChanged,
   effectiveDuration,
   delay,
+  duration,
+  speed,
   value,
   startValue,
   disableStartValue,
@@ -122,9 +126,18 @@ function Slot({
       () => setLocalValue(value),
       sequentialAnimationMode
         ? 0
-        : (effectiveDuration * 1000 * 1.3) / dummyList.length + delay * 1000,
+        : (effectiveDuration * speed * duration * 1000) / dummyList.length + delay * 1000,
     );
-  }, [localActive, value, effectiveDuration, delay, dummyList.length, sequentialAnimationMode]);
+  }, [
+    localActive,
+    value,
+    effectiveDuration,
+    delay,
+    dummyList.length,
+    sequentialAnimationMode,
+    speed,
+    duration,
+  ]);
 
   useEffect(() => {
     setDummyListState(hasSequentialDummyList ? dummyList : shuffle(dummyList));
@@ -173,9 +186,9 @@ function Slot({
           transform: reverse ? `translateY(-${slotNumbersHeight}px)` : `translateY(0px)`,
           ...(localActive &&
             isChanged && {
-              transform: reverse ? `translateY(0px)` : `translateY(-${slotNumbersHeight}px)`,
-              transition: `transform ${effectiveDuration}s ${delay}s ease-in-out`,
-            }),
+            transform: reverse ? `translateY(0px)` : `translateY(-${slotNumbersHeight}px)`,
+            transition: `transform ${effectiveDuration}s ${delay}s ease-in-out`,
+          }),
         }}
       >
         {didMount ? (
