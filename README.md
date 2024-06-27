@@ -15,18 +15,9 @@ Make Your Numbers Pop 🌟: Simple and Dynamic Counters for Your UI
 
 ### Key Changes
 
-- **New Prop**: `speed`: Adjust animation speed more intuitively with the new speed prop, replacing the previous use of dummyCharacterCount and duration.
-- **New Prop**: `delay`: Each column's animation start can now be delayed using the delay prop.
+- **New Prop**: `speed`: Adjust animation speed more intuitively with the new `speed` prop.
+- **New Prop**: `delay`: Each column's animation start can now be delayed using the `delay` prop.
 - **Performance Enhancements**: Refactored internal code for improved performance and maintainability.
-
-### Installation for Prerelease Version
-To install the latest prerelease version, use the following npm script:
-
-```bash
-npm install react-slot-counter@next
-```
-
-Make sure to include this prerelease installation step to access the latest features and improvements.
 
 ---
 

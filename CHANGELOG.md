@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.0.0
+
+*2024-06-27*
+
+### Added
+
+- New Prop: `speed`: Adjust animation speed more intuitively with the new `speed` prop.
+- New Prop: `delay`: Each column's animation start can now be delayed using the `delay` prop.
+
 ## 2.3.3
 
 *2024-05-26*
