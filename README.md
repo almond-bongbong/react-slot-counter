@@ -17,7 +17,6 @@ Make Your Numbers Pop 🌟: Simple and Dynamic Counters for Your UI
 
 - **New Prop**: `speed`: Adjust animation speed more intuitively with the new `speed` prop.
 - **New Prop**: `delay`: Each column's animation start can now be delayed using the `delay` prop.
-- **Performance Enhancements**: Refactored internal code for improved performance and maintainability.
 
 ---
 
