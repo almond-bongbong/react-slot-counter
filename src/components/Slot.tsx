@@ -1,7 +1,7 @@
 import React, { memo, RefObject, useEffect, useMemo, useRef, useState } from 'react';
-import { mergeClassNames, shuffle } from '../utils';
-import styles from '../index.module.scss';
 import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
+import styles from '../index.module.scss';
+import { mergeClassNames, shuffle } from '../utils';
 
 interface Props {
   index: number;
@@ -186,9 +186,9 @@ function Slot({
           transform: reverse ? `translateY(-${slotNumbersHeight}px)` : `translateY(0px)`,
           ...(localActive &&
             isChanged && {
-            transform: reverse ? `translateY(0px)` : `translateY(-${slotNumbersHeight}px)`,
-            transition: `transform ${effectiveDuration}s ${delay}s ease-in-out`,
-          }),
+              transform: reverse ? `translateY(0px)` : `translateY(-${slotNumbersHeight}px)`,
+              transition: `transform ${effectiveDuration}s ${delay}s ease-in-out`,
+            }),
         }}
       >
         {didMount ? (

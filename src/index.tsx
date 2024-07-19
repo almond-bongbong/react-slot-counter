@@ -8,29 +8,23 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import Slot from './components/Slot';
+import useDebounce from './hooks/useDebounce';
+import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
+import useValueChangeEffect from './hooks/useValueChangeEffect';
+import styles from './index.module.scss';
+import { Direction, SlotCounterRef, StartAnimationOptions, Value } from './types/common';
 import {
   debounce,
   generateCyclicRange,
-  isJSXElement,
   isJSXElementArray,
   isNumeric,
+  isSeparatorCharacter,
   mergeClassNames,
   random,
   range,
   toNumeric,
 } from './utils';
-import styles from './index.module.scss';
-import Slot from './components/Slot';
-import { Direction, SlotCounterRef, StartAnimationOptions, Value } from './types/common';
-import useDebounce from './hooks/useDebounce';
-import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
-import useValueChangeEffect from './hooks/useValueChangeEffect';
-import {
-  NARROW_NO_BREAK_SPACE_UNICODE_REGEXP,
-  NBSP_UNICODE_REGEXP,
-  SEPARATOR_CHARACTERS,
-  SPACE_UNICODE_REGEXP,
-} from './constants';
 
 interface AnimateOnVisibleOptions {
   rootMargin?: string;
@@ -422,6 +416,10 @@ function SlotCounter(
     startAnimationAll,
   ]);
 
+  const isChangedValueIndexListWithoutSeparator = isChangedValueIndexList.filter(
+    (i) => !isSeparatorCharacter(renderValueList[i]),
+  );
+
   let noSeparatorValueIndex = -1;
 
   return (
@@ -432,7 +430,8 @@ function SlotCounter(
     >
       {renderValueList.map((v, i) => {
         const isChanged = isChangedValueIndexList.includes(i);
-        const delay = (isChanged ? isChangedValueIndexList.indexOf(i) : 0) * calculatedInterval;
+        const delay =
+          (isChanged ? isChangedValueIndexListWithoutSeparator.indexOf(i) : 0) * calculatedInterval;
         const prevValue = prevValueRef.current;
         const disableStartValue =
           startValue != null && (startValueOnce ? animationCountRef.current > 1 : false);
@@ -449,12 +448,7 @@ function SlotCounter(
         if (direction) reverseAnimation = direction === 'top-down';
 
         // Separator check
-        const isSeparator =
-          !isJSXElement(v) &&
-          (SEPARATOR_CHARACTERS.includes(v) ||
-            SPACE_UNICODE_REGEXP.test(v) ||
-            NBSP_UNICODE_REGEXP.test(v) ||
-            NARROW_NO_BREAK_SPACE_UNICODE_REGEXP.test(v));
+        const isSeparator = isSeparatorCharacter(v);
 
         // Separator rendering
         if (isSeparator) {
