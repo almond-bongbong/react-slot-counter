@@ -27,6 +27,8 @@ function App() {
   const counterRef3 = React.useRef<SlotCounterRef>(null);
   const counterRef5 = React.useRef<SlotCounterRef>(null);
   const counterRef6 = React.useRef<SlotCounterRef>(null);
+  const counterRef7 = React.useRef<SlotCounterRef>(null);
+  const counterRef8 = React.useRef<SlotCounterRef>(null);
 
   return (
     <div className="example">
@@ -171,6 +173,56 @@ function App() {
             </button>
           </div>
           <CommonHighlighter>{`<SlotCounter value="36.5" duration={2} />`}</CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <h4>Speed: Control the pace!</h4>
+          <p>
+            Is the speed too slow? Or maybe too fast? With the speed attribute, this is no longer a
+            concern!
+          </p>
+
+          <div className="playground">
+            <SlotCounter
+              ref={counterRef7}
+              value="87.15"
+              speed={10}
+              containerClassName="slot-counter"
+            />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => counterRef7.current?.startAnimation()}
+            >
+              Play
+            </button>
+          </div>
+          <CommonHighlighter>{`<SlotCounter value="87.15" speed={10} />`}</CommonHighlighter>
+        </div>
+
+        <div className="example-area">
+          <h4>Delay: Wait a minute!</h4>
+          <p>
+            Want to delay the animation of the characters? Simply set the delay attribute and let
+            the magic unfold.
+          </p>
+
+          <div className="playground">
+            <SlotCounter
+              ref={counterRef8}
+              value="35.99"
+              delay={1}
+              containerClassName="slot-counter"
+            />
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => counterRef8.current?.startAnimation()}
+            >
+              Play
+            </button>
+          </div>
+          <CommonHighlighter>{`<SlotCounter value="35.99" delay={1} />`}</CommonHighlighter>
         </div>
 
         <div className="example-area">
