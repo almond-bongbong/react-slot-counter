@@ -1,3 +1,9 @@
+import {
+  NARROW_NO_BREAK_SPACE_UNICODE_REGEXP,
+  NBSP_UNICODE_REGEXP,
+  SEPARATOR_CHARACTERS,
+  SPACE_UNICODE_REGEXP,
+} from 'constants';
 import { Value } from './types/common';
 
 export const mergeClassNames = (...args: (string | null | undefined)[]) =>
@@ -65,3 +71,10 @@ export const debounce = <T extends (...args: any[]) => any>(
     }, delay);
   };
 };
+
+export const isSeparatorCharacter = (value: string | JSX.Element) =>
+  !isJSXElement(value) &&
+  (SEPARATOR_CHARACTERS.includes(value) ||
+    SPACE_UNICODE_REGEXP.test(value) ||
+    NBSP_UNICODE_REGEXP.test(value) ||
+    NARROW_NO_BREAK_SPACE_UNICODE_REGEXP.test(value));
