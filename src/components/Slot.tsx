@@ -93,11 +93,14 @@ function Slot({
       return;
     }
 
+    // 1px is the threshold for the font height to be considered changed
+    const THRESHOLD = 1;
+
     const handleResize: ResizeObserverCallback = (entries) => {
       // Change in height
       const height = entries[0].contentRect.height;
 
-      if (fontHeight != height) {
+      if (Math.abs(fontHeight - height) > THRESHOLD) {
         onFontHeightChange?.(height);
       }
     };
