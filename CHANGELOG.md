@@ -4,9 +4,18 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.0.1
+
+_2024-07-20_
+
+### Fixed
+
+- Fixed an issue where the delay was incorrectly calculated by not excluding separator characters. [#55](https://github.com/almond-bongbong/react-slot-counter/pull/55)
+- Fixed an issue where the ResizeObserver would enter an infinite loop when browser zoom was applied. [#56](https://github.com/almond-bongbong/react-slot-counter/pull/56)
+
 ## 3.0.0
 
-*2024-06-27*
+_2024-06-27_
 
 ### Added
 
@@ -15,7 +24,7 @@ _Dates are in UTC._
 
 ## 2.3.3
 
-*2024-05-26*
+_2024-05-26_
 
 ### Added
 
@@ -23,7 +32,7 @@ _Dates are in UTC._
 
 ## 2.3.2
 
-*2024-05-17*
+_2024-05-17_
 
 ### Fixed
 
@@ -31,24 +40,24 @@ _Dates are in UTC._
 
 ## 2.3.1
 
-*2024-04-27*
+_2024-04-27_
 
 ### Fixed
 
 - Fixed an issue where the font width was incorrectly calculated when using `useMonospaceWidth`.
 
-## 2.3.0 
+## 2.3.0
 
-*2024-04-26*
+_2024-04-26_
 
 ### Added
 
 - Introduced `numberSlotClassName` and `numberClassName` props for more customization options. These props allow you to set the class name for the number slot and the number, respectively, enabling you to customize their styling.
 - Implemented the ResizeObserver API to detect changes in font size. This enhancement provides a better experience in responsive services by ensuring that the counter adapts to changes in font size.
 
-## 2.2.5 
+## 2.2.5
 
-*2024-01-09*
+_2024-01-09_
 
 ### Fixed
 
@@ -56,7 +65,7 @@ _Dates are in UTC._
 
 ## 2.2.4
 
-*2024-01-05*
+_2024-01-05_
 
 ### Fixed
 
@@ -64,7 +73,7 @@ _Dates are in UTC._
 
 ## 2.2.3
 
-*2023-12-25*
+_2023-12-25_
 
 ### Fixed
 
@@ -72,7 +81,7 @@ _Dates are in UTC._
 
 ## 2.2.1
 
-*2023-12-11*
+_2023-12-11_
 
 ### Fixed
 
@@ -80,7 +89,7 @@ _Dates are in UTC._
 
 ## 2.2.0
 
-*2023-12-10*
+_2023-12-10_
 
 ### Added
 
@@ -88,7 +97,7 @@ _Dates are in UTC._
 
 ## 2.1.1
 
-*2023-11-19*
+_2023-11-19_
 
 ### Fixed
 
@@ -96,7 +105,7 @@ _Dates are in UTC._
 
 ## 2.1.0
 
-*2023-11-11*
+_2023-11-11_
 
 ### Fixed
 
@@ -108,7 +117,7 @@ _Dates are in UTC._
 
 ## 2.0.3
 
-*2023-11-05*
+_2023-11-05_
 
 ### Fixed
 
@@ -118,7 +127,7 @@ _Dates are in UTC._
 
 ## 2.0.2
 
-*2023-10-31*
+_2023-10-31_
 
 ### Fixed
 
@@ -126,7 +135,7 @@ _Dates are in UTC._
 
 ## 2.0.1
 
-*2023-10-29*
+_2023-10-29_
 
 ### Fixed
 
@@ -136,7 +145,7 @@ _Dates are in UTC._
 
 ## 2.0.0
 
-*2023-10-22*
+_2023-10-22_
 
 ### Fixed
 
@@ -145,7 +154,7 @@ _Dates are in UTC._
 
 ## 1.15.0
 
-*2023-10-05*
+_2023-10-05_
 
 ### Added
 
@@ -157,7 +166,7 @@ _Dates are in UTC._
 
 ## 1.14.0
 
-*2023-09-28*
+_2023-09-28_
 
 ### Added
 
@@ -165,7 +174,7 @@ _Dates are in UTC._
 
 ## 1.13.1
 
-*2023-09-08*
+_2023-09-08_
 
 ### Fixed
 
@@ -173,7 +182,7 @@ _Dates are in UTC._
 
 ## 1.13.0
 
-*2023-09-06*
+_2023-09-06_
 
 ### Added
 
@@ -181,7 +190,7 @@ _Dates are in UTC._
 
 ## 1.12.0
 
-*2023-09-03*
+_2023-09-03_
 
 ### Fixed
 
@@ -194,7 +203,7 @@ _Dates are in UTC._
 
 ## 1.11.0
 
-*2023-07-06*
+_2023-07-06_
 
 ### Added
 
@@ -202,7 +211,7 @@ _Dates are in UTC._
 
 ## 1.10.0
 
-*2023-07-01*
+_2023-07-01_
 
 ### Added
 
@@ -210,7 +219,7 @@ _Dates are in UTC._
 
 ## 1.9.0
 
-*2023-07-01*
+_2023-07-01_
 
 ### Added
 
@@ -218,7 +227,7 @@ _Dates are in UTC._
 
 ## 1.8.0
 
-*2023-06-14*
+_2023-06-14_
 
 ### Added
 
@@ -226,7 +235,7 @@ _Dates are in UTC._
 
 ## 1.7.0
 
-*2023-06-10*
+_2023-06-10_
 
 ### Added
 
@@ -234,7 +243,7 @@ _Dates are in UTC._
 
 ## 1.4.3
 
-*2023-04-25*
+_2023-04-25_
 
 ### Added
 
@@ -242,7 +251,7 @@ _Dates are in UTC._
 
 ## 1.4.2
 
-*2023-04-25*
+_2023-04-25_
 
 ### Added
 
