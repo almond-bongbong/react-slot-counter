@@ -54,6 +54,7 @@ interface Props {
   direction?: Direction;
   debounceDelay?: number;
   animateOnVisible?: boolean | AnimateOnVisibleOptions;
+  startFromLastDigit?: boolean;
 }
 
 function SlotCounter(
@@ -80,6 +81,7 @@ function SlotCounter(
     direction,
     debounceDelay,
     animateOnVisible,
+    startFromLastDigit = false,
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
@@ -223,7 +225,7 @@ function SlotCounter(
       isChangedValueIndexList.push(targetIndex);
     }
   });
-  isChangedValueIndexList.reverse();
+  if (!startFromLastDigit) isChangedValueIndexList.reverse();
 
   /**
    * Calculate interval for each slot
