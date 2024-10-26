@@ -187,6 +187,13 @@ Thanks go to these wonderful people:
                 </a>
             </td>
             <td align="center">
+                <a href="https://github.com/vh-x">
+                    <img src="https://avatars.githubusercontent.com/u/112535265?v=4" width="100;" alt="vh-x"/>
+                    <br />
+                    <sub><b>Vincent Huang</b></sub>
+                </a>
+            </td>
+            <td align="center">
                 <a href="https://github.com/larsjuvik">
                     <img src="https://avatars.githubusercontent.com/u/77640590?v=4" width="100;" alt="larsjuvik"/>
                     <br />
