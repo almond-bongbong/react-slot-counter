@@ -8,7 +8,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import Slot from './components/Slot';
+import Slot, { SlotRef } from './components/Slot';
 import useDebounce from './hooks/useDebounce';
 import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
 import useValueChangeEffect from './hooks/useValueChangeEffect';
@@ -100,6 +100,7 @@ function SlotCounter(
   const slotCounterRef = useRef<HTMLSpanElement>(null);
   const numbersRef = useRef<HTMLDivElement>(null);
   const startValueRef = useRef(startValue);
+  const slotRefList = useRef<SlotRef[]>([]);
 
   const hasAnimateOnVisible = useMemo(() => {
     if (typeof animateOnVisible === 'boolean') return animateOnVisible;
@@ -299,7 +300,10 @@ function SlotCounter(
    * Refresh styles
    */
   const refreshStyles = useCallback(() => {
-    setKey((prev) => prev + 1);
+    slotRefList.current.forEach((ref) => {
+      ref.refreshStyles();
+    });
+
     detectMaxNumberWidth();
   }, [detectMaxNumberWidth]);
 
@@ -336,6 +340,7 @@ function SlotCounter(
   useImperativeHandle(ref, () => ({
     startAnimation: startAnimationAll,
     refreshStyles,
+    reload: () => setKey((prev) => prev + 1),
   }));
 
   const renderValueList =
@@ -497,6 +502,9 @@ function SlotCounter(
             onFontHeightChange={handleFontHeightChange}
             speed={speed}
             duration={duration}
+            ref={(ref) => {
+              if (ref) slotRefList.current.push(ref);
+            }}
           />
         );
       })}
