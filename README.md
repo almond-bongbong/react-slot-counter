@@ -117,10 +117,11 @@ Manipulate the behavior with refreshStyles and startAnimation methods.
 <details>
   <summary>Learn more</summary>
 
-| Method           | Type                          | Description                                                                                                                                                                    |
-| ---------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `refreshStyles`  | `() => void`                  | Recalculates the styles for the SlotCounter component. Useful for scenarios where the font size changes or the window is resized, forcing a re-render to apply the new styles. |
-| `startAnimation` | `(options?: Options) => void` | Initiates the animation of the component with optional customization parameters.                                                                                               |
+| Method           | Type                          | Description                                                                                                                                                                         |
+| ---------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `refreshStyles`  | `() => void`                  | Recalculates the styles for the SlotCounter component. Useful for scenarios where the font size changes or the window is resized, forcing a re-render to apply the new styles.      |
+| `startAnimation` | `(options?: Options) => void` | Initiates the animation of the component with optional customization parameters.                                                                                                    |
+| `reload`         | `() => void`                  | Forces a complete re-render of the SlotCounter component. Useful for scenarios where you need to reset the component's state or refresh its appearance after dynamic style changes. |
 
 ### Options for `startAnimation` Method
 

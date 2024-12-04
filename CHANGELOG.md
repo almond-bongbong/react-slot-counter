@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.0.2
+
+_2024-12-04_
+
+### Added
+
+- Added `reload` ref method to force re-render the SlotCounter component. This provides more control over component rendering and helps handle dynamic style updates.
+
+### Fixed
+
+- Fixed an issue where animations would unnecessarily trigger during window resize events, improving stability and user experience. [#61](https://github.com/almond-bongbong/react-slot-counter/pull/61)
+
 ## 3.0.1
 
 _2024-07-20_
