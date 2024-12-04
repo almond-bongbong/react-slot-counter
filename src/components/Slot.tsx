@@ -1,9 +1,19 @@
-import React, { memo, RefObject, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+  forwardRef,
+  memo,
+  Ref,
+  RefObject,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
 import styles from '../index.module.scss';
 import { mergeClassNames, shuffle } from '../utils';
 
-interface Props {
+export interface Props {
   index: number;
   isNew?: boolean;
   charClassName?: string;
@@ -30,31 +40,38 @@ interface Props {
   duration: number;
 }
 
-function Slot({
-  isNew,
-  charClassName,
-  numbersRef,
-  active,
-  isChanged,
-  effectiveDuration,
-  delay,
-  duration,
-  speed,
-  value,
-  startValue,
-  disableStartValue,
-  dummyList,
-  hasSequentialDummyList,
-  hasInfiniteList,
-  valueClassName,
-  numberSlotClassName,
-  numberClassName,
-  reverse,
-  sequentialAnimationMode,
-  useMonospaceWidth,
-  maxNumberWidth,
-  onFontHeightChange,
-}: Props) {
+export interface SlotRef {
+  refreshStyles: () => void;
+}
+
+function Slot(
+  {
+    isNew,
+    charClassName,
+    numbersRef,
+    active,
+    isChanged,
+    effectiveDuration,
+    delay,
+    duration,
+    speed,
+    value,
+    startValue,
+    disableStartValue,
+    dummyList,
+    hasSequentialDummyList,
+    hasInfiniteList,
+    valueClassName,
+    numberSlotClassName,
+    numberClassName,
+    reverse,
+    sequentialAnimationMode,
+    useMonospaceWidth,
+    maxNumberWidth,
+    onFontHeightChange,
+  }: Props,
+  ref: Ref<SlotRef>,
+) {
   const [localActive, setLocalActive] = useState(false);
   const [localValue, setLocalValue] = useState(value);
   const prevValueRef = useRef<typeof value>();
@@ -146,6 +163,22 @@ function Slot({
     setDummyListState(hasSequentialDummyList ? dummyList : shuffle(dummyList));
   }, [value, dummyList, hasSequentialDummyList]);
 
+  useImperativeHandle(ref, () => ({
+    // Refresh styles
+    refreshStyles: () => {
+      // Prevent animation from being triggered
+      setLocalActive(true);
+
+      // Update font height
+      setFontHeight(itemRef.current?.getBoundingClientRect().height ?? 0);
+
+      // Reset animation
+      requestAnimationFrame(() => {
+        setLocalActive(false);
+      });
+    },
+  }));
+
   const renderDummyList = () => {
     return dummyListState.map((dummyNumber, slotIndex) => (
       <span
@@ -222,4 +255,4 @@ function Slot({
   );
 }
 
-export default memo(Slot);
+export default memo(forwardRef(Slot));
