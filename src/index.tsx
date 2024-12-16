@@ -244,17 +244,21 @@ function SlotCounter(
    */
   const startAnimation = useCallback(() => {
     if (animationTimerRef.current) {
-      clearTimeout(animationTimerRef.current);
+      window.cancelAnimationFrame(animationTimerRef.current);
     }
 
     setActive(false);
     animationCountRef.current = animationExecuteCountRef.current;
     animationCountRef.current += 1;
 
-    animationTimerRef.current = setTimeout(() => {
+    // Force reflow
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const width = numbersRef.current?.offsetWidth;
+
+    animationTimerRef.current = window.requestAnimationFrame(() => {
       animationExecuteCountRef.current += 1;
       setActive(true);
-    }, 20);
+    });
   }, []);
 
   /**
