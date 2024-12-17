@@ -251,13 +251,15 @@ function SlotCounter(
     animationCountRef.current = animationExecuteCountRef.current;
     animationCountRef.current += 1;
 
-    // Force reflow
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const width = numbersRef.current?.offsetWidth;
+    window.requestAnimationFrame(() => {
+      // Force reflow
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const width = numbersRef.current?.offsetWidth;
 
-    animationTimerRef.current = window.requestAnimationFrame(() => {
-      animationExecuteCountRef.current += 1;
-      setActive(true);
+      animationTimerRef.current = requestAnimationFrame(() => {
+        animationExecuteCountRef.current += 1;
+        setActive(true);
+      });
     });
   }, []);
 
