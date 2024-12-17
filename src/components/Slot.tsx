@@ -142,12 +142,16 @@ function Slot(
     prevValueRef.current = valueRef.current;
     valueRef.current = value;
 
-    setTimeout(
+    const timer = setTimeout(
       () => setLocalValue(value),
       sequentialAnimationMode
         ? 0
         : (effectiveDuration * speed * duration * 1000) / dummyList.length + delay * 1000,
     );
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [
     localActive,
     value,
