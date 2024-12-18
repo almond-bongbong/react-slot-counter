@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react-slot-counter/static/css/main.3bb3feb2.css",
-    "main.js": "/react-slot-counter/static/js/main.41c948ad.js",
+    "main.js": "/react-slot-counter/static/js/main.ad4f74b3.js",
     "static/js/787.759e47f1.chunk.js": "/react-slot-counter/static/js/787.759e47f1.chunk.js",
     "static/media/cherries.png": "/react-slot-counter/static/media/cherries.435c65ee0e8a815e0350.png",
     "static/media/apple.png": "/react-slot-counter/static/media/apple.b910ac50c27c4e2aa63e.png",
@@ -11,11 +11,11 @@
     "static/media/seven.png": "/react-slot-counter/static/media/seven.46dcb5b34a53c6ae655f.png",
     "index.html": "/react-slot-counter/index.html",
     "main.3bb3feb2.css.map": "/react-slot-counter/static/css/main.3bb3feb2.css.map",
-    "main.41c948ad.js.map": "/react-slot-counter/static/js/main.41c948ad.js.map",
+    "main.ad4f74b3.js.map": "/react-slot-counter/static/js/main.ad4f74b3.js.map",
     "787.759e47f1.chunk.js.map": "/react-slot-counter/static/js/787.759e47f1.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3bb3feb2.css",
-    "static/js/main.41c948ad.js"
+    "static/js/main.ad4f74b3.js"
   ]
 }
