@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.0.3
+
+_2024-12-18_
+
+### Fixed
+
+- Fixed an issue where `sequentialAnimationMode` did not properly transition from `startValue` to `value`.  
+- Resolved a problem where CSS transitions would not trigger correctly on low-performance devices, improving overall performance.
+
 ## 3.0.2
 
 _2024-12-04_
