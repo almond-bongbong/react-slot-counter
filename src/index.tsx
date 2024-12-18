@@ -244,17 +244,23 @@ function SlotCounter(
    */
   const startAnimation = useCallback(() => {
     if (animationTimerRef.current) {
-      clearTimeout(animationTimerRef.current);
+      window.cancelAnimationFrame(animationTimerRef.current);
     }
 
     setActive(false);
     animationCountRef.current = animationExecuteCountRef.current;
     animationCountRef.current += 1;
 
-    animationTimerRef.current = setTimeout(() => {
-      animationExecuteCountRef.current += 1;
-      setActive(true);
-    }, 20);
+    window.requestAnimationFrame(() => {
+      // Force reflow
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const width = numbersRef.current?.offsetWidth;
+
+      animationTimerRef.current = requestAnimationFrame(() => {
+        animationExecuteCountRef.current += 1;
+        setActive(true);
+      });
+    });
   }, []);
 
   /**
@@ -269,7 +275,9 @@ function SlotCounter(
 
       const prevValueLength = prevValue.toString().length;
       const valueLength = value.toString().length;
-      const isIncrease = prevValueLength < valueLength;
+
+      // check if value digit is increasing
+      const isDigitIncreasing = prevValueLength < valueLength;
 
       // diff between prevValue and value length
       const diff = Math.abs(prevValueLength - valueLength);
@@ -280,20 +288,28 @@ function SlotCounter(
       // value to number without separator
       const numValue = Number(toNumeric(value.toString()));
       const prevDigit = Number(
-        prevNumValue.toString()[isIncrease ? -diff + index : diff + index] || 0,
+        prevNumValue.toString()[isDigitIncreasing ? -diff + index : diff + index] || 0,
       );
       const currentDigit = Number(numValue.toString()[index] || 0);
 
       if (currentDigit === prevDigit) return [];
 
-      const dummyList =
-        prevNumValue < numValue
-          ? generateCyclicRange((prevDigit + 1) % 10, currentDigit)
-          : generateCyclicRange((currentDigit + 1) % 10, prevDigit);
+      const isIncreasing = prevNumValue < numValue;
+
+      const dummyList = isIncreasing
+        ? generateCyclicRange((prevDigit + 1) % 10, currentDigit)
+        : generateCyclicRange((currentDigit + 1) % 10, prevDigit);
+
+      const effectiveDirection = startAnimationOptionsRef.current?.direction ?? direction;
+
+      // reverse dummy list if direction is bottom-up and value is decreasing
+      if (effectiveDirection === 'bottom-up' && !isIncreasing) {
+        return dummyList.reverse();
+      }
 
       return dummyList;
     },
-    [displayStartValue, value, startValue],
+    [displayStartValue, value, startValue, direction],
   );
 
   /**
