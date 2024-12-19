@@ -4,13 +4,21 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.0.4
+
+_2024-12-19_
+
+### Fixed
+
+- Fixed an issue where sequential animations would terminate prematurely before completing the full transition sequence. This ensures animations run to completion in `sequentialAnimationMode`.
+
 ## 3.0.3
 
 _2024-12-18_
 
 ### Fixed
 
-- Fixed an issue where `sequentialAnimationMode` did not properly transition from `startValue` to `value`.  
+- Fixed an issue where `sequentialAnimationMode` did not properly transition from `startValue` to `value`.
 - Resolved a problem where CSS transitions would not trigger correctly on low-performance devices, improving overall performance.
 
 ## 3.0.2
