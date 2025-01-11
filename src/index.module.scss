@@ -20,3 +20,7 @@
 .num {
   display: block;
 }
+
+[aria-hidden="true"] {
+  user-select: none;
+}
