@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.0.5
+
+_2025-01-11_
+
+### Fixed
+
+- Compatibility Issue: Resolved a SyntaxError: Unexpected identifier 'assert' caused by the removal of import assertions in Node.js. The import method for package.json in rollup.config.mjs has been updated to ensure compatibility across Node.js versions. [#66](https://github.com/almond-bongbong/react-slot-counter/pull/66) [@synps](https://github.com/synps)
+- Build Failure: Addressed a Rollup build failure due to a missing tslib module. The tslib dependency has been added to the project to ensure successful builds. [#68](https://github.com/almond-bongbong/react-slot-counter/pull/68) [@synps](https://github.com/synps)
+- Copy-Paste Issue: Fixed an issue where hidden text with aria-hidden="true" was unexpectedly included in copied content. This ensures that only visible text is copied, improving user experience. [#70](https://github.com/almond-bongbong/react-slot-counter/pull/70) [@synps](https://github.com/synps)
+
 ## 3.0.4
 
 _2024-12-19_
@@ -29,6 +39,8 @@ _2024-12-04_
 
 - Added `reload` ref method to force re-render the SlotCounter component. This provides more control over component rendering and helps handle dynamic style updates.
 
+- Added `startFromLastDigit` prop to start animation from the last digit. [#50](https://github.com/almond-bongbong/react-slot-counter/pull/50) [@vh-x](https://github.com/vh-x)
+
 ### Fixed
 
 - Fixed an issue where animations would unnecessarily trigger during window resize events, improving stability and user experience. [#61](https://github.com/almond-bongbong/react-slot-counter/pull/61)
@@ -48,8 +60,8 @@ _2024-06-27_
 
 ### Added
 
-- New Prop: `speed`: Adjust animation speed more intuitively with the new `speed` prop.
-- New Prop: `delay`: Each column's animation start can now be delayed using the `delay` prop.
+- New Prop: `speed`: Adjust animation speed more intuitively with the new `speed` prop. [#41](https://github.com/almond-bongbong/react-slot-counter/pull/41) [@tuanngocptn](https://github.com/tuanngocptn) [@baronha](https://github.com/baronha)
+- New Prop: `delay`: Each column's animation start can now be delayed using the `delay` prop. [#41](https://github.com/almond-bongbong/react-slot-counter/pull/41) [@tuanngocptn](https://github.com/tuanngocptn) [@baronha](https://github.com/baronha)
 
 ## 2.3.3
 

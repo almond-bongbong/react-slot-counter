@@ -1,6 +1,6 @@
 {
   "name": "react-slot-counter",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "Make Your Numbers Pop: Simple and Dynamic Counters for Your UI",
   "author": "almond-bongbong",
   "license": "MIT",
@@ -65,5 +65,6 @@
     "slot-counter",
     "react-component",
     "typescript"
-  ]
+  ],
+  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }
