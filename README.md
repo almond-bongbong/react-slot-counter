@@ -208,6 +208,13 @@ Thanks go to these wonderful people:
                     <sub><b>Bảo Hà.</b></sub>
                 </a>
             </td>
+            <td align="center">
+                <a href="https://github.com/synps">
+                    <img src="https://avatars.githubusercontent.com/u/22202418?v=4" width="100;" alt="synps"/>
+                    <br />
+                    <sub><b>Enes Can ÇETİNER</b></sub>
+                </a>
+            </td>
 		</tr>
 	<tbody>
 </table>
