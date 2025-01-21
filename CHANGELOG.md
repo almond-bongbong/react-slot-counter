@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.1.0
+
+_2025-01-15_
+
+### Added
+
+- Animation Lifecycle Events: Added `onAnimationStart` and `onAnimationEnd` callback props to track animation states. These callbacks allow you to execute code when animations begin and complete. [#75](https://github.com/almond-bongbong/react-slot-counter/pull/75) [@almond-bongbong](https://github.com/almond-bongbong)
+  - `onAnimationStart`: Triggered when the slot counter animation begins
+  - `onAnimationEnd`: Triggered when the slot counter animation completes
+
 ## 3.0.5
 
 _2025-01-11_
