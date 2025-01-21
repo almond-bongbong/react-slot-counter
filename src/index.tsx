@@ -55,6 +55,8 @@ interface Props {
   debounceDelay?: number;
   animateOnVisible?: boolean | AnimateOnVisibleOptions;
   startFromLastDigit?: boolean;
+  onAnimationStart?: () => void;
+  onAnimationEnd?: () => void;
 }
 
 function SlotCounter(
@@ -82,6 +84,8 @@ function SlotCounter(
     debounceDelay,
     animateOnVisible,
     startFromLastDigit = false,
+    onAnimationStart,
+    onAnimationEnd,
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
@@ -133,6 +137,23 @@ function SlotCounter(
   const effectiveDummyCharacterCount =
     startAnimationOptionsRef.current?.dummyCharacterCount ?? dummyCharacterCount;
   const effectiveDuration = startAnimationOptionsRef.current?.duration ?? duration;
+
+  /**
+   * Callback Events ref for preventing unnecessary re-renders by avoiding dependency array
+   */
+  const eventCallbackRef = useRef({
+    onAnimationStart: onAnimationStart,
+    onAnimationEnd: onAnimationEnd,
+  });
+  eventCallbackRef.current = {
+    onAnimationStart: onAnimationStart,
+    onAnimationEnd: onAnimationEnd,
+  };
+
+  /**
+   * Animation start and end event
+   */
+  const isAnimatingRef = useRef(false);
 
   /**
    * Detect max number width
@@ -240,6 +261,15 @@ function SlotCounter(
   }, [effectiveDuration, valueList.length, delay]);
 
   /**
+   * Handle transition end
+   */
+  const handleTransitionEnd = useCallback(() => {
+    eventCallbackRef.current.onAnimationEnd?.();
+    isAnimatingRef.current = false;
+    numbersRef.current?.removeEventListener('transitionend', handleTransitionEnd);
+  }, []);
+
+  /**
    * Start animation
    */
   const startAnimation = useCallback(() => {
@@ -247,6 +277,20 @@ function SlotCounter(
       window.cancelAnimationFrame(animationTimerRef.current);
     }
 
+    // If animation is already started, call onAnimationEnd immediately
+    if (isAnimatingRef.current) {
+      handleTransitionEnd();
+    }
+
+    isAnimatingRef.current = true;
+
+    // If animation is not started, add event listener
+    numbersRef.current?.addEventListener('transitionend', handleTransitionEnd);
+
+    // Call onAnimationStart callback
+    eventCallbackRef.current.onAnimationStart?.();
+
+    // Set active to false and increment animation count
     setActive(false);
     animationCountRef.current = animationExecuteCountRef.current;
     animationCountRef.current += 1;
@@ -261,7 +305,7 @@ function SlotCounter(
         setActive(true);
       });
     });
-  }, []);
+  }, [handleTransitionEnd]);
 
   /**
    * Get sequential dummy list
@@ -368,6 +412,9 @@ function SlotCounter(
     useValueChangeEffect(renderValueList);
   const diffValueListCount = renderValueList.length - getPrevDependencies().length;
 
+  /**
+   * Start animation all
+   */
   const startAnimationAll = useCallback(
     (options?: StartAnimationOptions) => {
       if (startValue != null && !startValueOnce) prevValueRef.current = undefined;
