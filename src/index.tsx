@@ -19,7 +19,7 @@ import {
   generateCyclicRange,
   isJSXElementArray,
   isNumeric,
-  isSeparatorCharacter,
+  isSeparatorCharacter as defaultIsSeparatorCharacter,
   mergeClassNames,
   random,
   range,
@@ -57,6 +57,8 @@ interface Props {
   startFromLastDigit?: boolean;
   onAnimationStart?: () => void;
   onAnimationEnd?: () => void;
+  separatorCharacters?: string[];
+  isSeparatorCharacter?: ((value: string | JSX.Element) => boolean) | null;
 }
 
 function SlotCounter(
@@ -86,6 +88,8 @@ function SlotCounter(
     startFromLastDigit = false,
     onAnimationStart,
     onAnimationEnd,
+    separatorCharacters,
+    isSeparatorCharacter = defaultIsSeparatorCharacter,
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
@@ -486,8 +490,28 @@ function SlotCounter(
     startAnimationAll,
   ]);
 
+  /**
+   * Check if the value is a separator character
+   * @param value - The value to check
+   * @returns true if the value is a separator character, false otherwise
+   */
+  const checkSeparator = (value: string | JSX.Element) => {
+    // If separatorCharacters is provided, check if the value is in the separatorCharacters array
+    if (separatorCharacters && typeof value === 'string') {
+      return separatorCharacters.includes(value);
+    }
+
+    // If isSeparatorCharacter is null, return false (no separator)
+    if (isSeparatorCharacter === null) {
+      return false;
+    }
+
+    // If isSeparatorCharacter is provided or defaultIsSeparatorCharacter, use that to check if the value is a separator character
+    return isSeparatorCharacter(value);
+  };
+
   const isChangedValueIndexListWithoutSeparator = isChangedValueIndexList.filter(
-    (i) => !isSeparatorCharacter(renderValueList[i]),
+    (i) => !checkSeparator(renderValueList[i]),
   );
 
   let noSeparatorValueIndex = -1;
@@ -518,7 +542,7 @@ function SlotCounter(
         if (direction) reverseAnimation = direction === 'top-down';
 
         // Separator check
-        const isSeparator = isSeparatorCharacter(v);
+        const isSeparator = checkSeparator(v);
 
         // Separator rendering
         if (isSeparator) {
