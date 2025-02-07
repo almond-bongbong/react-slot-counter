@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.2.0
+
+_2025-02-07_
+
+### Added
+
+- Separator Customization: Added new props to customize separator behavior [#45](https://github.com/almond-bongbong/react-slot-counter/pull/45) [@almond-bongbong](https://github.com/almond-bongbong)
+  - `separatorCharacters`: Allows specifying custom separator characters (e.g., `[':']` for time format)
+  - `isSeparatorCharacter`: Provides complete control over separator logic with a custom function
+  - Added ability to disable separators completely by setting `isSeparatorCharacter` to null
+
 ## 3.1.0
 
 _2025-01-15_
