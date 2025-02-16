@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.2.1
+
+_2025-02-17_
+
+### Added
+
+- Global CSS Class Names: Added consistent global class names for better styling customization [#80](https://github.com/almond-bongbong/react-slot-counter/pull/80) [@almond-bongbong](https://github.com/almond-bongbong)
+  - `slot-counter`: Root container class
+  - `slot-counter-separator`: Separator element class
+  - `slot-counter-item`: Individual slot item class
+  - `slot-counter-item-numbers`: Numbers container class
+  - `slot-counter-item-number`: Individual number class
+  - `slot-counter-item-number-value`: Value number class
+
 ## 3.2.0
 
 _2025-02-07_

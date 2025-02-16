@@ -25,6 +25,7 @@ import {
   range,
   toNumeric,
 } from './utils';
+import { CLASS_NAMES } from 'constants';
 
 interface AnimateOnVisibleOptions {
   rootMargin?: string;
@@ -520,7 +521,7 @@ function SlotCounter(
     <span
       key={key}
       ref={slotCounterRef}
-      className={mergeClassNames(containerClassName, styles.slot_wrap)}
+      className={mergeClassNames(containerClassName, styles.slot_wrap, CLASS_NAMES.SLOT_COUNTER)}
     >
       {renderValueList.map((v, i) => {
         const isChanged = isChangedValueIndexList.includes(i);
@@ -549,7 +550,12 @@ function SlotCounter(
           return (
             <span
               key={valueRefList.length - i - 1}
-              className={mergeClassNames(styles.separator, separatorClassName)}
+              className={mergeClassNames(
+                styles.separator,
+                separatorClassName,
+                CLASS_NAMES.SLOT_COUNTER_ITEM,
+                CLASS_NAMES.SLOT_COUNTER_SEPARATOR,
+              )}
             >
               {v}
             </span>

@@ -12,6 +12,7 @@ import React, {
 import useIsomorphicLayoutEffect from '../hooks/useIsomorphicLayoutEffect';
 import styles from '../index.module.scss';
 import { mergeClassNames, shuffle } from '../utils';
+import { CLASS_NAMES } from 'constants';
 
 export interface Props {
   index: number;
@@ -184,7 +185,11 @@ function Slot(
     return dummyListState.map((dummyNumber, slotIndex) => (
       <span
         key={slotIndex}
-        className={mergeClassNames(styles.num, numberClassName)}
+        className={mergeClassNames(
+          styles.num,
+          numberClassName,
+          CLASS_NAMES.SLOT_COUNTER_ITEM_NUMBER,
+        )}
         aria-hidden="true"
       >
         {dummyNumber}
@@ -208,7 +213,7 @@ function Slot(
 
   return (
     <span
-      className={mergeClassNames(styles.slot, charClassName)}
+      className={mergeClassNames(styles.slot, charClassName, CLASS_NAMES.SLOT_COUNTER_ITEM)}
       style={{
         display: 'inline-block',
         width: didMount && useMonospaceWidth ? maxNumberWidth : undefined,
@@ -217,7 +222,11 @@ function Slot(
     >
       <span
         ref={numbersRef}
-        className={mergeClassNames(styles.numbers, numberSlotClassName)}
+        className={mergeClassNames(
+          styles.numbers,
+          numberSlotClassName,
+          CLASS_NAMES.SLOT_COUNTER_ITEM_NUMBERS,
+        )}
         style={{
           transition: 'none',
           transform: reverse ? `translateY(-${slotNumbersHeight}px)` : `translateY(0px)`,
@@ -231,7 +240,11 @@ function Slot(
         {didMount ? (
           <>
             <span
-              className={mergeClassNames(styles.num, numberClassName)}
+              className={mergeClassNames(
+                styles.num,
+                numberClassName,
+                CLASS_NAMES.SLOT_COUNTER_ITEM_NUMBER,
+              )}
               aria-hidden="true"
               style={{ height: fontHeight }}
             >
@@ -239,7 +252,13 @@ function Slot(
             </span>
             {renderDummyList()}
             <span
-              className={mergeClassNames(styles.num, numberClassName, valueClassName)}
+              className={mergeClassNames(
+                styles.num,
+                numberClassName,
+                valueClassName,
+                CLASS_NAMES.SLOT_COUNTER_ITEM_NUMBER,
+                CLASS_NAMES.SLOT_COUNTER_ITEM_NUMBER_VALUE,
+              )}
               ref={itemRef}
             >
               {bottomValue}
@@ -247,7 +266,14 @@ function Slot(
             {hasInfiniteList ? renderDummyList() : null}
           </>
         ) : (
-          <span className={mergeClassNames(styles.num, numberClassName)} aria-hidden="true">
+          <span
+            className={mergeClassNames(
+              styles.num,
+              numberClassName,
+              CLASS_NAMES.SLOT_COUNTER_ITEM_NUMBER,
+            )}
+            aria-hidden="true"
+          >
             {startValue ?? localValue}
           </span>
         )}
