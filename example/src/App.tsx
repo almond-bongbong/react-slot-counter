@@ -548,6 +548,53 @@ function App() {
           </CommonHighlighter>
         </div>
 
+        <div id="slot-peek-section" className="example-area">
+          <h3>👀 Slot Peek: Take a Sneak Peek!</h3>
+          <p>
+            Add excitement to your slot animations! The <code className="my-code">slotPeek</code>{' '}
+            property reveals a glimpse of the previous and next numbers, just like a real slot
+            machine. Simply set the peek height in pixels to control how much of the adjacent
+            numbers show through.
+          </p>
+
+          <p>
+            By adjusting the <code className="my-code">line-height</code> value appropriately, you
+            can perfectly control the spacing between the visible numbers above and below. Give it a
+            spin! 🎰✨
+          </p>
+
+          <div className="example-area">
+            <div className="playground" style={{ lineHeight: '1' }}>
+              <SlotCounter
+                ref={slot2Ref}
+                startValue={412}
+                startValueOnce
+                autoAnimationStart={false}
+                value="777"
+                duration={3}
+                slotPeek={30}
+              />
+              <button
+                type="button"
+                className="example-button"
+                onClick={() => slot2Ref.current?.startAnimation()}
+              >
+                Play
+              </button>
+            </div>
+            <CommonHighlighter>{`<div style={{ lineHeight: '1' }}>
+  <SlotCounter 
+    startValue={412}
+    startValueOnce
+    autoAnimationStart={false}
+    value="777"
+    duration={3}
+    slotPeek={30}
+  />
+</div>`}</CommonHighlighter>
+          </div>
+        </div>
+
         <div id="ref-section" className="example-area">
           <h3>🎮 Take the Control with `ref`</h3>
           <h4>🕹️ StartAnimation: Command your Animation!</h4>

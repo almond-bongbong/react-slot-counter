@@ -2,6 +2,7 @@
   display: inline-block;
   white-space: nowrap;
 }
+
 .slot {
   display: inline-block;
   overflow: hidden;
@@ -9,16 +10,25 @@
   vertical-align: middle;
   will-change: transform;
 }
+
 .separator {
   display: inline-block;
   vertical-align: middle;
   text-align: center;
 }
+
 .numbers {
   display: block;
 }
+
 .num {
   display: block;
+}
+
+.top_dummy_list {
+  position: absolute;
+  top: 0;
+  transform: translateY(-100%);
 }
 
 [aria-hidden="true"] {
