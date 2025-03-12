@@ -39,6 +39,7 @@ export interface Props {
   onFontHeightChange?: (fontHeight: number) => void;
   speed: number;
   duration: number;
+  slotPeek?: number;
 }
 
 export interface SlotRef {
@@ -70,6 +71,7 @@ function Slot(
     useMonospaceWidth,
     maxNumberWidth,
     onFontHeightChange,
+    slotPeek,
   }: Props,
   ref: Ref<SlotRef>,
 ) {
@@ -163,7 +165,7 @@ function Slot(
 
   useEffect(() => {
     setDummyListState(hasSequentialDummyList ? dummyList : shuffle(dummyList));
-  }, [value, dummyList, hasSequentialDummyList]);
+  }, [dummyList, hasSequentialDummyList]);
 
   useImperativeHandle(ref, () => ({
     // Refresh styles
@@ -211,13 +213,52 @@ function Slot(
     bottomValue = reverse ? startValue ?? prevValueRef.current ?? localValue : localValue;
   }
 
+  /**
+   * Width of the slot
+   */
+  const width = useMemo(() => {
+    // If the component is not mounted, return undefined
+    if (!didMount) {
+      return undefined;
+    }
+
+    // If the useMonospaceWidth is true, return the maxNumberWidth
+    if (useMonospaceWidth) {
+      return maxNumberWidth;
+    }
+
+    return undefined;
+  }, [didMount, maxNumberWidth, useMonospaceWidth]);
+
+  /**
+   * Height of the slot
+   */
+  const height = useMemo(() => {
+    // If the component is not mounted, return undefined
+    if (!didMount) {
+      return undefined;
+    }
+
+    // If the slotPeek is set, return the height of the slot plus the peek height
+    if (slotPeek) {
+      return fontHeight + slotPeek * 2;
+    }
+
+    // Otherwise, return the height of the slot
+    return fontHeight;
+  }, [didMount, fontHeight, slotPeek]);
+
   return (
     <span
       className={mergeClassNames(styles.slot, charClassName, CLASS_NAMES.SLOT_COUNTER_ITEM)}
       style={{
         display: 'inline-block',
-        width: didMount && useMonospaceWidth ? maxNumberWidth : undefined,
-        height: didMount ? fontHeight : undefined,
+        width,
+        height,
+        ...(slotPeek && {
+          paddingTop: slotPeek,
+          paddingBottom: slotPeek,
+        }),
       }}
     >
       <span
@@ -239,6 +280,8 @@ function Slot(
       >
         {didMount ? (
           <>
+            {slotPeek && <div className={styles.top_dummy_list}>{renderDummyList()}</div>}
+
             <span
               className={mergeClassNames(
                 styles.num,
@@ -263,7 +306,7 @@ function Slot(
             >
               {bottomValue}
             </span>
-            {hasInfiniteList ? renderDummyList() : null}
+            {hasInfiniteList || slotPeek ? renderDummyList() : null}
           </>
         ) : (
           <span

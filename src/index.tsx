@@ -13,54 +13,19 @@ import useDebounce from './hooks/useDebounce';
 import useIsomorphicLayoutEffect from './hooks/useIsomorphicLayoutEffect';
 import useValueChangeEffect from './hooks/useValueChangeEffect';
 import styles from './index.module.scss';
-import { Direction, SlotCounterRef, StartAnimationOptions, Value } from './types/common';
+import { Props, SlotCounterRef, StartAnimationOptions } from './types/common';
 import {
   debounce,
+  isSeparatorCharacter as defaultIsSeparatorCharacter,
   generateCyclicRange,
   isJSXElementArray,
   isNumeric,
-  isSeparatorCharacter as defaultIsSeparatorCharacter,
   mergeClassNames,
   random,
   range,
   toNumeric,
 } from './utils';
 import { CLASS_NAMES } from 'constants';
-
-interface AnimateOnVisibleOptions {
-  rootMargin?: string;
-  triggerOnce?: boolean;
-}
-
-interface Props {
-  value: Value;
-  startValue?: Value;
-  startValueOnce?: boolean;
-  duration?: number;
-  speed?: number;
-  delay?: number;
-  dummyCharacters?: string[] | JSX.Element[];
-  dummyCharacterCount?: number;
-  autoAnimationStart?: boolean;
-  animateUnchanged?: boolean;
-  hasInfiniteList?: boolean;
-  containerClassName?: string;
-  charClassName?: string;
-  separatorClassName?: string;
-  valueClassName?: string;
-  numberSlotClassName?: string;
-  numberClassName?: string;
-  sequentialAnimationMode?: boolean;
-  useMonospaceWidth?: boolean;
-  direction?: Direction;
-  debounceDelay?: number;
-  animateOnVisible?: boolean | AnimateOnVisibleOptions;
-  startFromLastDigit?: boolean;
-  onAnimationStart?: () => void;
-  onAnimationEnd?: () => void;
-  separatorCharacters?: string[];
-  isSeparatorCharacter?: ((value: string | JSX.Element) => boolean) | null;
-}
 
 function SlotCounter(
   {
@@ -91,6 +56,7 @@ function SlotCounter(
     onAnimationEnd,
     separatorCharacters,
     isSeparatorCharacter = defaultIsSeparatorCharacter,
+    slotPeek,
   }: Props,
   ref: React.Ref<SlotCounterRef>,
 ) {
@@ -595,6 +561,7 @@ function SlotCounter(
             onFontHeightChange={handleFontHeightChange}
             speed={speed}
             duration={duration}
+            slotPeek={slotPeek}
             ref={(ref) => {
               if (ref) slotRefList.current.push(ref);
             }}
@@ -606,4 +573,6 @@ function SlotCounter(
 }
 
 export default memo(forwardRef(SlotCounter));
-export type { SlotCounterRef, StartAnimationOptions };
+
+type SlotCounterProps = Props;
+export type { SlotCounterRef, StartAnimationOptions, SlotCounterProps };
