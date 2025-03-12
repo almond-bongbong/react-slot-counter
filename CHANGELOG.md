@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
-## 3.2.1
+## 3.3.0
 
-_2025-02-17_
+_2025-03-12_
 
 ### Added
 
@@ -17,6 +17,9 @@ _2025-02-17_
   - `slot-counter-item-numbers`: Numbers container class
   - `slot-counter-item-number`: Individual number class
   - `slot-counter-item-number-value`: Value number class
+- Slot Peek Effect: Added `slotPeek` prop for authentic slot machine visual effect [#81](https://github.com/almond-bongbong/react-slot-counter/pull/81) [@almond-bongbong](https://github.com/almond-bongbong)
+  - Enables partial visibility of adjacent numbers in the slot
+  - Creates more realistic slot machine appearance
 
 ## 3.2.0
 
