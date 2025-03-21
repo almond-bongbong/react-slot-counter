@@ -22,6 +22,7 @@ function App() {
   const slot3Ref = React.useRef<SlotCounterRef>(null);
   const slot4Ref = React.useRef<SlotCounterRef>(null);
   const slot5Ref = React.useRef<SlotCounterRef>(null);
+  const slot6Ref = React.useRef<SlotCounterRef>(null);
   const counterRef1 = React.useRef<SlotCounterRef>(null);
   const counterRef2 = React.useRef<SlotCounterRef>(null);
   const counterRef3 = React.useRef<SlotCounterRef>(null);
@@ -566,7 +567,7 @@ function App() {
           <div className="example-area">
             <div className="playground" style={{ lineHeight: '1' }}>
               <SlotCounter
-                ref={slot2Ref}
+                ref={slot6Ref}
                 startValue={412}
                 startValueOnce
                 autoAnimationStart={false}
@@ -577,7 +578,7 @@ function App() {
               <button
                 type="button"
                 className="example-button"
-                onClick={() => slot2Ref.current?.startAnimation()}
+                onClick={() => slot6Ref.current?.startAnimation()}
               >
                 Play
               </button>
