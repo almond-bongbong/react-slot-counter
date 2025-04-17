@@ -204,7 +204,10 @@ function SlotCounter(
     [startValue],
   );
 
+  // Calculate isChangedValueLength
   const isChangedValueLength = prevValueRefList.length !== valueRefList.length;
+
+  // Calculate isChangedValueIndexList
   const isChangedValueIndexList: number[] = [];
   valueRefList.forEach((_, i) => {
     const targetIndex = valueRefList.length - i - 1;
@@ -218,6 +221,8 @@ function SlotCounter(
       isChangedValueIndexList.push(targetIndex);
     }
   });
+
+  // Reverse the isChangedValueIndexList if startFromLastDigit is false
   if (!startFromLastDigit) isChangedValueIndexList.reverse();
 
   /**
@@ -374,13 +379,20 @@ function SlotCounter(
     reload: () => setKey((prev) => prev + 1),
   }));
 
+  // Render value list
   const renderValueList =
     startValue != null && !autoAnimationStart && animationCountRef.current === 0
       ? startValueList || []
       : valueList;
+
+  // Calculate start value length difference
   const startValueLengthDiff = (startValueList?.length || 0) - renderValueList.length;
+
+  // Get previous dependencies
   const { getPrevDependencies, setPrevDependenciesToSameAsCurrent } =
     useValueChangeEffect(renderValueList);
+
+  // Calculate difference between render value list and previous dependencies
   const diffValueListCount = renderValueList.length - getPrevDependencies().length;
 
   /**
@@ -396,6 +408,9 @@ function SlotCounter(
     [startValue, startValueOnce, startAnimation, setPrevDependenciesToSameAsCurrent],
   );
 
+  /**
+   * Handle font height change
+   */
   const handleFontHeightChange = useMemo(
     () =>
       debounce(() => {
@@ -404,8 +419,40 @@ function SlotCounter(
     [refreshStyles],
   );
 
+  /**
+   * Handle display change
+   */
   useEffect(() => {
-    if (!hasAnimateOnVisible || !slotCounterRef.current) {
+    const slotCounterElement = slotCounterRef.current;
+
+    // If slotCounterElement is not found
+    // or IntersectionObserver is not supported, return
+    if (!slotCounterElement || !window.IntersectionObserver) return;
+
+    // Create IntersectionObserver
+    const observer = new IntersectionObserver((entries) => {
+      const [entry] = entries;
+
+      if (entry.isIntersecting) {
+        refreshStyles();
+      }
+    });
+
+    // Observe slotCounterElement
+    observer.observe(slotCounterRef.current);
+
+    // Disconnect observer when component unmounts
+    return () => observer.disconnect();
+  }, [refreshStyles]);
+
+  /**
+   * Handle animate on visible
+   */
+  useEffect(() => {
+    // If animateOnVisible is not enabled
+    // or slotCounterRef is not found
+    // or IntersectionObserver is not supported, return
+    if (!hasAnimateOnVisible || !slotCounterRef.current || !window.IntersectionObserver) {
       return;
     }
 
@@ -528,8 +575,11 @@ function SlotCounter(
           );
         }
 
+        // Calculate hasSequentialDummyList
         const hasSequentialDummyList =
           sequentialAnimationMode && (!autoAnimationStart || animationExecuteCountRef.current > 1);
+
+        // Increment noSeparatorValueIndex
         noSeparatorValueIndex += 1;
 
         return (
