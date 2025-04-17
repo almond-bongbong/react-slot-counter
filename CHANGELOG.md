@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.3.1
+
+_2025-03-13_
+
+### Added
+
+- Added IntersectionObserver-based visibility detection and style refresh functionality [#82](https://github.com/almond-bongbong/react-slot-counter/pull/82) [@almond-bongbong](https://github.com/almond-bongbong)
+  - Automatically refreshes styles when component becomes visible
+  - Improves layout stability in dynamic environments
+  - Maintains compatibility with browsers that don't support IntersectionObserver
+
 ## 3.3.0
 
 _2025-03-12_
