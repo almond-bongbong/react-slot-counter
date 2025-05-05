@@ -17,6 +17,7 @@ function App() {
   const [value1, setValue1] = React.useState(123);
   const [value2, setValue2] = React.useState(0);
   const [value3, setValue3] = React.useState(random(100, 999));
+  const [value4, setValue4] = React.useState(0);
   const slot1Ref = React.useRef<SlotCounterRef>(null);
   const slot2Ref = React.useRef<SlotCounterRef>(null);
   const slot3Ref = React.useRef<SlotCounterRef>(null);
@@ -37,11 +38,62 @@ function App() {
         <h2>Make Fun with React Slot Counter! 🎰</h2>
 
         <p className="description">
-          Step into the exciting world of animations with our easy-to-use and customizable module.
-          Let's spice up your application with slot machine style counters! 🎊
+          Make your app more engaging with our easy and fun slot machine style counter! 🎊
         </p>
 
-        <h3>🚀 Get Started!</h3>
+        <div className="index-section">
+          <h3>📑 Table of Contents</h3>
+          <ul>
+            <li>
+              <a href="#basic-usage">Basic Usage</a>
+            </li>
+            <li>
+              <a href="#dynamic-value">Dynamic Value</a>
+            </li>
+            <li>
+              <a href="#options">Options</a>
+              <ul>
+                <li>
+                  <a href="#duration">Duration</a>
+                </li>
+                <li>
+                  <a href="#speed">Speed</a>
+                </li>
+                <li>
+                  <a href="#delay">Delay</a>
+                </li>
+                <li>
+                  <a href="#dummy-characters">Dummy Characters</a>
+                </li>
+                <li>
+                  <a href="#class-names">Class Names</a>
+                </li>
+                <li>
+                  <a href="#start-value">Start Value</a>
+                </li>
+                <li>
+                  <a href="#sequential-animation">Sequential Animation</a>
+                </li>
+                <li>
+                  <a href="#monospace-width">Monospace Width</a>
+                </li>
+                <li>
+                  <a href="#slot-peek">Slot Peek</a>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <a href="#animate-visible">Animate on Visible</a>
+            </li>
+            <li>
+              <a href="#ref-section">Ref Methods</a>
+            </li>
+          </ul>
+        </div>
+
+        <div className="divider" />
+
+        <h3 id="basic-usage">🚀 Get Started!</h3>
         <p>Displaying numbers and strings have never been more fun! 😄</p>
 
         <div className="example-area">
@@ -113,8 +165,10 @@ function App() {
           </CommonHighlighter>
         </div>
 
+        <div className="divider" />
+
         <div className="example-area">
-          <h3>🎈 Dynamic Value: Let's Go With the Flow!</h3>
+          <h3 id="dynamic-value">🎈 Dynamic Value: Let's Go With the Flow!</h3>
           <p>
             Life is dynamic and so are our animations! Whenever the value changes, our slot counter
             instantly springs into action with a fun animation. Join the fun and see it for
@@ -150,9 +204,13 @@ function App() {
           </CommonHighlighter>
         </div>
 
+        <div className="divider" />
+
         <div className="example-area">
-          <h3>⏱️ Options: Customize to Your Heart's Content!</h3>
-          <h4>Duration: Because Time Matters!</h4>
+          <h3 id="options">⏱️ Options: Customize to Your Heart's Content!</h3>
+          <h4 id="duration">
+            <em>Duration</em>: Because Time Matters!
+          </h4>
           <p>
             Love slow and smooth transitions or a quick flip? We've got you covered! Set the
             duration of your animation and watch your counters roll at your pace. Give it a try!
@@ -177,7 +235,9 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h4>Speed: Control the pace!</h4>
+          <h4 id="speed">
+            <em>Speed</em>: Control the pace!
+          </h4>
           <p>
             Is the speed too slow? Or maybe too fast? With the speed attribute, this is no longer a
             concern!
@@ -202,7 +262,9 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h4>Delay: Wait a minute!</h4>
+          <h4 id="delay">
+            <em>Delay</em>: Wait a minute!
+          </h4>
           <p>
             Want to delay the animation of the characters? Simply set the delay attribute and let
             the magic unfold.
@@ -227,7 +289,9 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h4>Dummy Characters: Play with Surprises!</h4>
+          <h4 id="dummy-characters">
+            <em>Dummy Characters</em>: Play with Surprises!
+          </h4>
           <p>
             Why limit yourself to 0-9 when you can choose any character to be your placeholder? Set
             your dummy characters and add a touch of surprise to your slot counters. Let's play with
@@ -260,10 +324,32 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h4>CharClassName / SeparatorClassName: Dress Up Your Characters!</h4>
+          <h4 id="class-names">
+            <em>ClassName</em>: Dress Up Your Characters!
+          </h4>
           <p>
             Customize the style of your characters and separators with unique class names. It's like
-            a fashion show for your digits! Let's dress up and hit the play button!
+            a fashion show for your digits! Let's dress up and hit the play button! You can use
+            <ul>
+              <li>
+                <code className="my-code">containerClassName</code>: Style the entire container
+              </li>
+              <li>
+                <code className="my-code">charClassName</code>: Style individual numbers/characters
+              </li>
+              <li>
+                <code className="my-code">separatorClassName</code>: Style separators (commas, dots)
+              </li>
+              <li>
+                <code className="my-code">valueClassName</code>: Style the entire value display area
+              </li>
+              <li>
+                <code className="my-code">numberSlotClassName</code>: Style the number slot area
+              </li>
+              <li>
+                <code className="my-code">numberClassName</code>: Style the numbers themselves
+              </li>
+            </ul>
           </p>
           <div className="playground">
             <SlotCounter
@@ -281,9 +367,10 @@ function App() {
               Play
             </button>
           </div>
-          <div className="format">CSS</div>
           <CommonHighlighter language="css">
-            {`.char {
+            {`// CSS
+
+.char {
   padding: 0 10px;
   background: #eee;
 }
@@ -295,9 +382,10 @@ function App() {
 }`}
           </CommonHighlighter>
           <br />
-          <div className="format">JSX</div>
           <CommonHighlighter>
-            {`<SlotCounter
+            {`// JSX
+
+<SlotCounter
   value="36.5"
   charClassName="char"
   separatorClassName="sep"
@@ -306,7 +394,9 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h4>StartValue: The Power of Setting the Initial State</h4>
+          <h4 id="start-value">
+            <em>StartValue</em>: The Power of Setting the Initial State
+          </h4>
           <p>
             Get a control over the beginning of your slot animation! With{' '}
             <code className="my-code">startValue</code> property, you can set the starting point for
@@ -353,7 +443,9 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h4>StartValueOnce: One-Time Flashback</h4>
+          <h4>
+            <em>StartValueOnce</em>: One-Time Flashback
+          </h4>
           <p>
             Ever wanted to kick-off your animation from a particular value only for the first time
             and then let it animate from the last value onwards? Meet our new property{' '}
@@ -462,30 +554,14 @@ function App() {
         </div>
 
         <div className="example-area">
-          <h4>SequentialAnimationMode: For the Logical Minds!</h4>
+          <h4 id="sequential-animation">
+            <em>SequentialAnimationMode</em>: Show Sequential Number Changes!
+          </h4>
           <p>
-            Want your animation to make sense and be sequential? With{' '}
-            <code className="my-code">sequentialAnimationMode</code> property, each step in the
-            animation follows the previous one. No more random jumps, just clean logical
-            transitions.
-            <span className="thanks">
-              A big shout out to @Konstantin9658 for this amazing suggestion!
-            </span>
-          </p>
-
-          <h4>UseMonospaceWidth: Keep It Uniform!</h4>
-          <p>
-            Ever dreamed of having all your numbers occupy the same horizontal space? Set the{' '}
-            <code className="my-code">useMonospaceWidth</code> property to true and voilà! It's like
-            dressing your numbers in a monospace suit, perfect for when the width of the digits is
-            crucial, such as in a slot machine or counter animation. If you prefer a more casual
-            look, set it to false (the default value) and let each digit show off its unique width
-            based on the chosen font.
-            <br />
-            <br />
-            Keep in mind, this stylish prop is only applicable when numeric characters are the stars
-            of your show. If you're using non-numeric characters or images, the effect might be less
-            noticeable or not applicable at all. So, let's keep it uniform and enjoy the ride!
+            Want to show all intermediate numbers when a value increases or decreases? Use the{' '}
+            <code className="my-code">sequentialAnimationMode</code> property. For example, when
+            changing from 1 to 3, the animation will show 1 → 2 → 3 in sequence. When decreasing, it
+            will show 3 → 2 → 1 in reverse order.
           </p>
 
           <div className="playground">
@@ -514,43 +590,55 @@ function App() {
           <CommonHighlighter>{`<SlotCounter
   value={value}
   sequentialAnimationMode
-  useMonospaceWidth
 />`}</CommonHighlighter>
         </div>
 
         <div className="example-area">
-          <h3>👀 Animate on Visible: Make a Grand Entrance!</h3>
+          <h4 id="monospace-width">
+            <em>UseMonospaceWidth</em>: Keep It Uniform!
+          </h4>
           <p>
-            Want to make a big impact the moment your counter comes into view? Say no more! With the{' '}
-            <code className="my-code">animateOnVisible</code> property, your slot counter will only
-            start animating when it enters the viewport. And yes, you have the power to customize it
-            further!
+            Ever dreamed of having all your numbers occupy the same horizontal space? Set the{' '}
+            <code className="my-code">useMonospaceWidth</code> property to true and voilà! It's like
+            dressing your numbers in a monospace suit, perfect for when the width of the digits is
+            crucial, such as in a slot machine or counter animation. If you prefer a more casual
+            look, set it to false (the default value) and let each digit show off its unique width
+            based on the chosen font.
           </p>
-          <p>
-            Use a simple boolean for basic functionality, or get creative with an object that
-            includes <code className="my-code">rootMargin</code> to set the margins around the
-            component. Just like the IntersectionObserver's rootMargin option, it helps in
-            triggering the animation relative to the viewport. And don't forget{' '}
-            <code className="my-code">triggerOnce</code> to decide if the animation should play once
-            or every time it comes into view. The stage is yours!
-          </p>
+
           <div className="playground">
-            <SlotCounter
-              value="54321"
-              containerClassName="slot-counter"
-              animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
-            />
+            <SlotCounter value={value4} sequentialAnimationMode useMonospaceWidth />
+            <button type="button" className="example-button" onClick={() => setValue4(value4 + 1)}>
+              +1
+            </button>
+            <button type="button" className="example-button" onClick={() => setValue4(value4 + 5)}>
+              +5
+            </button>
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => setValue4(Math.max(value4 - 1, 0))}
+            >
+              -1
+            </button>
+            <button
+              type="button"
+              className="example-button"
+              onClick={() => setValue4(Math.max(value4 - 5, 0))}
+            >
+              -5
+            </button>
           </div>
-          <CommonHighlighter>
-            {`<SlotCounter
-  value="54321"
-  animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
-/>`}
-          </CommonHighlighter>
+          <CommonHighlighter>{`<SlotCounter
+  value={value}
+  useMonospaceWidth
+/>`}</CommonHighlighter>
         </div>
 
         <div id="slot-peek-section" className="example-area">
-          <h3>👀 Slot Peek: Take a Sneak Peek!</h3>
+          <h4 id="slot-peek">
+            <em>SlotPeek</em>: Take a Sneak Peek!
+          </h4>
           <p>
             Add excitement to your slot animations! The <code className="my-code">slotPeek</code>{' '}
             property reveals a glimpse of the previous and next numbers, just like a real slot
@@ -596,9 +684,44 @@ function App() {
           </div>
         </div>
 
+        <div className="divider" />
+
+        <div className="example-area">
+          <h3 id="animate-visible">✨ Animate on Visible: Make a Grand Entrance!</h3>
+          <p>
+            Want to make a big impact the moment your counter comes into view? Say no more! With the{' '}
+            <code className="my-code">animateOnVisible</code> property, your slot counter will only
+            start animating when it enters the viewport. And yes, you have the power to customize it
+            further!
+          </p>
+          <p>
+            Use a simple boolean for basic functionality, or get creative with an object that
+            includes <code className="my-code">rootMargin</code> to set the margins around the
+            component. Just like the IntersectionObserver's rootMargin option, it helps in
+            triggering the animation relative to the viewport. And don't forget{' '}
+            <code className="my-code">triggerOnce</code> to decide if the animation should play once
+            or every time it comes into view. The stage is yours!
+          </p>
+          <div className="playground">
+            <SlotCounter
+              value="54321"
+              containerClassName="slot-counter"
+              animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
+            />
+          </div>
+          <CommonHighlighter>
+            {`<SlotCounter
+  value="54321"
+  animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
+/>`}
+          </CommonHighlighter>
+        </div>
+
+        <div className="divider" />
+
         <div id="ref-section" className="example-area">
           <h3>🎮 Take the Control with `ref`</h3>
-          <h4>🕹️ StartAnimation: Command your Animation!</h4>
+          <h4>StartAnimation: Command your Animation!</h4>
           <p>
             With the power of <code className="my-code">startAnimation</code> method and{' '}
             <code className="my-code">ref</code>, you are the true commander of your slot counter
@@ -661,7 +784,7 @@ function App() {
 
       <footer>
         <div className="footer-content">
-          <span>🌟 Enjoying React Slot Counter? </span>
+          <span>Enjoying React Slot Counter? </span>
           <a
             target="_blank"
             rel="noopener noreferrer"

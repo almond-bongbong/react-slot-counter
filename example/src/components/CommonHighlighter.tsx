@@ -12,11 +12,7 @@ interface Props {
 
 function CommonHighlighter({ children, language = 'jsx' }: Props) {
   return (
-    <SyntaxHighlighter
-      language={language}
-      style={prism}
-      customStyle={{ padding: 20 }}
-    >
+    <SyntaxHighlighter language={language} style={prism} customStyle={{ padding: 20, margin: 0 }}>
       {children}
     </SyntaxHighlighter>
   );
