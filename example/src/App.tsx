@@ -77,13 +77,13 @@ function App() {
                 <li>
                   <a href="#monospace-width">Monospace Width</a>
                 </li>
+                <li>
+                  <a href="#slot-peek">Slot Peek</a>
+                </li>
               </ul>
             </li>
             <li>
               <a href="#animate-visible">Animate on Visible</a>
-            </li>
-            <li>
-              <a href="#slot-peek">Slot Peek</a>
             </li>
             <li>
               <a href="#ref-section">Ref Methods</a>
@@ -635,43 +635,10 @@ function App() {
 />`}</CommonHighlighter>
         </div>
 
-        <div className="divider" />
-
-        <div className="example-area">
-          <h3 id="animate-visible">✨ Animate on Visible: Make a Grand Entrance!</h3>
-          <p>
-            Want to make a big impact the moment your counter comes into view? Say no more! With the{' '}
-            <code className="my-code">animateOnVisible</code> property, your slot counter will only
-            start animating when it enters the viewport. And yes, you have the power to customize it
-            further!
-          </p>
-          <p>
-            Use a simple boolean for basic functionality, or get creative with an object that
-            includes <code className="my-code">rootMargin</code> to set the margins around the
-            component. Just like the IntersectionObserver's rootMargin option, it helps in
-            triggering the animation relative to the viewport. And don't forget{' '}
-            <code className="my-code">triggerOnce</code> to decide if the animation should play once
-            or every time it comes into view. The stage is yours!
-          </p>
-          <div className="playground">
-            <SlotCounter
-              value="54321"
-              containerClassName="slot-counter"
-              animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
-            />
-          </div>
-          <CommonHighlighter>
-            {`<SlotCounter
-  value="54321"
-  animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
-/>`}
-          </CommonHighlighter>
-        </div>
-
-        <div className="divider" />
-
         <div id="slot-peek-section" className="example-area">
-          <h3 id="slot-peek">👀 Slot Peek: Take a Sneak Peek!</h3>
+          <h4 id="slot-peek">
+            <em>SlotPeek</em>: Take a Sneak Peek!
+          </h4>
           <p>
             Add excitement to your slot animations! The <code className="my-code">slotPeek</code>{' '}
             property reveals a glimpse of the previous and next numbers, just like a real slot
@@ -715,6 +682,39 @@ function App() {
   />
 </div>`}</CommonHighlighter>
           </div>
+        </div>
+
+        <div className="divider" />
+
+        <div className="example-area">
+          <h3 id="animate-visible">✨ Animate on Visible: Make a Grand Entrance!</h3>
+          <p>
+            Want to make a big impact the moment your counter comes into view? Say no more! With the{' '}
+            <code className="my-code">animateOnVisible</code> property, your slot counter will only
+            start animating when it enters the viewport. And yes, you have the power to customize it
+            further!
+          </p>
+          <p>
+            Use a simple boolean for basic functionality, or get creative with an object that
+            includes <code className="my-code">rootMargin</code> to set the margins around the
+            component. Just like the IntersectionObserver's rootMargin option, it helps in
+            triggering the animation relative to the viewport. And don't forget{' '}
+            <code className="my-code">triggerOnce</code> to decide if the animation should play once
+            or every time it comes into view. The stage is yours!
+          </p>
+          <div className="playground">
+            <SlotCounter
+              value="54321"
+              containerClassName="slot-counter"
+              animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
+            />
+          </div>
+          <CommonHighlighter>
+            {`<SlotCounter
+  value="54321"
+  animateOnVisible={{ triggerOnce: false, rootMargin: '0px 0px -100px 0px' }}
+/>`}
+          </CommonHighlighter>
         </div>
 
         <div className="divider" />
