@@ -27,6 +27,16 @@ import {
 } from './utils';
 import { CLASS_NAMES } from 'constants';
 
+/****
+ * Displays an animated slot-based counter that transitions between numeric or character values with customizable animation, styling, and sequencing options.
+ *
+ * The `SlotCounter` component renders each character or digit of the provided value as an individual animated slot, supporting features such as sequential digit transitions, dummy character effects, debounce, visibility-triggered animation, and external control via imperative methods.
+ *
+ * @remark
+ * - Animation can be triggered automatically, on visibility, or manually via the exposed ref.
+ * - Supports both numeric and non-numeric values, as well as custom separators.
+ * - Exposes imperative methods (`startAnimation`, `refreshStyles`, `reload`) via ref for external control.
+ */
 function SlotCounter(
   {
     value: _value,
