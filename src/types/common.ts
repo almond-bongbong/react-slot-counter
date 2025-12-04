@@ -23,6 +23,7 @@ export type StartAnimationOptions = {
 export interface SlotCounterRef {
   startAnimation: (options?: StartAnimationOptions) => void;
   refreshStyles: () => void;
+  reload: () => void;
 }
 
 /**
