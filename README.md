@@ -221,6 +221,15 @@ Thanks go to these wonderful people:
                 </a>
             </td>
 		</tr>
+		<tr>
+            <td align="center">
+                <a href="https://github.com/bravo-kernel">
+                    <img src="https://avatars.githubusercontent.com/u/230500?v=4" width="100;" alt="bravo-kernel"/>
+                    <br />
+                    <sub><b>bravo-kernel</b></sub>
+                </a>
+            </td>
+		</tr>
 	<tbody>
 </table>
 <!-- readme: collaborators,contributors -end -->
