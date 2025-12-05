@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.3.2
+
+_2025-12-05_
+
+### Fixed
+
+- Added the missing `reload` method to the `SlotCounterRef` TypeScript interface so that the published types match the runtime ref API. [#89](https://github.com/almond-bongbong/react-slot-counter/pull/89) [@bravo-kernel](https://github.com/bravo-kernel)
+
 ## 3.3.1
 
 _2025-03-13_
