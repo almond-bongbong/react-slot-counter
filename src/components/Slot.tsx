@@ -178,7 +178,7 @@ function Slot(
 
       // Reset animation
       requestAnimationFrame(() => {
-        setLocalActive(false);
+        setLocalActive(active);
       });
     },
   }));
