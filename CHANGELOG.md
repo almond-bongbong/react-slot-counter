@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 _Dates are in UTC._
 
+## 3.3.3
+
+_2026-03-24_
+
+### Fixed
+
+- Fixed an issue where counters could fall back to `startValue` after re-entering the viewport following a visibility-triggered animation. [#92](https://github.com/almond-bongbong/react-slot-counter/pull/92) [@almond-bongbong](https://github.com/almond-bongbong)
+
 ## 3.3.2
 
 _2025-12-05_
