@@ -2,23 +2,29 @@ name: Publish NPM Package
 
 on:
   release:
-    types: [created]
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
 
       - name: Build package
         run: yarn build
@@ -26,13 +32,9 @@ jobs:
       - name: Determine NPM tag
         id: npm-tag
         run: |
-          TAG=$(echo "${GITHUB_REF#refs/tags/}" | awk -F '-' '{print $2}')
-          if [ -z "$TAG" ]; then
-            TAG="latest"
-          fi
-          echo "tag=$TAG" >> $GITHUB_ENV
+          VERSION=$(node -p "require('./package.json').version")
+          TAG=$(node -e "const version = process.argv[1]; const prerelease = version.split('-')[1]; process.stdout.write(prerelease || 'latest');" "$VERSION")
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
 
       - name: Publish to npm
-        run: npm publish --tag ${{ env.tag }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --provenance --tag "${{ steps.npm-tag.outputs.tag }}"
